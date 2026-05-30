@@ -10,6 +10,8 @@ limits.
 - Some unsold items were not included in revenue totals.
 - Payment records were summarized for analysis and do not include private
   transaction details.
+- The machine learning models use a small sample dataset, so the results should
+  be treated as practice and reflection rather than prediction tools.
 
 These limits are important because they keep the analysis honest. The project
 can explain patterns and support reflection, but it should not be used as a

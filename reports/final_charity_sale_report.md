@@ -58,6 +58,19 @@ The estimate vs actual comparison connects inventory records with sale records
 through item IDs. It shows how final buyer behavior sometimes differed from
 pre-event estimated values.
 
+## Simple Machine Learning Experiments
+
+I added two small machine learning experiments after the main analysis. The
+price prediction model compares estimated item values with final sale prices.
+The sale success model checks which item features were connected with sold or
+unsold outcomes. These models are for learning and event reflection only.
+
+## Dashboard Review
+
+The Streamlit dashboard makes the cleaned results easier to explore. It can
+filter records by team, item category, booth area, and condition, then show
+donation, inventory, sale, booth, and model summaries.
+
 ## Operational Insights
 
 - Clear item categories made booth planning easier.

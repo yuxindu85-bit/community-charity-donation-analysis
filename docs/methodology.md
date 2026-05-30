@@ -30,6 +30,16 @@ records with inventory records through `item_id`.
 Booth layout records are joined with sale records by booth area. This helps
 compare planned item counts, actual item counts, and booth-level revenue.
 
+## Simple Machine Learning Experiments
+
+The machine learning section uses the cleaned event data for two small
+experiments. A regression model predicts final item sale price using category,
+condition, estimated value, booth area, team, and quantity. A classification
+model predicts whether an item group is likely to sell.
+
+The models are included for learning and reflection. They are not used as
+official decision-making tools.
+
 ## Limitations
 
 The analysis is based on anonymized sample records. It is useful for event

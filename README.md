@@ -8,8 +8,9 @@ operations side of the event by organizing item records, estimating values,
 maintaining online spreadsheets, helping with item allocation and booth
 planning, tracking preparation progress, and reviewing post-event data.
 
-The project uses Python, pandas, and matplotlib to turn event records into
-cleaned data, summary tables, charts, and short review reports.
+The project uses Python, pandas, matplotlib, scikit-learn, and Streamlit to turn
+event records into cleaned data, summary tables, charts, reports, simple model
+experiments, and an interactive dashboard.
 
 ## My Role
 
@@ -34,6 +35,9 @@ planning.
 - Python
 - pandas
 - matplotlib
+- scikit-learn
+- Streamlit
+- Plotly
 - Jupyter Notebook
 - CSV files
 - unittest
@@ -59,8 +63,9 @@ addresses, or private donor information.
 6. Analyze donations, inventory, sales, and booth layout
 7. Generate summary tables
 8. Create charts
-9. Write final event reports and reflection notes
-10. Run unit tests to check the main calculations and outputs
+9. Run simple machine learning experiments for event review
+10. Write final event reports and reflection notes
+11. Run unit tests to check the main calculations and outputs
 
 ## Key Results
 
@@ -86,6 +91,51 @@ addresses, or private donor information.
 
 ![Donation source breakdown](reports/charts/donation_source_breakdown.png)
 
+## Simple Machine Learning Experiments
+
+I added two beginner-friendly machine learning experiments to explore the
+charity sale data.
+
+The first model predicts final item sale price using item category, condition,
+estimated value, booth area, team, and quantity. It compares Linear Regression
+and Random Forest Regressor models using MAE, RMSE, and R2 score.
+
+The second model predicts whether an item group is likely to sell. It compares
+Logistic Regression and Decision Tree Classifier models using accuracy,
+precision, recall, and a confusion matrix.
+
+These models are not used for official decision-making because the dataset is
+small and anonymized. They are included to help me understand how basic machine
+learning can be used to review real community event data.
+
+Current sample results:
+
+- Linear Regression price model: MAE 1.622, RMSE 2.128, R2 0.987
+- Random Forest price model: MAE 2.747, RMSE 4.530, R2 0.943
+- Logistic Regression sale success model: accuracy 1.000, precision 1.000, recall 1.000
+- Decision Tree sale success model: accuracy 0.800, precision 1.000, recall 0.778
+
+The classification result should be read carefully because the sample dataset
+has many more sold item groups than unsold item groups.
+
+![Predicted vs actual price](reports/charts/predicted_vs_actual_price.png)
+
+![Price model feature importance](reports/charts/feature_importance_price.png)
+
+![Sale success confusion matrix](reports/charts/sale_success_confusion_matrix.png)
+
+![Model comparison](reports/charts/model_comparison.png)
+
+The full model notes are in `reports/model_report.md`.
+
+## Interactive Dashboard
+
+I also created a Streamlit dashboard to make the results easier to explore. The
+dashboard allows users to filter the data by team, item category, booth area,
+and item condition. It shows donation summaries, sale revenue, booth
+performance, team contribution, estimate-versus-actual price comparisons, and
+model metrics if they have been generated.
+
 ## How to Run
 
 Install the requirements:
@@ -103,7 +153,15 @@ python src/analyze_inventory.py
 python src/analyze_sales.py
 python src/analyze_booth_layout.py
 python src/create_charts.py
+python src/train_price_model.py
+python src/train_sale_success_model.py
 python -m unittest discover -s tests
+```
+
+Run the dashboard:
+
+```bash
+streamlit run dashboard/app.py
 ```
 
 ## Project Structure
@@ -117,6 +175,8 @@ community-charity-donation-analysis/
 │   ├── raw/
 │   └── processed/
 ├── src/
+├── dashboard/
+├── models/
 ├── reports/
 │   ├── summary_tables/
 │   └── charts/
@@ -146,5 +206,5 @@ records into a simple analysis workflow that can be run again.
 - Track sale time to understand busy periods
 - Track booth visitor flow
 - Improve the estimate vs actual price comparison
-- Build a simple dashboard in the future
+- Add sale time and visitor-flow data to the dashboard if future records include it
 - Create a reusable data collection template for future charity sales

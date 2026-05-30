@@ -26,3 +26,7 @@ I024,2026-05-19,Stationery,Art Supplies,20,18,New,Team B,Booth A,Partially Sold
 I025,2026-05-20,Accessories,Bracelets,35,7,New,Team C,Shared Table,Partially Sold
 I026,2026-05-20,Household Items,Photo Frames,12,18,Good,Team D,Booth D,Partially Sold
 I027,2026-05-20,Snacks,Candy Packs,40,5,New,Team A,Shared Table,Partially Sold
+I028,2026-05-20,Clothes,Shoes,9,35,Used,Team B,Booth B,Unsold
+I029,2026-05-20,Toys,Puzzles,8,20,Used,Team C,Booth C,Unsold
+I030,2026-05-20,Household Items,Kitchen Tools,10,12,Used,Team D,Booth D,Unsold
+I031,2026-05-20,Handmade Crafts,Bookmarks,20,4,New,Team A,Shared Table,Unsold

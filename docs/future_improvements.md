@@ -8,7 +8,7 @@ easier.
 - Track booth visitor flow if volunteers can record it without interrupting
   the event.
 - Compare estimated value and final price more carefully by item condition.
-- Build a simple dashboard after the CSV workflow is stable.
+- Add more dashboard filters if future records include sale time or volunteer shifts.
 - Improve the data collection form so volunteers enter records in the same
   format.
 - Create a reusable template for future charity sales.

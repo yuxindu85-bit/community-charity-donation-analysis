@@ -1,6 +1,6 @@
 booth_id,booth_area,main_category,assigned_team,table_count,estimated_items,actual_items,notes
 B001,Booth A,Books and Stationery,Team A,3,135,135,placed lower-priced books near notebooks
-B002,Booth B,Clothes,Team B,2,41,41,kept clothes on one side for easier browsing
-B003,Booth C,Toys,Team C,2,29,29,small toys were grouped in baskets
-B004,Booth D,Electronics and Household Items,Team D,2,55,55,fragile items were placed at the back
-B005,Shared Table,Handmade Crafts Accessories and Snacks,Team A,4,415,415,used shared table for small fast-moving items
+B002,Booth B,Clothes,Team B,2,50,50,kept clothes on one side for easier browsing
+B003,Booth C,Toys,Team C,2,37,37,small toys were grouped in baskets
+B004,Booth D,Electronics and Household Items,Team D,2,65,65,fragile items were placed at the back
+B005,Shared Table,Handmade Crafts Accessories and Snacks,Team A,4,435,435,used shared table for small fast-moving items

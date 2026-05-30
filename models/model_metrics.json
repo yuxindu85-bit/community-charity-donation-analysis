@@ -1,0 +1,50 @@
+{
+  "price_prediction": {
+    "Linear Regression": {
+      "mae": 1.622,
+      "rmse": 2.128,
+      "r2_score": 0.987
+    },
+    "Random Forest Regressor": {
+      "mae": 2.747,
+      "rmse": 4.53,
+      "r2_score": 0.943
+    }
+  },
+  "sale_success_classification": {
+    "Logistic Regression": {
+      "accuracy": 1.0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "confusion_matrix": [
+        [
+          1,
+          0
+        ],
+        [
+          0,
+          9
+        ]
+      ]
+    },
+    "Decision Tree Classifier": {
+      "accuracy": 0.8,
+      "precision": 1.0,
+      "recall": 0.778,
+      "confusion_matrix": [
+        [
+          1,
+          0
+        ],
+        [
+          2,
+          7
+        ]
+      ]
+    },
+    "class_balance": {
+      "sold_success_count": 27,
+      "not_sold_count": 4
+    }
+  }
+}
