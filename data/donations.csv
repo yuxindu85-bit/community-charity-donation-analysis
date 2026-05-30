@@ -1,0 +1,19 @@
+record_id,received_date,team,donor_id,donor_type,amount_cny,payment_status
+D001,2026-05-18,Team A,Business_001,Local Business,1000,Received
+D002,2026-05-18,Team A,Business_002,Local Business,1000,Received
+D003,2026-05-18,Team B,Business_003,Local Business,1000,Received
+D004,2026-05-19,Team C,Business_004,Local Business,1000,Received
+D005,2026-05-19,Team B,Business_005,Local Business,1000,Received
+D006,2026-05-19,Team C,Business_006,Local Business,1000,Received
+D007,2026-05-20,Team A,Business_007,Local Business,1000,Received
+D008,2026-05-20,Team B,Business_008,Local Business,2000,Received
+D009,2026-05-20,Team C,Community_Group_001,Community Group,2000,Received
+D010,2026-05-21,Team A,Donor_001,Individual,1000,Received
+D011,2026-05-21,Team A,Donor_002,Individual,1000,Received
+D012,2026-05-21,Team B,Donor_003,Individual,3000,Received
+D013,2026-05-22,Team C,Donor_004,Individual,10000,Received
+D014,2026-05-22,Team B,Donor_005,Individual,500,Received
+D015,2026-05-22,Team C,Donor_006,Individual,200,Received
+D016,2026-05-23,Team A,Donor_007,Individual,100,Received
+D017,2026-05-23,Team B,Donor_008,Individual,50,Received
+D018,2026-05-23,Team C,Donor_009,Individual,20,Received
