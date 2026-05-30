@@ -1,19 +1,19 @@
 sale_id,event_day,team,item_category,quantity,unit_price_cny,cost_cny
-S001,2026-05-23,Team A,Books,12,18,0
-S002,2026-05-23,Team B,Clothes,5,38,0
-S003,2026-05-23,Team C,Toys,8,30,0
-S004,2026-05-23,Team A,Handmade Crafts,16,20,0
-S005,2026-05-23,Team D,Electronics,5,75,0
-S006,2026-05-23,Team B,Stationery,20,12,0
-S007,2026-05-23,Team C,Accessories,25,8,0
-S008,2026-05-23,Team D,Household Items,10,24,0
-S009,2026-05-23,Team A,Books,8,28,0
-S010,2026-05-23,Team B,Clothes,15,16,0
-S011,2026-05-23,Team C,Toys,13,22,0
-S012,2026-05-23,Team A,Handmade Crafts,35,10,0
-S013,2026-05-23,Team D,Electronics,12,20,0
-S014,2026-05-23,Team B,Stationery,30,10,0
-S015,2026-05-23,Team C,Accessories,10,30,0
-S016,2026-05-23,Team D,Household Items,18,16,0
-S017,2026-05-23,Team A,Handmade Crafts,40,8,0
-S018,2026-05-23,Team C,Books,14,18,0
+S001,2026-05-23,Team A,Books,12,18,28
+S002,2026-05-23,Team B,Clothes,5,38,42
+S003,2026-05-23,Team C,Toys,8,30,35
+S004,2026-05-23,Team A,Handmade Crafts,16,20,38
+S005,2026-05-23,Team D,Electronics,5,75,60
+S006,2026-05-23,Team B,Stationery,20,12,24
+S007,2026-05-23,Team C,Accessories,25,8,20
+S008,2026-05-23,Team D,Household Items,10,24,32
+S009,2026-05-23,Team A,Books,8,28,26
+S010,2026-05-23,Team B,Clothes,15,16,35
+S011,2026-05-23,Team C,Toys,13,22,42
+S012,2026-05-23,Team A,Handmade Crafts,35,10,50
+S013,2026-05-23,Team D,Electronics,12,20,30
+S014,2026-05-23,Team B,Stationery,30,10,36
+S015,2026-05-23,Team C,Accessories,10,30,28
+S016,2026-05-23,Team D,Household Items,18,16,31
+S017,2026-05-23,Team A,Handmade Crafts,40,8,44
+S018,2026-05-23,Team C,Books,14,18,25
