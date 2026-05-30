@@ -25,6 +25,9 @@ Some labels were simplified, such as donor names, business names, item
 categories, and team names. This project is for learning data organization and
 basic analysis. It should not be treated as an official financial record.
 
+I also added a short [data dictionary](docs/data_dictionary.md) to explain the
+cleaned CSV columns.
+
 ## Why I Built This Project
 
 During the event, the donation records came from different places. Some records
@@ -132,7 +135,7 @@ did, what I checked, and what I would improve.
 
 ## Future Improvements
 
-Improvement 1: Add a short data dictionary for each column.
+Improvement 1: Add a short data quality checklist for the two CSV files.
 
 Improvement 2: Add a chart that compares direct donations and sale income side
 by side.
@@ -150,6 +153,7 @@ community-charity-donation-analysis/
     +-- sale_records.csv
 +-- docs/
     +-- development_roadmap.md
+    +-- data_dictionary.md
 +-- reports/
 +-- src/
     +-- analyze_charity_sale.py
