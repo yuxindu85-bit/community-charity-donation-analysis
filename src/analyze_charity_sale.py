@@ -14,51 +14,120 @@ DATA_DIR = PROJECT_ROOT / "data"
 REPORT_DIR = PROJECT_ROOT / "reports"
 FIGURE_DIR = PROJECT_ROOT / "outputs" / "figures"
 
+DONATION_COLUMNS = {
+    "record_id",
+    "received_date",
+    "team",
+    "donor_id",
+    "donor_type",
+    "amount_cny",
+    "payment_status",
+}
+
+SALE_COLUMNS = {
+    "sale_id",
+    "event_day",
+    "team",
+    "item_category",
+    "quantity",
+    "unit_price_cny",
+    "cost_cny",
+}
+
+
+def validate_columns(dataframe, required_columns, file_name):
+    missing_columns = sorted(required_columns - set(dataframe.columns))
+    if missing_columns:
+        missing_text = ", ".join(missing_columns)
+        raise ValueError(f"{file_name} is missing columns: {missing_text}")
+
 
 def load_data():
     donations = pd.read_csv(DATA_DIR / "donations.csv")
     sales = pd.read_csv(DATA_DIR / "sale_records.csv")
 
+    validate_columns(donations, DONATION_COLUMNS, "donations.csv")
+    validate_columns(sales, SALE_COLUMNS, "sale_records.csv")
+
     donations["received_date"] = pd.to_datetime(donations["received_date"])
     sales["event_day"] = pd.to_datetime(sales["event_day"])
+
+    donations["amount_cny"] = pd.to_numeric(donations["amount_cny"], errors="coerce")
+    sales["quantity"] = pd.to_numeric(sales["quantity"], errors="coerce")
+    sales["unit_price_cny"] = pd.to_numeric(sales["unit_price_cny"], errors="coerce")
+    sales["cost_cny"] = pd.to_numeric(sales["cost_cny"], errors="coerce").fillna(0)
+
+    if donations["amount_cny"].isna().any():
+        raise ValueError("donations.csv contains invalid donation amounts.")
+    if sales[["quantity", "unit_price_cny"]].isna().any().any():
+        raise ValueError("sale_records.csv contains invalid sale values.")
+    if (donations["amount_cny"] <= 0).any():
+        raise ValueError("Donation amounts must be positive.")
+    if (sales["quantity"] <= 0).any() or (sales["unit_price_cny"] <= 0).any():
+        raise ValueError("Sale quantity and unit price must be positive.")
+
     sales["revenue_cny"] = sales["quantity"] * sales["unit_price_cny"]
     sales["net_contribution_cny"] = sales["revenue_cny"] - sales["cost_cny"]
+    sales["margin_rate"] = sales["net_contribution_cny"] / sales["revenue_cny"]
+
     return donations, sales
 
 
 def calculate_totals(donations, sales):
     total_direct_donations = donations["amount_cny"].sum()
     total_sale_revenue = sales["revenue_cny"].sum()
+    total_sale_cost = sales["cost_cny"].sum()
     total_sale_net = sales["net_contribution_cny"].sum()
     total_funds_raised = total_direct_donations + total_sale_revenue
+    estimated_available_after_cost = total_direct_donations + total_sale_net
 
     return {
         "total_direct_donations": total_direct_donations,
         "total_sale_revenue": total_sale_revenue,
+        "total_sale_cost": total_sale_cost,
         "total_sale_net": total_sale_net,
         "total_funds_raised": total_funds_raised,
+        "estimated_available_after_cost": estimated_available_after_cost,
     }
 
 
 def make_summaries(donations, sales):
+    totals = calculate_totals(donations, sales)
+
     donor_type_summary = (
         donations.groupby("donor_type", as_index=False)
         .agg(
             donor_count=("donor_id", "count"),
             direct_donation_cny=("amount_cny", "sum"),
+            average_donation_cny=("amount_cny", "mean"),
         )
         .sort_values("direct_donation_cny", ascending=False)
     )
+    donor_type_summary["donation_share"] = (
+        donor_type_summary["direct_donation_cny"] / totals["total_direct_donations"]
+    ).round(4)
+    donor_type_summary["average_donation_cny"] = donor_type_summary[
+        "average_donation_cny"
+    ].round(2)
 
     category_summary = (
         sales.groupby("item_category", as_index=False)
         .agg(
             items_sold=("quantity", "sum"),
             sale_revenue_cny=("revenue_cny", "sum"),
+            total_cost_cny=("cost_cny", "sum"),
             sale_net_contribution_cny=("net_contribution_cny", "sum"),
+            average_unit_price_cny=("unit_price_cny", "mean"),
+            median_unit_price_cny=("unit_price_cny", "median"),
         )
         .sort_values("sale_revenue_cny", ascending=False)
     )
+    category_summary["revenue_share"] = (
+        category_summary["sale_revenue_cny"] / totals["total_sale_revenue"]
+    ).round(4)
+    category_summary["average_unit_price_cny"] = category_summary[
+        "average_unit_price_cny"
+    ].round(2)
 
     donation_by_team = donations.groupby("team", as_index=False).agg(
         direct_donation_cny=("amount_cny", "sum")
@@ -72,7 +141,11 @@ def make_summaries(donations, sales):
     team_summary["total_contribution_cny"] = (
         team_summary["direct_donation_cny"] + team_summary["sale_revenue_cny"]
     )
+    team_summary["contribution_share"] = (
+        team_summary["total_contribution_cny"] / totals["total_funds_raised"]
+    ).round(4)
     team_summary = team_summary.sort_values("total_contribution_cny", ascending=False)
+    team_summary["team_rank"] = range(1, len(team_summary) + 1)
 
     daily_direct = donations.groupby("received_date", as_index=False).agg(
         direct_donation_cny=("amount_cny", "sum")
@@ -80,7 +153,8 @@ def make_summaries(donations, sales):
     daily_direct = daily_direct.rename(columns={"received_date": "date"})
 
     daily_sales = sales.groupby("event_day", as_index=False).agg(
-        sale_revenue_cny=("revenue_cny", "sum")
+        sale_revenue_cny=("revenue_cny", "sum"),
+        sale_net_contribution_cny=("net_contribution_cny", "sum"),
     )
     daily_sales = daily_sales.rename(columns={"event_day": "date"})
 
@@ -89,6 +163,9 @@ def make_summaries(donations, sales):
         daily_summary["direct_donation_cny"] + daily_summary["sale_revenue_cny"]
     )
     daily_summary = daily_summary.sort_values("date")
+    daily_summary["cumulative_contribution_cny"] = daily_summary[
+        "total_contribution_cny"
+    ].cumsum()
 
     return donor_type_summary, category_summary, team_summary, daily_summary
 
@@ -122,18 +199,29 @@ def save_charts(donor_type_summary, category_summary, team_summary, daily_summar
     plt.close()
 
     plt.figure(figsize=(7, 5))
-    plt.bar(team_summary["team"], team_summary["total_contribution_cny"])
-    plt.title("Total Contribution by Team")
+    plt.bar(team_summary["team"], team_summary["direct_donation_cny"], label="Donations")
+    plt.bar(
+        team_summary["team"],
+        team_summary["sale_revenue_cny"],
+        bottom=team_summary["direct_donation_cny"],
+        label="Sale Revenue",
+    )
+    plt.title("Team Contribution Breakdown")
     plt.ylabel("Contribution (CNY)")
+    plt.legend()
     plt.tight_layout()
     plt.savefig(FIGURE_DIR / "team_contribution.png", dpi=160)
     plt.close()
 
     plt.figure(figsize=(8, 5))
-    plt.plot(daily_summary["date"], daily_summary["total_contribution_cny"], marker="o")
-    plt.title("Daily Contribution Trend")
+    plt.plot(
+        daily_summary["date"],
+        daily_summary["cumulative_contribution_cny"],
+        marker="o",
+    )
+    plt.title("Cumulative Contribution Trend")
     plt.xlabel("Date")
-    plt.ylabel("Contribution (CNY)")
+    plt.ylabel("Cumulative Contribution (CNY)")
     plt.tight_layout()
     plt.savefig(FIGURE_DIR / "daily_contribution_trend.png", dpi=160)
     plt.close()
@@ -157,7 +245,9 @@ not an official financial audit.
 
 - Direct donations: {totals['total_direct_donations']:,.0f} CNY
 - Charity sale revenue: {totals['total_sale_revenue']:,.0f} CNY
-- Estimated total funds raised: {totals['total_funds_raised']:,.0f} CNY
+- Estimated item costs: {totals['total_sale_cost']:,.0f} CNY
+- Estimated available amount after sale costs: {totals['estimated_available_after_cost']:,.0f} CNY
+- Total funds raised before sale costs: {totals['total_funds_raised']:,.0f} CNY
 
 ## Main Findings
 
@@ -189,7 +279,12 @@ def main():
     print("Analysis finished.")
     print(f"Direct donations: {totals['total_direct_donations']:,.0f} CNY")
     print(f"Charity sale revenue: {totals['total_sale_revenue']:,.0f} CNY")
-    print(f"Total funds raised: {totals['total_funds_raised']:,.0f} CNY")
+    print(f"Estimated sale costs: {totals['total_sale_cost']:,.0f} CNY")
+    print(
+        "Estimated available amount after costs: "
+        f"{totals['estimated_available_after_cost']:,.0f} CNY"
+    )
+    print(f"Total funds raised before costs: {totals['total_funds_raised']:,.0f} CNY")
 
 
 if __name__ == "__main__":
