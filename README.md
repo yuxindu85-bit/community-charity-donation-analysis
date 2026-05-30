@@ -64,7 +64,13 @@ categories.
 
 Finding 4: Team C had the highest combined total from direct donations and sale
 activity.
+## Data Note
 
+The data in this repository is an anonymized and cleaned version of event records. I did not upload original paper forms, phone numbers, real names, or organization names because they are private.
+
+Some labels were simplified, such as donor names, business names, item categories, and team names. This project is for learning data organization and basic analysis. It should not be treated as an official financial record.
+
+## Why I Built This Project
 Finding 5: The sale records were useful, but cost tracking needs to be more
 detailed next time.
 
