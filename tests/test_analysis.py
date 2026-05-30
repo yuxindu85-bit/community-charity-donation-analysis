@@ -6,19 +6,15 @@ from pathlib import Path
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(PROJECT_ROOT / "src"))
 
-from analyze_charity_sale import (
-    calculate_totals,
-    load_data,
-    make_summaries,
-)
+from analyze_charity_sale import calculate_totals, load_data, make_summaries
 
 
 class CharitySaleAnalysisTest(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.donations, cls.sales = load_data()
-        cls.donor_type_summary, cls.category_summary, cls.team_summary, _ = make_summaries(
-            cls.donations, cls.sales
+        cls.donor_type_summary, cls.category_summary, cls.team_summary, cls.daily_summary = (
+            make_summaries(cls.donations, cls.sales)
         )
         cls.totals = calculate_totals(cls.donations, cls.sales)
 
@@ -31,18 +27,27 @@ class CharitySaleAnalysisTest(unittest.TestCase):
     def test_total_funds_raised_is_over_26000(self):
         self.assertGreater(self.totals["total_funds_raised"], 26000)
 
+    def test_estimated_available_after_costs_is_over_26000(self):
+        self.assertGreater(self.totals["estimated_available_after_cost"], 26000)
+
     def test_category_summary_calculation(self):
         handmade_row = self.category_summary[
             self.category_summary["item_category"] == "Handmade Crafts"
-          ].iloc[0]
+        ].iloc[0]
         self.assertEqual(handmade_row["sale_revenue_cny"], 990)
         self.assertEqual(handmade_row["items_sold"], 91)
+        self.assertAlmostEqual(handmade_row["revenue_share"], 0.2054, places=4)
 
     def test_team_summary_calculation(self):
         team_a_row = self.team_summary[self.team_summary["team"] == "Team A"].iloc[0]
         self.assertEqual(team_a_row["direct_donation_cny"], 7700)
         self.assertEqual(team_a_row["sale_revenue_cny"], 1430)
         self.assertEqual(team_a_row["total_contribution_cny"], 9130)
+        self.assertEqual(team_a_row["team_rank"], 1)
+
+    def test_daily_cumulative_total_matches_total_funds(self):
+        final_cumulative_total = self.daily_summary["cumulative_contribution_cny"].iloc[-1]
+        self.assertEqual(final_cumulative_total, self.totals["total_funds_raised"])
 
 
 if __name__ == "__main__":
