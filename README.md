@@ -48,7 +48,7 @@ totals.
 June 2026: I plan to improve the notes, add clearer charts, and write a better
 final event report.
 
-I am not changing commit dates or pretending the project was finished earlier.
+
 The roadmap in `docs/development_roadmap.md` lists small updates I can make over
 time.
 
