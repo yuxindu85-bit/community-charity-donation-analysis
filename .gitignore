@@ -1,5 +1,6 @@
-.DS_Store
 __pycache__/
+pycache/
 *.pyc
-.venv/
+.ipynb_checkpoints/
+.DS_Store
 .matplotlib_cache/
