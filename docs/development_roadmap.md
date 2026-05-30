@@ -1,53 +1,50 @@
 # Development Roadmap
 
-This roadmap lists realistic improvements I can make after the first version of
-the project. The goal is to improve the data structure, charts, tests, and
+This roadmap lists realistic improvements I can make after the first version
+of the project. The goal is to improve the data structure, charts, tests, and
 report quality over time.
 
 ## Week 1
 
-Task: Check the CSV files and make sure each row is stored on its own line.
+Task: Check raw CSV formatting and make sure each record is stored on its own
+line.
 
-Commit message: `Fix CSV file formatting`
+Commit message: `Fix raw data formatting`
 
-Task: Fix Python file formatting and make sure the analysis script runs.
+Task: Add cleaning scripts for donation, inventory, sale, and booth records.
 
-Commit message: `Fix analysis script formatting`
+Commit message: `Add data cleaning workflow`
 
 ## Week 2
 
-Task: Add data validation for required columns, positive amounts, and sale
-values.
+Task: Add separate analysis scripts for donations, inventory, sales, and booth
+layout.
 
-Commit message: `Add basic data validation`
+Commit message: `Split analysis into focused scripts`
 
-Task: Add clearer chart titles and labels.
+Task: Add validation for sale totals and private information columns.
 
-Commit message: `Improve chart labels`
+Commit message: `Add data validation checks`
 
 ## Week 3
 
-Task: Add contribution share calculations for donor type, category, and team
-summaries.
+Task: Add charts for category revenue, item quantity, team contribution, booth
+revenue, and donation source breakdown.
 
-Commit message: `Add contribution share calculations`
+Commit message: `Add event analysis charts`
 
-Task: Add tests for category share, team rank, and cumulative totals.
+Task: Add report files that summarize the event results and operations review.
 
-Commit message: `Add summary validation tests`
+Commit message: `Add charity sale review reports`
 
 ## Week 4
 
-Task: Improve the event report so it explains cost tracking and post-event
-review more clearly.
+Task: Add unit tests for data cleaning, calculations, outputs, and privacy
+checks.
 
-Commit message: `Improve event summary report`
+Commit message: `Add project validation tests`
 
-Task: Compare estimated item value with final sale price if more complete item
-records are available.
+Task: Add a simple notebook walkthrough for readers who want a step-by-step
+view of the analysis.
 
-Commit message: `Plan value comparison update`
-
-Task: Create a simple dashboard in the future if the project grows.
-
-Commit message: `Plan simple dashboard update`
+Commit message: `Add analysis walkthrough notebook`
