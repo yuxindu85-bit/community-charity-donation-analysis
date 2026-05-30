@@ -15,7 +15,7 @@ REPORT_DIR = PROJECT_ROOT / "reports"
 FIGURE_DIR = PROJECT_ROOT / "outputs" / "figures"
 
 
-def load_data() -> tuple[pd.DataFrame, pd.DataFrame]:
+def load_data():
     donations = pd.read_csv(DATA_DIR / "donations.csv")
     sales = pd.read_csv(DATA_DIR / "sale_records.csv")
 
@@ -26,23 +26,38 @@ def load_data() -> tuple[pd.DataFrame, pd.DataFrame]:
     return donations, sales
 
 
-def make_summaries(
-    donations: pd.DataFrame, sales: pd.DataFrame
-) -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame]:
+def calculate_totals(donations, sales):
+    total_direct_donations = donations["amount_cny"].sum()
+    total_sale_revenue = sales["revenue_cny"].sum()
+    total_sale_net = sales["net_contribution_cny"].sum()
+    total_funds_raised = total_direct_donations + total_sale_revenue
+
+    return {
+        "total_direct_donations": total_direct_donations,
+        "total_sale_revenue": total_sale_revenue,
+        "total_sale_net": total_sale_net,
+        "total_funds_raised": total_funds_raised,
+    }
+
+
+def make_summaries(donations, sales):
     donor_type_summary = (
         donations.groupby("donor_type", as_index=False)
-        .agg(donor_count=("donor_id", "count"), direct_donation_cny=("amount_cny", "sum"))
+        .agg(
+            donor_count=("donor_id", "count"),
+            direct_donation_cny=("amount_cny", "sum"),
+        )
         .sort_values("direct_donation_cny", ascending=False)
     )
 
     category_summary = (
         sales.groupby("item_category", as_index=False)
         .agg(
-            units_sold=("quantity", "sum"),
-            revenue_cny=("revenue_cny", "sum"),
-            net_contribution_cny=("net_contribution_cny", "sum"),
+            items_sold=("quantity", "sum"),
+            sale_revenue_cny=("revenue_cny", "sum"),
+            sale_net_contribution_cny=("net_contribution_cny", "sum"),
         )
-        .sort_values("revenue_cny", ascending=False)
+        .sort_values("sale_revenue_cny", ascending=False)
     )
 
     donation_by_team = donations.groupby("team", as_index=False).agg(
@@ -51,10 +66,11 @@ def make_summaries(
     sale_by_team = sales.groupby("team", as_index=False).agg(
         sale_revenue_cny=("revenue_cny", "sum"),
         sale_net_contribution_cny=("net_contribution_cny", "sum"),
+        items_sold=("quantity", "sum"),
     )
     team_summary = donation_by_team.merge(sale_by_team, on="team", how="outer").fillna(0)
     team_summary["total_contribution_cny"] = (
-        team_summary["direct_donation_cny"] + team_summary["sale_net_contribution_cny"]
+        team_summary["direct_donation_cny"] + team_summary["sale_revenue_cny"]
     )
     team_summary = team_summary.sort_values("total_contribution_cny", ascending=False)
 
@@ -62,25 +78,30 @@ def make_summaries(
         direct_donation_cny=("amount_cny", "sum")
     )
     daily_direct = daily_direct.rename(columns={"received_date": "date"})
+
     daily_sales = sales.groupby("event_day", as_index=False).agg(
-        sale_net_contribution_cny=("net_contribution_cny", "sum")
+        sale_revenue_cny=("revenue_cny", "sum")
     )
     daily_sales = daily_sales.rename(columns={"event_day": "date"})
+
     daily_summary = daily_direct.merge(daily_sales, on="date", how="outer").fillna(0)
     daily_summary["total_contribution_cny"] = (
-        daily_summary["direct_donation_cny"] + daily_summary["sale_net_contribution_cny"]
+        daily_summary["direct_donation_cny"] + daily_summary["sale_revenue_cny"]
     )
     daily_summary = daily_summary.sort_values("date")
 
     return donor_type_summary, category_summary, team_summary, daily_summary
 
 
-def save_charts(
-    donor_type_summary: pd.DataFrame,
-    category_summary: pd.DataFrame,
-    team_summary: pd.DataFrame,
-    daily_summary: pd.DataFrame,
-) -> None:
+def save_summary_tables(donor_type_summary, category_summary, team_summary, daily_summary):
+    REPORT_DIR.mkdir(parents=True, exist_ok=True)
+    donor_type_summary.to_csv(REPORT_DIR / "donor_type_summary.csv", index=False)
+    category_summary.to_csv(REPORT_DIR / "category_summary.csv", index=False)
+    team_summary.to_csv(REPORT_DIR / "team_summary.csv", index=False)
+    daily_summary.to_csv(REPORT_DIR / "daily_summary.csv", index=False)
+
+
+def save_charts(donor_type_summary, category_summary, team_summary, daily_summary):
     FIGURE_DIR.mkdir(parents=True, exist_ok=True)
 
     plt.figure(figsize=(7, 5))
@@ -91,8 +112,8 @@ def save_charts(
     plt.savefig(FIGURE_DIR / "direct_donations_by_type.png", dpi=160)
     plt.close()
 
-    plt.figure(figsize=(8, 5))
-    plt.bar(category_summary["item_category"], category_summary["revenue_cny"])
+    plt.figure(figsize=(9, 5))
+    plt.bar(category_summary["item_category"], category_summary["sale_revenue_cny"])
     plt.title("Charity Sale Revenue by Category")
     plt.ylabel("Revenue (CNY)")
     plt.xticks(rotation=30, ha="right")
@@ -111,84 +132,64 @@ def save_charts(
     plt.figure(figsize=(8, 5))
     plt.plot(daily_summary["date"], daily_summary["total_contribution_cny"], marker="o")
     plt.title("Daily Contribution Trend")
-    plt.ylabel("Contribution (CNY)")
     plt.xlabel("Date")
+    plt.ylabel("Contribution (CNY)")
     plt.tight_layout()
     plt.savefig(FIGURE_DIR / "daily_contribution_trend.png", dpi=160)
     plt.close()
 
 
-def write_report(
-    donations: pd.DataFrame,
-    sales: pd.DataFrame,
-    donor_type_summary: pd.DataFrame,
-    category_summary: pd.DataFrame,
-    team_summary: pd.DataFrame,
-) -> None:
-    REPORT_DIR.mkdir(parents=True, exist_ok=True)
-
-    total_direct = donations["amount_cny"].sum()
-    total_sale_revenue = sales["revenue_cny"].sum()
-    total_sale_net = sales["net_contribution_cny"].sum()
-    total_available = total_direct + total_sale_net
-
+def write_report(donations, sales, donor_type_summary, category_summary, team_summary):
+    totals = calculate_totals(donations, sales)
     top_donor_type = donor_type_summary.iloc[0]["donor_type"]
     top_category = category_summary.iloc[0]["item_category"]
     top_team = team_summary.iloc[0]["team"]
 
-    report = f"""# Community Charity Event Summary
+    report = f"""# Community Charity Sale Summary
 
 ## Overview
 
-I used this anonymized dataset to review a community charity event for
-special-needs children and elderly people living alone. The dataset includes
-{len(donations)} direct donation records and {len(sales)} sale records.
-Direct donations totaled {total_direct:.0f} CNY. The charity sale created
-{total_sale_revenue:.0f} CNY in revenue and {total_sale_net:.0f} CNY in net
-contribution after simple item costs.
+This report summarizes anonymized donation and charity sale records from a
+community charity sale. The project is a simple student data analysis project,
+not an official financial audit.
 
-The estimated amount available for the charity purpose was {total_available:.0f}
-CNY.
+## Main Results
+
+- Direct donations: {totals['total_direct_donations']:,.0f} CNY
+- Charity sale revenue: {totals['total_sale_revenue']:,.0f} CNY
+- Estimated total funds raised: {totals['total_funds_raised']:,.0f} CNY
 
 ## Main Findings
 
-Finding 1: The largest direct donation source was {top_donor_type}.
+- {top_donor_type} was the largest direct donation source.
+- {top_category} produced the highest sale revenue.
+- {top_team} had the highest combined contribution from donations and sales.
 
-Finding 2: The highest-revenue sale category was {top_category}.
+## Reflection
 
-Finding 3: {top_team} had the highest combined contribution from direct
-donations and sale activity.
-
-## My Reflection
-
-This analysis is small, but it helped me see where the money came from and which
-records need to be kept more carefully. For the next event, I would record item
-costs earlier and keep separate notes for direct donations and charity sale
-income.
+Working with the records helped me understand that charity sale work is not only
+about collecting and selling items. Clear spreadsheets, item categories, team
+records, and post-event review notes made the activity easier to organize and
+explain afterward.
 """
     (REPORT_DIR / "event_summary.md").write_text(report, encoding="utf-8")
 
 
-def main() -> None:
+def main():
     donations, sales = load_data()
-    summaries = make_summaries(donations, sales)
-    donor_type_summary, category_summary, team_summary, daily_summary = summaries
+    donor_type_summary, category_summary, team_summary, daily_summary = make_summaries(
+        donations, sales
+    )
 
-    REPORT_DIR.mkdir(parents=True, exist_ok=True)
-    donor_type_summary.to_csv(REPORT_DIR / "donor_type_summary.csv", index=False)
-    category_summary.to_csv(REPORT_DIR / "category_summary.csv", index=False)
-    team_summary.to_csv(REPORT_DIR / "team_summary.csv", index=False)
-    daily_summary.to_csv(REPORT_DIR / "daily_summary.csv", index=False)
-
+    save_summary_tables(donor_type_summary, category_summary, team_summary, daily_summary)
     save_charts(donor_type_summary, category_summary, team_summary, daily_summary)
     write_report(donations, sales, donor_type_summary, category_summary, team_summary)
 
-    total_direct = donations["amount_cny"].sum()
-    total_sale_net = sales["net_contribution_cny"].sum()
+    totals = calculate_totals(donations, sales)
     print("Analysis finished.")
-    print(f"Direct donations: {total_direct:.0f} CNY")
-    print(f"Net charity sale contribution: {total_sale_net:.0f} CNY")
-    print(f"Estimated available amount: {total_direct + total_sale_net:.0f} CNY")
+    print(f"Direct donations: {totals['total_direct_donations']:,.0f} CNY")
+    print(f"Charity sale revenue: {totals['total_sale_revenue']:,.0f} CNY")
+    print(f"Total funds raised: {totals['total_funds_raised']:,.0f} CNY")
 
 
 if __name__ == "__main__":
