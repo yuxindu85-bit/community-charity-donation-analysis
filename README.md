@@ -1,68 +1,154 @@
-# Campus Charity Sale Analysis
+# Community Charity Donation Analysis
 
-This is a small Python data analysis project based on an anonymized campus
-charity sale. It combines two simple records: direct donations and charity sale
-transactions. The goal is to create clear summary tables, basic charts, and a
-short written report for student organizers.
+## Project Overview
 
-All personal and organization names are anonymous. Individual donors are labeled
-as `Donor_001`, `Donor_002`, and so on. Business donors are labeled as
-`Business_001`, `Business_002`, and so on. The dataset does not include real
-student names, school names, phone numbers, or company names.
+I built this project after helping organize records from a community charity
+event called "Children's Hearts, Warm Sunset." The event included direct
+donations and a small charity sale. The purpose was to support special-needs
+children and elderly people living alone.
 
-## What This Project Shows
+I removed all real names, school names, phone numbers, and organization names
+before putting the data into this project. Individual donors are written as
+`Donor_001`, `Donor_002`, and so on. Business donors are written as
+`Business_001`, `Business_002`, and so on.
 
-- Reading CSV files with Python
-- - Creating calculated columns with pandas
-  - - Summarizing donations, sale revenue, and team results
-    - - Drawing simple matplotlib charts
-      - - Writing a short report from analysis results
-        - - Checking totals with basic unit tests
-         
-          - ## Project Structure
-         
-          - ```text
-            campus-charity-sale-analysis/
-            +-- data/
-                +-- donations.csv
-                +-- sale_records.csv
-            +-- outputs/
-                +-- figures/
-            +-- reports/
-            +-- src/
-                +-- analyze_charity_sale.py
-            +-- tests/
-                +-- test_analysis.py
-            +-- README.md
-            +-- requirements.txt
-            ```
+The project is simple on purpose. I wanted to practice turning messy activity
+records into tables, charts, and a short report that I could actually explain.
 
-            ## How to Run
+## Why I Built This Project
 
-            ```bash
-            pip install -r requirements.txt
-            python src/analyze_charity_sale.py
-            python -m unittest discover -s tests
-            ```
+During the event, the donation records came from different places. Some records
+were direct donations, while others came from items sold during the charity sale.
+At first, the numbers were just lists in a spreadsheet.
 
-            ## Generated Files
+I wanted to answer a few basic questions.
 
-            Running the analysis creates:
+Question 1: How much money came from direct donations?
 
-            - `reports/event_summary.md`
-            - - `reports/donor_type_summary.csv`
-              - - `reports/category_summary.csv`
-                - - `reports/team_summary.csv`
-                  - - `reports/daily_summary.csv`
-                    - - `outputs/figures/direct_donations_by_type.png`
-                      - - `outputs/figures/sale_revenue_by_category.png`
-                        - - `outputs/figures/team_contribution.png`
-                          - - `outputs/figures/daily_contribution_trend.png`
-                           
-                            - ## Notes
-                           
-                            - This project is intentionally modest. It is designed to show careful handling of
-                            - a real activity-style dataset, not advanced modeling. The most important parts
-                            - are the clean data structure, reproducible script, generated report, and tests
-                            - that check the totals.
-                            - 
+Question 2: Which donor type gave the most?
+
+Question 3: Which charity sale items brought in the most revenue?
+
+Question 4: Which volunteer team handled the largest total contribution?
+
+Question 5: What should I record more carefully next time?
+
+## Tools Used
+
+I used Python, pandas, matplotlib, CSV files, and unittest.
+
+## Project Timeline
+
+May 2026: I made the first version of the dataset and wrote the main analysis
+script.
+
+Late May 2026: I added simple charts, summary CSV files, and tests for the main
+totals.
+
+June 2026: I plan to improve the notes, add clearer charts, and write a better
+final event report.
+
+I am not changing commit dates or pretending the project was finished earlier.
+The roadmap in `docs/development_roadmap.md` lists small updates I can make over
+time.
+
+## Key Findings
+
+Finding 1: Direct donations were much larger than charity sale income.
+
+Finding 2: Individual donors gave the largest total amount in this small
+dataset.
+
+Finding 3: Handmade crafts had the highest sale revenue among the item
+categories.
+
+Finding 4: Team C had the highest combined total from direct donations and sale
+activity.
+
+Finding 5: The sale records were useful, but cost tracking needs to be more
+detailed next time.
+
+## Challenges
+
+Challenge 1: Some original records were handwritten, so I had to decide how to
+organize the data before analyzing it.
+
+Challenge 2: I did not want to include private information, so I anonymized all
+donor and organization names.
+
+Challenge 3: The charity sale data had both revenue and cost, so I had to
+separate total sales from net contribution.
+
+Challenge 4: I had to check my totals with tests because my first manual totals
+were not always correct.
+
+## What I Learned
+
+Lesson 1: Clean data structure matters before making charts.
+
+Lesson 2: Small tests are useful even for a simple project.
+
+Lesson 3: A chart can make the result easier to understand, but the chart still
+needs a clear title and labels.
+
+Lesson 4: An honest project does not need to look perfect. It should show what I
+did, what I checked, and what I would improve.
+
+## Future Improvements
+
+Improvement 1: Add a short data dictionary for each column.
+
+Improvement 2: Add a chart that compares direct donations and sale income side
+by side.
+
+Improvement 3: Add a report section about how the money could be tracked after
+the event.
+
+Improvement 4: Improve the daily trend chart so it is easier to read.
+
+Improvement 5: Add notes about data cleaning decisions.
+
+Improvement 6: Add more tests for team totals and category totals.
+
+## Project Structure
+
+```text
+community-charity-donation-analysis/
++-- data/
+    +-- donations.csv
+    +-- sale_records.csv
++-- docs/
+    +-- development_roadmap.md
++-- outputs/
+    +-- figures/
++-- reports/
++-- src/
+    +-- analyze_charity_sale.py
++-- tests/
+    +-- test_analysis.py
++-- README.md
++-- requirements.txt
+```
+
+## How to Run the Project
+
+Install the packages:
+
+```bash
+pip install -r requirements.txt
+```
+
+Run the analysis:
+
+```bash
+python src/analyze_charity_sale.py
+```
+
+Run the tests:
+
+```bash
+python -m unittest discover -s tests
+```
+
+After running the script, the project creates summary tables in `reports/` and
+charts in `outputs/figures/`.
