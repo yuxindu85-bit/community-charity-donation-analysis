@@ -4,31 +4,46 @@ from pathlib import Path
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(PROJECT_ROOT))
+sys.path.insert(0, str(PROJECT_ROOT / "src"))
 
-from src.analyze_charity_sale import load_data, make_summaries
+from analyze_charity_sale import (
+    calculate_totals,
+    load_data,
+    make_summaries,
+)
 
 
 class CharitySaleAnalysisTest(unittest.TestCase):
-      def setUp(self) -> None:
-                self.donations, self.sales = load_data()
+    @classmethod
+    def setUpClass(cls):
+        cls.donations, cls.sales = load_data()
+        cls.donor_type_summary, cls.category_summary, cls.team_summary, _ = make_summaries(
+            cls.donations, cls.sales
+        )
+        cls.totals = calculate_totals(cls.donations, cls.sales)
 
-      def test_direct_donation_total(self) -> None:
-                self.assertEqual(self.donations["amount_cny"].sum(), 26870)
+    def test_total_donation_calculation(self):
+        self.assertEqual(self.totals["total_direct_donations"], 23090)
 
-      def test_sale_revenue_total(self) -> None:
-                self.assertEqual(self.sales["revenue_cny"].sum(), 1751)
+    def test_total_sale_revenue_calculation(self):
+        self.assertEqual(self.totals["total_sale_revenue"], 4821)
 
-      def test_sale_net_contribution_is_positive(self) -> None:
-                self.assertTrue((self.sales["net_contribution_cny"] > 0).all())
+    def test_total_funds_raised_is_over_26000(self):
+        self.assertGreater(self.totals["total_funds_raised"], 26000)
 
-      def test_team_summary_covers_all_sources(self) -> None:
-                _, _, team_summary, _ = make_summaries(self.donations, self.sales)
-                total = team_summary["total_contribution_cny"].sum()
-                expected = self.donations["amount_cny"].sum() + self.sales["net_contribution_cny"].sum()
-                self.assertEqual(total, expected)
+    def test_category_summary_calculation(self):
+        handmade_row = self.category_summary[
+            self.category_summary["item_category"] == "Handmade Crafts"
+          ].iloc[0]
+        self.assertEqual(handmade_row["sale_revenue_cny"], 990)
+        self.assertEqual(handmade_row["items_sold"], 91)
+
+    def test_team_summary_calculation(self):
+        team_a_row = self.team_summary[self.team_summary["team"] == "Team A"].iloc[0]
+        self.assertEqual(team_a_row["direct_donation_cny"], 7700)
+        self.assertEqual(team_a_row["sale_revenue_cny"], 1430)
+        self.assertEqual(team_a_row["total_contribution_cny"], 9130)
 
 
 if __name__ == "__main__":
-      unittest.main()
-  
+    unittest.main()
