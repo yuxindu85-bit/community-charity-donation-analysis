@@ -1,0 +1,5 @@
+donor_type,donation_count,total_donation_cny,average_donation_cny,donation_share
+Family,3,9500.0,3166.67,0.4281
+Local Business,5,8700.0,1740.0,0.3921
+Individual,8,3730.0,466.25,0.1681
+Anonymous,1,260.0,260.0,0.0117
