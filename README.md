@@ -15,6 +15,16 @@ before putting the data into this project. Individual donors are written as
 The project is simple on purpose. I wanted to practice turning messy activity
 records into tables, charts, and a short report that I could actually explain.
 
+## Data Note
+
+The data in this repository is an anonymized and cleaned version of event
+records. I did not upload original paper forms, phone numbers, real names, or
+organization names because they are private.
+
+Some labels were simplified, such as donor names, business names, item
+categories, and team names. This project is for learning data organization and
+basic analysis. It should not be treated as an official financial record.
+
 ## Why I Built This Project
 
 During the event, the donation records came from different places. Some records
@@ -48,31 +58,51 @@ totals.
 June 2026: I plan to improve the notes, add clearer charts, and write a better
 final event report.
 
-
-The roadmap in `docs/development_roadmap.md` lists small updates I can make over
-time.
+The roadmap in `docs/development_roadmap.md` lists small updates I can make
+over time.
 
 ## Key Findings
 
-Finding 1: Direct donations were much larger than charity sale income.
+Finding 1: Direct donations were much larger than charity sale income. This
+makes sense because several donors gave one-time amounts, while sale income came
+from lower-priced items and also had simple item costs.
 
-Finding 2: Individual donors gave the largest total amount in this small
-dataset.
+Finding 2: Individual donors gave the largest total amount in this dataset. I
+expected business donors to be the largest group, so this was useful to check
+with the table instead of guessing.
 
 Finding 3: Handmade crafts had the highest sale revenue among the item
-categories.
+categories. They did not have the largest number of units sold, but their price
+per item was higher than many small items.
 
 Finding 4: Team C had the highest combined total from direct donations and sale
-activity.
-## Data Note
+activity. Most of this came from direct donations, not from the sale table.
 
-The data in this repository is an anonymized and cleaned version of event records. I did not upload original paper forms, phone numbers, real names, or organization names because they are private.
-
-Some labels were simplified, such as donor names, business names, item categories, and team names. This project is for learning data organization and basic analysis. It should not be treated as an official financial record.
-
-## Why I Built This Project
 Finding 5: The sale records were useful, but cost tracking needs to be more
 detailed next time.
+
+## Chart Preview
+
+The script creates chart image files after it runs. I also added two simple
+chart previews here so the main results are easy to see on GitHub.
+
+```mermaid
+pie title Direct Donations by Donor Type (CNY)
+    "Individual" : 15870
+    "Local Business" : 9000
+    "Community Group" : 2000
+```
+
+```mermaid
+pie title Sale Revenue by Item Category (CNY)
+    "Handmade Crafts" : 432
+    "Stationery" : 296
+    "Snacks" : 250
+    "Drawings" : 225
+    "Books" : 200
+    "Small Toys" : 180
+    "Keychains" : 168
+```
 
 ## Challenges
 
@@ -107,14 +137,9 @@ Improvement 1: Add a short data dictionary for each column.
 Improvement 2: Add a chart that compares direct donations and sale income side
 by side.
 
-Improvement 3: Add a report section about how the money could be tracked after
-the event.
+Improvement 3: Improve the daily trend chart so it is easier to read.
 
-Improvement 4: Improve the daily trend chart so it is easier to read.
-
-Improvement 5: Add notes about data cleaning decisions.
-
-Improvement 6: Add more tests for team totals and category totals.
+Improvement 4: Add more tests for team totals and category totals.
 
 ## Project Structure
 
@@ -125,8 +150,6 @@ community-charity-donation-analysis/
     +-- sale_records.csv
 +-- docs/
     +-- development_roadmap.md
-+-- outputs/
-    +-- figures/
 +-- reports/
 +-- src/
     +-- analyze_charity_sale.py
@@ -157,4 +180,4 @@ python -m unittest discover -s tests
 ```
 
 After running the script, the project creates summary tables in `reports/` and
-charts in `outputs/figures/`.
+chart image files in `outputs/figures/`.
