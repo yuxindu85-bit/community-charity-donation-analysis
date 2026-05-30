@@ -1,0 +1,28 @@
+item_id,received_date,item_category,item_name,quantity,estimated_unit_value_cny,condition,team,booth_area,status,estimated_total_value_cny
+I001,2026-05-13,Books,Story Books,18,18.0,Good,Team A,Booth A,Sold,324.0
+I002,2026-05-13,Books,Test Prep Books,10,25.0,Used,Team A,Booth A,Partially Sold,250.0
+I003,2026-05-14,Clothes,Jackets,7,45.0,Good,Team B,Booth B,Partially Sold,315.0
+I004,2026-05-14,Clothes,T-shirts,20,20.0,Mixed,Team B,Booth B,Partially Sold,400.0
+I005,2026-05-14,Toys,Building Blocks,8,35.0,Good,Team C,Booth C,Sold,280.0
+I006,2026-05-15,Toys,Plush Toys,15,18.0,Good,Team C,Booth C,Partially Sold,270.0
+I007,2026-05-15,Handmade Crafts,Handmade Soap,40,12.0,New,Team A,Shared Table,Partially Sold,480.0
+I008,2026-05-15,Handmade Crafts,Keychains,60,8.0,New,Team D,Shared Table,Partially Sold,480.0
+I009,2026-05-16,Electronics,Desk Lamps,6,65.0,Good,Team D,Booth D,Partially Sold,390.0
+I010,2026-05-16,Electronics,Earbuds,5,55.0,New,Team D,Booth D,Partially Sold,275.0
+I011,2026-05-16,Stationery,Notebooks,35,10.0,New,Team B,Booth A,Partially Sold,350.0
+I012,2026-05-16,Stationery,Pen Sets,40,8.0,New,Team B,Booth A,Partially Sold,320.0
+I013,2026-05-17,Accessories,Hair Clips,30,6.0,New,Team C,Shared Table,Partially Sold,180.0
+I014,2026-05-17,Accessories,Tote Bags,20,20.0,Good,Team C,Shared Table,Partially Sold,400.0
+I015,2026-05-17,Household Items,Cups,18,15.0,Good,Team D,Booth D,Partially Sold,270.0
+I016,2026-05-17,Household Items,Storage Boxes,10,24.0,Good,Team D,Booth D,Partially Sold,240.0
+I017,2026-05-18,Snacks,Cookies,50,6.0,New,Team A,Shared Table,Partially Sold,300.0
+I018,2026-05-18,Snacks,Drinks,60,5.0,New,Team A,Shared Table,Partially Sold,300.0
+I019,2026-05-18,Books,Picture Books,12,16.0,Good,Team C,Booth A,Partially Sold,192.0
+I020,2026-05-18,Clothes,Scarves,14,22.0,Good,Team B,Booth B,Partially Sold,308.0
+I021,2026-05-19,Toys,Board Games,6,50.0,Good,Team C,Booth C,Partially Sold,300.0
+I022,2026-05-19,Handmade Crafts,Greeting Cards,80,5.0,New,Team A,Shared Table,Partially Sold,400.0
+I023,2026-05-19,Electronics,Small Speakers,4,80.0,Good,Team D,Booth D,Partially Sold,320.0
+I024,2026-05-19,Stationery,Art Supplies,20,18.0,New,Team B,Booth A,Partially Sold,360.0
+I025,2026-05-20,Accessories,Bracelets,35,7.0,New,Team C,Shared Table,Partially Sold,245.0
+I026,2026-05-20,Household Items,Photo Frames,12,18.0,Good,Team D,Booth D,Partially Sold,216.0
+I027,2026-05-20,Snacks,Candy Packs,40,5.0,New,Team A,Shared Table,Partially Sold,200.0
