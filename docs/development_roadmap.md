@@ -1,59 +1,49 @@
 # Development Roadmap
 
 This roadmap lists realistic improvements I can make after the first version of
-the project.
+the project. The goal is to improve the data structure, charts, tests, and
+report quality over time.
 
 ## Week 1
 
-Task: Rewrite the README in a more personal style and explain why I made the
-project.
+Task: Check the CSV files and make sure each row is stored on its own line.
 
-Commit message: `Rewrite README with project background`
+Commit message: `Fix CSV file formatting`
 
-Task: Add a short generated event summary in `reports/event_summary.md`.
+Task: Fix Python file formatting and make sure the analysis script runs.
 
-Commit message: `Add first event summary report`
-
-Task: Check the direct donation total and charity sale total with unit tests.
-
-Commit message: `Add tests for donation and sale totals`
+Commit message: `Fix analysis script formatting`
 
 ## Week 2
 
-Task: Add a data dictionary that explains every column in the two CSV files.
+Task: Add clearer chart titles and labels.
 
-Commit message: `Add data dictionary for source files`
+Commit message: `Improve chart labels`
 
-Task: Improve the daily contribution chart with clearer labels.
+Task: Add a short data dictionary for the donation and sale records.
 
-Commit message: `Improve daily contribution chart labels`
-
-Task: Add a chart comparing direct donations with charity sale net contribution.
-
-Commit message: `Add donation and sale comparison chart`
+Commit message: `Add data dictionary`
 
 ## Week 3
 
-Task: Add notes about how private names were removed from the dataset.
+Task: Add more tests for donation totals, sale revenue, and team summaries.
 
-Commit message: `Document anonymization process`
+Commit message: `Add analysis tests`
 
-Task: Add category-level checks to make sure sale revenue totals match the raw
-records.
+Task: Improve the report so it explains how the data supported event planning.
 
-Commit message: `Add tests for category totals`
-
-Task: Improve the report so it includes a short reflection on record keeping.
-
-Commit message: `Expand event report reflection`
+Commit message: `Improve event summary report`
 
 ## Week 4
 
-Task: Add one final chart showing each team's direct donations and sale
-contribution side by side.
+Task: Add better item ID tracking if more complete item records are available.
 
-Commit message: `Add team comparison chart`
+Commit message: `Improve item tracking notes`
 
-Task: Clean up the README after all charts and reports are finished.
+Task: Compare estimated item value with final sale price.
 
-Commit message: `Update README after project improvements`
+Commit message: `Add value comparison idea`
+
+Task: Create a simple dashboard in the future if the project grows.
+
+Commit message: `Plan simple dashboard update`
