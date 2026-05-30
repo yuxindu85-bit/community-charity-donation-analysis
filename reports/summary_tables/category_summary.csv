@@ -1,9 +1,10 @@
-item_category,items_sold,sale_revenue,average_price
-Handmade Crafts,91,990,12.67
-Books,34,692,21.33
-Electronics,17,615,47.5
-Stationery,50,540,11.0
-Household Items,28,528,20.0
-Toys,21,526,26.0
-Accessories,35,500,19.0
-Clothes,20,430,27.0
+item_category,item_groups,total_quantity,estimated_total_value_cny,estimated_value_share
+Handmade Crafts,3,180,1360.0,0.1626
+Stationery,3,95,1030.0,0.1231
+Clothes,3,41,1023.0,0.1223
+Electronics,3,15,985.0,0.1178
+Toys,3,29,850.0,0.1016
+Accessories,3,85,825.0,0.0986
+Snacks,3,150,800.0,0.0956
+Books,3,40,766.0,0.0916
+Household Items,3,40,726.0,0.0868

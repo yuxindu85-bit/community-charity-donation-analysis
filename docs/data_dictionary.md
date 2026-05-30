@@ -1,61 +1,57 @@
 # Data Dictionary
 
-This document explains the sample datasets used in the project. The data is
-anonymized and cleaned for learning purposes.
+## donation_records_sample.csv
 
-## `data/raw/donation_records_sample.csv`
+- `donation_id`: anonymized donation record ID
+- `donation_date`: date when the donation was recorded
+- `donor_id`: anonymized donor ID, such as `Donor_001` or `Business_001`
+- `donor_type`: donor group, such as Individual, Family, Local Business, or Anonymous
+- `team`: team connected to the record
+- `donation_amount_cny`: direct donation amount in Chinese yuan
+- `payment_status`: whether the donation was received
+- `note`: short non-private note about the record
 
-Direct donation records.
+## item_inventory_sample.csv
 
-- `record_id`: Unique ID for each donation record.
-- `donation_date`: Date when the donation was recorded.
-- `team`: Volunteer team connected with the record.
-- `donor_id`: Anonymous donor label, such as `Donor_001` or `Business_001`.
-- `donor_type`: Type of donor, such as individual, local business, or community
-  group.
-- `donation_amount`: Direct donation amount in CNY.
+- `item_id`: anonymized item group ID
+- `received_date`: date when the item group was recorded
+- `item_category`: item category, such as Books, Clothes, Toys, or Snacks
+- `item_name`: simple item description without private information
+- `quantity`: number of items in the group
+- `estimated_unit_value_cny`: estimated value for one item before the sale
+- `condition`: condition of the item group
+- `team`: team responsible for the item group
+- `booth_area`: booth area where the item group was planned to be sold
+- `status`: sold status after the event
 
-## `data/raw/sale_records_sample.csv`
+## sale_records_sample.csv
 
-Records for items sold during the charity sale.
+- `sale_id`: anonymized sale record ID
+- `sale_date`: date of the charity sale
+- `item_id`: item group ID connected to the inventory file
+- `item_category`: category of the sold item
+- `booth_area`: booth area where the sale happened
+- `quantity_sold`: number of items sold in this record
+- `final_unit_price_cny`: final sale price for one item
+- `total_sale_cny`: total sale amount, equal to quantity sold times final unit price
+- `team`: team connected to the sale record
+- `payment_method`: payment method used for the sale
 
-- `sale_id`: Unique ID for each sale record.
-- `sale_date`: Date when the item was sold.
-- `team`: Team that handled the sale record.
-- `item_id`: Item ID that connects the sale record with the inventory table.
-- `item_category`: Item group, such as books, clothes, toys, or stationery.
-- `item_name`: Simple item description.
-- `quantity`: Number of items sold.
-- `final_sale_price`: Final price per item in CNY.
+## booth_layout_sample.csv
 
-## `data/raw/item_inventory_sample.csv`
+- `booth_id`: anonymized booth record ID
+- `booth_area`: booth area name
+- `main_category`: main item type assigned to the booth
+- `assigned_team`: team mainly responsible for the booth
+- `table_count`: number of tables planned for the booth
+- `estimated_items`: planned number of items
+- `actual_items`: actual number of items placed in the booth
+- `notes`: short planning notes without private information
 
-Preparation records for donated items.
+## Processed Files
 
-- `item_id`: Unique item ID.
-- `item_category`: Item group.
-- `item_name`: Simple item description.
-- `estimated_value`: Estimated value per item in CNY before the sale.
-- `quantity`: Number of donated items recorded before the sale.
-- `booth_area`: Planned booth or display area.
-- `team`: Team responsible for the item group.
-- `preparation_status`: Preparation status before the sale.
-
-## `data/processed/cleaned_charity_sale_data.csv`
-
-Cleaned dataset created by `src/clean_data.py`.
-
-- `record_id`: Original donation ID or sale ID.
-- `record_type`: `direct_donation` or `charity_sale`.
-- `date`: Donation date or sale date.
-- `team`: Standardized team name.
-- `donor_id`: Anonymous donor ID for direct donations.
-- `donor_type`: Donor type for direct donations.
-- `item_id`: Item ID for sale records.
-- `item_category`: Sale category or `Direct Donation`.
-- `item_name`: Item description for sale records.
-- `quantity`: Number of items sold, or 1 for direct donations.
-- `estimated_value`: Estimated item value or donation amount.
-- `final_sale_price`: Final sale price per item. Direct donations use 0.
-- `amount_cny`: Donation amount or sale revenue in CNY.
-- `booth_area`: Booth area for sale records.
+- `cleaned_donations.csv`: cleaned direct donation records
+- `cleaned_inventory.csv`: cleaned inventory records with estimated total value
+- `cleaned_sales.csv`: cleaned sale records after total checks
+- `cleaned_booth_layout.csv`: cleaned booth planning records
+- `merged_event_data.csv`: inventory data joined with item-level sale totals

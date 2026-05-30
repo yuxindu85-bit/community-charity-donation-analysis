@@ -1,0 +1,36 @@
+sale_id,sale_date,item_id,item_category,booth_area,quantity_sold,final_unit_price_cny,total_sale_cny,team,payment_method
+S001,2026-05-23,I001,Books,Booth A,8,16.0,128.0,Team A,WeChat Pay
+S002,2026-05-23,I001,Books,Booth A,10,15.0,150.0,Team A,Cash
+S003,2026-05-23,I002,Books,Booth A,6,22.0,132.0,Team A,Alipay
+S004,2026-05-23,I003,Clothes,Booth B,5,38.0,190.0,Team B,WeChat Pay
+S005,2026-05-23,I004,Clothes,Booth B,14,16.0,224.0,Team B,Cash
+S006,2026-05-23,I004,Clothes,Booth B,4,15.0,60.0,Team B,Alipay
+S007,2026-05-23,I005,Toys,Booth C,8,32.0,256.0,Team C,WeChat Pay
+S008,2026-05-23,I006,Toys,Booth C,10,15.0,150.0,Team C,Cash
+S009,2026-05-23,I006,Toys,Booth C,3,12.0,36.0,Team C,Other
+S010,2026-05-23,I007,Handmade Crafts,Shared Table,25,10.0,250.0,Team A,WeChat Pay
+S011,2026-05-23,I007,Handmade Crafts,Shared Table,10,8.0,80.0,Team A,Cash
+S012,2026-05-23,I008,Handmade Crafts,Shared Table,40,6.0,240.0,Team D,WeChat Pay
+S013,2026-05-23,I008,Handmade Crafts,Shared Table,12,5.0,60.0,Team D,Cash
+S014,2026-05-23,I009,Electronics,Booth D,4,58.0,232.0,Team D,WeChat Pay
+S015,2026-05-23,I010,Electronics,Booth D,3,45.0,135.0,Team D,Alipay
+S016,2026-05-23,I011,Stationery,Booth A,20,8.0,160.0,Team B,Cash
+S017,2026-05-23,I011,Stationery,Booth A,10,7.0,70.0,Team B,WeChat Pay
+S018,2026-05-23,I012,Stationery,Booth A,25,6.0,150.0,Team B,Alipay
+S019,2026-05-23,I013,Accessories,Shared Table,20,5.0,100.0,Team C,WeChat Pay
+S020,2026-05-23,I014,Accessories,Shared Table,15,16.0,240.0,Team C,Cash
+S021,2026-05-23,I015,Household Items,Booth D,12,12.0,144.0,Team D,WeChat Pay
+S022,2026-05-23,I016,Household Items,Booth D,6,20.0,120.0,Team D,Cash
+S023,2026-05-23,I017,Snacks,Shared Table,35,5.0,175.0,Team A,WeChat Pay
+S024,2026-05-23,I017,Snacks,Shared Table,10,4.0,40.0,Team A,Cash
+S025,2026-05-23,I018,Snacks,Shared Table,45,4.0,180.0,Team A,Alipay
+S026,2026-05-23,I019,Books,Booth A,10,14.0,140.0,Team C,WeChat Pay
+S027,2026-05-23,I020,Clothes,Booth B,8,18.0,144.0,Team B,Cash
+S028,2026-05-23,I021,Toys,Booth C,5,42.0,210.0,Team C,WeChat Pay
+S029,2026-05-23,I022,Handmade Crafts,Shared Table,50,4.0,200.0,Team A,Alipay
+S030,2026-05-23,I022,Handmade Crafts,Shared Table,20,3.0,60.0,Team A,Cash
+S031,2026-05-23,I023,Electronics,Booth D,3,66.0,198.0,Team D,WeChat Pay
+S032,2026-05-23,I024,Stationery,Booth A,15,15.0,225.0,Team B,Alipay
+S033,2026-05-23,I025,Accessories,Shared Table,25,6.0,150.0,Team C,WeChat Pay
+S034,2026-05-23,I026,Household Items,Booth D,8,15.0,120.0,Team D,Cash
+S035,2026-05-23,I027,Snacks,Shared Table,30,4.0,120.0,Team A,WeChat Pay

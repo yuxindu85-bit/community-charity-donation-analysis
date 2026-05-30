@@ -1,18 +1,17 @@
 # Workflow Notes
 
-This is the workflow I used for the project.
+The project workflow follows the way I reviewed the charity sale records after
+the activity.
 
-1. Collect or receive records from event preparation and post-event review.
-2. Remove private information such as real names, phone numbers, school names,
-   and organization names.
-3. Organize the records into CSV files for donations, sales, and item inventory.
+1. Collect or receive donation, inventory, sale, and booth planning records.
+2. Remove private information and replace names with anonymous IDs.
+3. Organize the records into CSV files.
 4. Clean missing or inconsistent values.
-5. Standardize item categories and team names.
-6. Calculate donation totals and sale totals.
-7. Group the data by item category and team.
-8. Create charts for the main results.
-9. Write a final review report with findings and limitations.
-
-The workflow is simple, but it helped me avoid mixing donation records with sale
-records. It also made it easier to check whether the totals matched the source
-tables.
+5. Standardize item category names and team names.
+6. Check that sale totals equal quantity sold times final unit price.
+7. Summarize direct donations by donor type and team.
+8. Analyze item categories, quantities, and estimated values.
+9. Analyze sale revenue by category, booth, and team.
+10. Compare estimated item value with final sale price.
+11. Review booth planning and item allocation.
+12. Create charts and write short event review reports.

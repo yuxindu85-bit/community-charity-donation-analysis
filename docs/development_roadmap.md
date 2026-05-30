@@ -1,47 +1,50 @@
 # Development Roadmap
 
-This roadmap lists realistic improvements I can make after the first version of
-the project.
+This roadmap lists realistic improvements I can make after the first version
+of the project. The goal is to improve the data structure, charts, tests, and
+report quality over time.
 
 ## Week 1
 
-Task: Improve the README so it explains my role and the purpose of the project
-more clearly.
+Task: Check raw CSV formatting and make sure each record is stored on its own
+line.
 
-Commit message: `Improve README project description`
+Commit message: `Fix raw data formatting`
 
-Task: Add background notes about the charity sale and the data privacy process.
+Task: Add cleaning scripts for donation, inventory, sale, and booth records.
 
-Commit message: `Add project background notes`
+Commit message: `Add data cleaning workflow`
 
 ## Week 2
 
-Task: Add better item ID tracking between inventory records and sale records.
+Task: Add separate analysis scripts for donations, inventory, sales, and booth
+layout.
 
-Commit message: `Improve item ID tracking notes`
+Commit message: `Split analysis into focused scripts`
 
-Task: Compare estimated item value with final sale price.
+Task: Add validation for sale totals and private information columns.
 
-Commit message: `Add estimated value comparison`
+Commit message: `Add data validation checks`
 
 ## Week 3
 
-Task: Add booth-level or sale-time fields if more complete records are
-available.
+Task: Add charts for category revenue, item quantity, team contribution, booth
+revenue, and donation source breakdown.
 
-Commit message: `Add booth level sale notes`
+Commit message: `Add event analysis charts`
 
-Task: Improve chart labels and make the chart titles easier to understand.
+Task: Add report files that summarize the event results and operations review.
 
-Commit message: `Improve chart labels`
+Commit message: `Add charity sale review reports`
 
 ## Week 4
 
-Task: Add more tests for category totals and team totals.
+Task: Add unit tests for data cleaning, calculations, outputs, and privacy
+checks.
 
-Commit message: `Add more analysis tests`
+Commit message: `Add project validation tests`
 
-Task: Create a simple dashboard in the future to show the main totals in one
-place.
+Task: Add a simple notebook walkthrough for readers who want a step-by-step
+view of the analysis.
 
-Commit message: `Plan simple charity sale dashboard`
+Commit message: `Add analysis walkthrough notebook`

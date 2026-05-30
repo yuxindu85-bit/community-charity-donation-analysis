@@ -1,135 +1,147 @@
-from pathlib import Path
-
-import pandas as pd
-
-
-PROJECT_ROOT = Path(__file__).resolve().parents[1]
-RAW_DATA_DIR = PROJECT_ROOT / "data" / "raw"
-PROCESSED_DATA_DIR = PROJECT_ROOT / "data" / "processed"
-CLEANED_DATA_FILE = PROCESSED_DATA_DIR / "cleaned_charity_sale_data.csv"
-
-
-TEAM_NAMES = {"team a": "Team A", "team b": "Team B", "team c": "Team C", "team d": "Team D"}
+from utils import (
+    DATA_PROCESSED_DIR,
+    DATA_RAW_DIR,
+    clean_text_columns,
+    ensure_directory,
+    load_csv,
+    save_csv,
+    standardize_category,
+    standardize_team,
+)
 
 
-def standardize_team(value: object) -> str:
-    text = str(value).strip()
-    return TEAM_NAMES.get(text.lower(), text)
+PRIVATE_COLUMNS = {"real_name", "phone_number", "address", "email", "school_name"}
 
 
-def standardize_category(value: object) -> str:
-    text = str(value).strip()
-    return " ".join(word.capitalize() for word in text.split())
+def check_private_columns(dataframes):
+    for file_name, dataframe in dataframes.items():
+        private_matches = PRIVATE_COLUMNS.intersection(set(dataframe.columns))
+        if private_matches:
+            columns = ", ".join(sorted(private_matches))
+            raise ValueError(f"{file_name} contains private columns: {columns}")
 
 
-def load_raw_data() -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
-    donations = pd.read_csv(RAW_DATA_DIR / "donation_records_sample.csv")
-    sales = pd.read_csv(RAW_DATA_DIR / "sale_records_sample.csv")
-    inventory = pd.read_csv(RAW_DATA_DIR / "item_inventory_sample.csv")
-    return donations, sales, inventory
-
-
-def clean_donation_records(donations: pd.DataFrame) -> pd.DataFrame:
-    cleaned = donations.copy()
-    cleaned["donation_date"] = pd.to_datetime(cleaned["donation_date"])
+def clean_donations(donations):
+    cleaned = clean_text_columns(donations)
+    cleaned["donation_date"] = cleaned["donation_date"].fillna("Unknown")
+    cleaned["donor_type"] = cleaned["donor_type"].replace("", "Unknown")
     cleaned["team"] = cleaned["team"].apply(standardize_team)
-    cleaned["donor_id"] = cleaned["donor_id"].fillna("Unknown_Donor").astype(str).str.strip()
-    cleaned["donor_type"] = cleaned["donor_type"].fillna("Unknown").astype(str).str.strip()
-    cleaned["donation_amount"] = pd.to_numeric(cleaned["donation_amount"], errors="coerce").fillna(0)
-    cleaned = cleaned[cleaned["donation_amount"] > 0].reset_index(drop=True)
+    cleaned["donation_amount_cny"] = cleaned["donation_amount_cny"].fillna(0).astype(float)
+    cleaned["payment_status"] = cleaned["payment_status"].replace("", "Unknown")
+
+    if (cleaned["donation_amount_cny"] < 0).any():
+        raise ValueError("Donation amounts cannot be negative.")
+
     return cleaned
 
 
-def clean_inventory_records(inventory: pd.DataFrame) -> pd.DataFrame:
-    cleaned = inventory.copy()
-    cleaned["team"] = cleaned["team"].apply(standardize_team)
+def clean_inventory(inventory):
+    cleaned = clean_text_columns(inventory)
     cleaned["item_category"] = cleaned["item_category"].apply(standardize_category)
-    cleaned["estimated_value"] = pd.to_numeric(cleaned["estimated_value"], errors="coerce").fillna(0)
-    cleaned["quantity"] = pd.to_numeric(cleaned["quantity"], errors="coerce").fillna(0).astype(int)
-    cleaned["booth_area"] = cleaned["booth_area"].fillna("Unassigned").astype(str).str.strip()
-    cleaned["preparation_status"] = (
-        cleaned["preparation_status"].fillna("Not Checked").astype(str).str.strip()
+    cleaned["team"] = cleaned["team"].apply(standardize_team)
+    cleaned["quantity"] = cleaned["quantity"].fillna(0).astype(int)
+    cleaned["estimated_unit_value_cny"] = (
+        cleaned["estimated_unit_value_cny"].fillna(0).astype(float)
     )
+    cleaned["estimated_total_value_cny"] = (
+        cleaned["quantity"] * cleaned["estimated_unit_value_cny"]
+    )
+    cleaned["condition"] = cleaned["condition"].replace("", "Unknown")
+    cleaned["status"] = cleaned["status"].replace("", "Unknown")
+
+    if (cleaned["quantity"] < 0).any():
+        raise ValueError("Inventory quantity cannot be negative.")
+    if (cleaned["estimated_unit_value_cny"] < 0).any():
+        raise ValueError("Estimated unit value cannot be negative.")
+
     return cleaned
 
 
-def clean_sale_records(sales: pd.DataFrame, inventory: pd.DataFrame) -> pd.DataFrame:
-    cleaned = sales.copy()
-    cleaned["sale_date"] = pd.to_datetime(cleaned["sale_date"])
-    cleaned["team"] = cleaned["team"].apply(standardize_team)
+def clean_sales(sales):
+    cleaned = clean_text_columns(sales)
     cleaned["item_category"] = cleaned["item_category"].apply(standardize_category)
-    cleaned["quantity"] = pd.to_numeric(cleaned["quantity"], errors="coerce").fillna(0).astype(int)
-    cleaned["final_sale_price"] = pd.to_numeric(
-        cleaned["final_sale_price"], errors="coerce"
-    ).fillna(0)
-    cleaned = cleaned[(cleaned["quantity"] > 0) & (cleaned["final_sale_price"] > 0)].copy()
-    cleaned["sale_revenue"] = cleaned["quantity"] * cleaned["final_sale_price"]
+    cleaned["team"] = cleaned["team"].apply(standardize_team)
+    cleaned["quantity_sold"] = cleaned["quantity_sold"].fillna(0).astype(int)
+    cleaned["final_unit_price_cny"] = cleaned["final_unit_price_cny"].fillna(0).astype(float)
+    cleaned["total_sale_cny"] = cleaned["total_sale_cny"].fillna(0).astype(float)
 
-    inventory_lookup = inventory[
-        ["item_id", "estimated_value", "booth_area", "preparation_status"]
-    ].drop_duplicates("item_id")
-    cleaned = cleaned.merge(inventory_lookup, on="item_id", how="left")
-    cleaned["estimated_value"] = cleaned["estimated_value"].fillna(cleaned["final_sale_price"])
-    cleaned["booth_area"] = cleaned["booth_area"].fillna("Unassigned")
-    cleaned["preparation_status"] = cleaned["preparation_status"].fillna("Not Checked")
-    return cleaned.reset_index(drop=True)
+    expected_total = cleaned["quantity_sold"] * cleaned["final_unit_price_cny"]
+    mismatched_rows = cleaned[cleaned["total_sale_cny"].round(2) != expected_total.round(2)]
+    if not mismatched_rows.empty:
+        ids = ", ".join(mismatched_rows["sale_id"].tolist())
+        raise ValueError(f"Sale totals do not match quantity x unit price: {ids}")
+
+    if (cleaned["quantity_sold"] < 0).any():
+        raise ValueError("Quantity sold cannot be negative.")
+    if (cleaned["final_unit_price_cny"] < 0).any():
+        raise ValueError("Final unit price cannot be negative.")
+
+    return cleaned
 
 
-def build_cleaned_dataset(donations: pd.DataFrame, sales: pd.DataFrame) -> pd.DataFrame:
-    donation_rows = pd.DataFrame(
+def clean_booth_layout(booths):
+    cleaned = clean_text_columns(booths)
+    cleaned["assigned_team"] = cleaned["assigned_team"].apply(standardize_team)
+    cleaned["table_count"] = cleaned["table_count"].fillna(0).astype(int)
+    cleaned["estimated_items"] = cleaned["estimated_items"].fillna(0).astype(int)
+    cleaned["actual_items"] = cleaned["actual_items"].fillna(0).astype(int)
+    return cleaned
+
+
+def create_merged_event_data(cleaned_inventory, cleaned_sales):
+    item_sales = (
+        cleaned_sales.groupby("item_id", as_index=False)
+        .agg(
+            quantity_sold=("quantity_sold", "sum"),
+            actual_sale_total_cny=("total_sale_cny", "sum"),
+        )
+    )
+    merged = cleaned_inventory.merge(item_sales, on="item_id", how="left")
+    merged["quantity_sold"] = merged["quantity_sold"].fillna(0).astype(int)
+    merged["actual_sale_total_cny"] = merged["actual_sale_total_cny"].fillna(0)
+    merged["estimated_sold_value_cny"] = (
+        merged["quantity_sold"] * merged["estimated_unit_value_cny"]
+    )
+    merged["price_difference_cny"] = (
+        merged["actual_sale_total_cny"] - merged["estimated_sold_value_cny"]
+    )
+    return merged
+
+
+def run_cleaning():
+    donations = load_csv(DATA_RAW_DIR / "donation_records_sample.csv")
+    inventory = load_csv(DATA_RAW_DIR / "item_inventory_sample.csv")
+    sales = load_csv(DATA_RAW_DIR / "sale_records_sample.csv")
+    booths = load_csv(DATA_RAW_DIR / "booth_layout_sample.csv")
+
+    check_private_columns(
         {
-            "record_id": donations["record_id"],
-            "record_type": "direct_donation",
-            "date": donations["donation_date"],
-            "team": donations["team"],
-            "donor_id": donations["donor_id"],
-            "donor_type": donations["donor_type"],
-            "item_id": "",
-            "item_category": "Direct Donation",
-            "item_name": "",
-            "quantity": 1,
-            "estimated_value": donations["donation_amount"],
-            "final_sale_price": 0,
-            "amount_cny": donations["donation_amount"],
-            "booth_area": "",
+            "donation_records_sample.csv": donations,
+            "item_inventory_sample.csv": inventory,
+            "sale_records_sample.csv": sales,
+            "booth_layout_sample.csv": booths,
         }
     )
 
-    sale_rows = pd.DataFrame(
-        {
-            "record_id": sales["sale_id"],
-            "record_type": "charity_sale",
-            "date": sales["sale_date"],
-            "team": sales["team"],
-            "donor_id": "",
-            "donor_type": "",
-            "item_id": sales["item_id"],
-            "item_category": sales["item_category"],
-            "item_name": sales["item_name"],
-            "quantity": sales["quantity"],
-            "estimated_value": sales["estimated_value"],
-            "final_sale_price": sales["final_sale_price"],
-            "amount_cny": sales["sale_revenue"],
-            "booth_area": sales["booth_area"],
-        }
-    )
+    cleaned_donations = clean_donations(donations)
+    cleaned_inventory = clean_inventory(inventory)
+    cleaned_sales = clean_sales(sales)
+    cleaned_booths = clean_booth_layout(booths)
+    merged_event_data = create_merged_event_data(cleaned_inventory, cleaned_sales)
 
-    cleaned = pd.concat([donation_rows, sale_rows], ignore_index=True)
-    cleaned["date"] = pd.to_datetime(cleaned["date"]).dt.strftime("%Y-%m-%d")
-    return cleaned.sort_values(["date", "record_type", "record_id"]).reset_index(drop=True)
+    ensure_directory(DATA_PROCESSED_DIR)
+    save_csv(cleaned_donations, DATA_PROCESSED_DIR / "cleaned_donations.csv")
+    save_csv(cleaned_inventory, DATA_PROCESSED_DIR / "cleaned_inventory.csv")
+    save_csv(cleaned_sales, DATA_PROCESSED_DIR / "cleaned_sales.csv")
+    save_csv(cleaned_booths, DATA_PROCESSED_DIR / "cleaned_booth_layout.csv")
+    save_csv(merged_event_data, DATA_PROCESSED_DIR / "merged_event_data.csv")
 
-
-def main() -> None:
-    donations, sales, inventory = load_raw_data()
-    clean_donations = clean_donation_records(donations)
-    clean_inventory = clean_inventory_records(inventory)
-    clean_sales = clean_sale_records(sales, clean_inventory)
-    cleaned_dataset = build_cleaned_dataset(clean_donations, clean_sales)
-
-    PROCESSED_DATA_DIR.mkdir(parents=True, exist_ok=True)
-    cleaned_dataset.to_csv(CLEANED_DATA_FILE, index=False)
-    print(f"Saved cleaned data to {CLEANED_DATA_FILE}")
+    print("Cleaning finished.")
+    print(f"Donation records: {len(cleaned_donations)}")
+    print(f"Inventory item groups: {len(cleaned_inventory)}")
+    print(f"Sale records: {len(cleaned_sales)}")
+    print(f"Booth records: {len(cleaned_booths)}")
 
 
 if __name__ == "__main__":
-    main()
+    run_cleaning()

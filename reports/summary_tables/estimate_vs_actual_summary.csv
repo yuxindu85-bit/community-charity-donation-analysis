@@ -1,0 +1,10 @@
+item_category,quantity_sold,estimated_sold_value_cny,actual_sale_total_cny,price_difference_cny,actual_to_estimate_rate
+Handmade Crafts,157,1186.0,890.0,-296.0,0.75
+Toys,26,764.0,652.0,-112.0,0.853
+Clothes,31,761.0,618.0,-143.0,0.812
+Stationery,70,770.0,605.0,-165.0,0.786
+Electronics,10,665.0,565.0,-100.0,0.85
+Books,34,634.0,550.0,-84.0,0.868
+Snacks,120,645.0,515.0,-130.0,0.798
+Accessories,60,595.0,490.0,-105.0,0.824
+Household Items,26,468.0,384.0,-84.0,0.821

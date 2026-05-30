@@ -1,19 +1,36 @@
-sale_id,sale_date,team,item_id,item_category,item_name,quantity,final_sale_price
-S001,2026-05-23,Team A,I001,Books,Children Books,12,18
-S002,2026-05-23,Team B,I002,Clothes,Winter Jackets,5,38
-S003,2026-05-23,Team C,I003,Toys,Puzzle Sets,8,30
-S004,2026-05-23,Team A,I004,Handmade Crafts,Handmade Soap,16,20
-S005,2026-05-23,Team D,I005,Electronics,Desk Lamps,5,75
-S006,2026-05-23,Team B,I006,Stationery,Notebook Packs,20,12
-S007,2026-05-23,Team C,I007,Accessories,Hair Clips,25,8
-S008,2026-05-23,Team D,I008,Household Items,Storage Baskets,10,24
-S009,2026-05-23,Team A,I009,Books,Study Guides,8,28
-S010,2026-05-23,Team B,I010,Clothes,Scarves,15,16
-S011,2026-05-23,Team C,I011,Toys,Plush Toys,13,22
-S012,2026-05-23,Team A,I012,Handmade Crafts,Painted Cards,35,10
-S013,2026-05-23,Team D,I013,Electronics,Phone Stands,12,20
-S014,2026-05-23,Team B,I014,Stationery,Pen Sets,30,10
-S015,2026-05-23,Team C,I015,Accessories,Tote Bags,10,30
-S016,2026-05-23,Team D,I016,Household Items,Mugs,18,16
-S017,2026-05-23,Team A,I017,Handmade Crafts,Keychains,40,8
-S018,2026-05-23,Team C,I018,Books,Picture Books,14,18
+sale_id,sale_date,item_id,item_category,booth_area,quantity_sold,final_unit_price_cny,total_sale_cny,team,payment_method
+S001,2026-05-23,I001,Books,Booth A,8,16,128,Team A,WeChat Pay
+S002,2026-05-23,I001,Books,Booth A,10,15,150,Team A,Cash
+S003,2026-05-23,I002,Books,Booth A,6,22,132,Team A,Alipay
+S004,2026-05-23,I003,Clothes,Booth B,5,38,190,Team B,WeChat Pay
+S005,2026-05-23,I004,Clothes,Booth B,14,16,224,Team B,Cash
+S006,2026-05-23,I004,Clothes,Booth B,4,15,60,Team B,Alipay
+S007,2026-05-23,I005,Toys,Booth C,8,32,256,Team C,WeChat Pay
+S008,2026-05-23,I006,Toys,Booth C,10,15,150,Team C,Cash
+S009,2026-05-23,I006,Toys,Booth C,3,12,36,Team C,Other
+S010,2026-05-23,I007,Handmade Crafts,Shared Table,25,10,250,Team A,WeChat Pay
+S011,2026-05-23,I007,Handmade Crafts,Shared Table,10,8,80,Team A,Cash
+S012,2026-05-23,I008,Handmade Crafts,Shared Table,40,6,240,Team D,WeChat Pay
+S013,2026-05-23,I008,Handmade Crafts,Shared Table,12,5,60,Team D,Cash
+S014,2026-05-23,I009,Electronics,Booth D,4,58,232,Team D,WeChat Pay
+S015,2026-05-23,I010,Electronics,Booth D,3,45,135,Team D,Alipay
+S016,2026-05-23,I011,Stationery,Booth A,20,8,160,Team B,Cash
+S017,2026-05-23,I011,Stationery,Booth A,10,7,70,Team B,WeChat Pay
+S018,2026-05-23,I012,Stationery,Booth A,25,6,150,Team B,Alipay
+S019,2026-05-23,I013,Accessories,Shared Table,20,5,100,Team C,WeChat Pay
+S020,2026-05-23,I014,Accessories,Shared Table,15,16,240,Team C,Cash
+S021,2026-05-23,I015,Household Items,Booth D,12,12,144,Team D,WeChat Pay
+S022,2026-05-23,I016,Household Items,Booth D,6,20,120,Team D,Cash
+S023,2026-05-23,I017,Snacks,Shared Table,35,5,175,Team A,WeChat Pay
+S024,2026-05-23,I017,Snacks,Shared Table,10,4,40,Team A,Cash
+S025,2026-05-23,I018,Snacks,Shared Table,45,4,180,Team A,Alipay
+S026,2026-05-23,I019,Books,Booth A,10,14,140,Team C,WeChat Pay
+S027,2026-05-23,I020,Clothes,Booth B,8,18,144,Team B,Cash
+S028,2026-05-23,I021,Toys,Booth C,5,42,210,Team C,WeChat Pay
+S029,2026-05-23,I022,Handmade Crafts,Shared Table,50,4,200,Team A,Alipay
+S030,2026-05-23,I022,Handmade Crafts,Shared Table,20,3,60,Team A,Cash
+S031,2026-05-23,I023,Electronics,Booth D,3,66,198,Team D,WeChat Pay
+S032,2026-05-23,I024,Stationery,Booth A,15,15,225,Team B,Alipay
+S033,2026-05-23,I025,Accessories,Shared Table,25,6,150,Team C,WeChat Pay
+S034,2026-05-23,I026,Household Items,Booth D,8,15,120,Team D,Cash
+S035,2026-05-23,I027,Snacks,Shared Table,30,4,120,Team A,WeChat Pay

@@ -1,0 +1,18 @@
+donation_id,donation_date,donor_id,donor_type,team,donation_amount_cny,payment_status,note
+D001,2026-05-10,Business_001,Local Business,Team A,3000.0,Received,opening support
+D002,2026-05-10,Business_002,Local Business,Team B,2000.0,Received,business donation
+D003,2026-05-11,Business_003,Local Business,Team C,1500.0,Received,business donation
+D004,2026-05-11,Business_004,Local Business,Team D,1200.0,Received,business donation
+D005,2026-05-12,Business_005,Local Business,Team A,1000.0,Received,business donation
+D006,2026-05-12,Family_001,Family,Team B,5000.0,Received,family donation
+D007,2026-05-13,Family_002,Family,Team C,3000.0,Received,family donation
+D008,2026-05-13,Family_003,Family,Team D,1500.0,Received,family donation
+D009,2026-05-14,Donor_001,Individual,Team A,1000.0,Received,individual donation
+D010,2026-05-14,Donor_002,Individual,Team B,800.0,Received,individual donation
+D011,2026-05-15,Donor_003,Individual,Team C,666.0,Received,individual donation
+D012,2026-05-15,Donor_004,Individual,Team D,500.0,Received,individual donation
+D013,2026-05-16,Donor_005,Individual,Team A,388.0,Received,individual donation
+D014,2026-05-16,Anonymous_001,Anonymous,Team D,260.0,Received,anonymous donation
+D015,2026-05-17,Donor_006,Individual,Team C,168.0,Received,individual donation
+D016,2026-05-17,Donor_007,Individual,Team B,120.0,Received,individual donation
+D017,2026-05-18,Donor_008,Individual,Team A,88.0,Received,individual donation

@@ -1,19 +1,28 @@
-item_id,item_category,item_name,estimated_value,quantity,booth_area,team,preparation_status
-I001,Books,Children Books,20,15,Booth 1,Team A,Ready
-I002,Clothes,Winter Jackets,35,8,Booth 2,Team B,Ready
-I003,Toys,Puzzle Sets,28,10,Booth 1,Team C,Ready
-I004,Handmade Crafts,Handmade Soap,18,18,Booth 3,Team A,Ready
-I005,Electronics,Desk Lamps,60,6,Booth 4,Team D,Ready
-I006,Stationery,Notebook Packs,12,25,Booth 2,Team B,Ready
-I007,Accessories,Hair Clips,10,30,Booth 3,Team C,Ready
-I008,Household Items,Storage Baskets,22,12,Booth 4,Team D,Ready
-I009,Books,Study Guides,25,10,Booth 1,Team A,Ready
-I010,Clothes,Scarves,16,18,Booth 2,Team B,Ready
-I011,Toys,Plush Toys,20,15,Booth 1,Team C,Ready
-I012,Handmade Crafts,Painted Cards,8,40,Booth 3,Team A,Ready
-I013,Electronics,Phone Stands,18,14,Booth 4,Team D,Ready
-I014,Stationery,Pen Sets,10,35,Booth 2,Team B,Ready
-I015,Accessories,Tote Bags,26,12,Booth 3,Team C,Ready
-I016,Household Items,Mugs,15,20,Booth 4,Team D,Ready
-I017,Handmade Crafts,Keychains,9,45,Booth 3,Team A,Ready
-I018,Books,Picture Books,15,16,Booth 1,Team C,Ready
+item_id,received_date,item_category,item_name,quantity,estimated_unit_value_cny,condition,team,booth_area,status
+I001,2026-05-13,Books,Story Books,18,18,Good,Team A,Booth A,Sold
+I002,2026-05-13,Books,Test Prep Books,10,25,Used,Team A,Booth A,Partially Sold
+I003,2026-05-14,Clothes,Jackets,7,45,Good,Team B,Booth B,Partially Sold
+I004,2026-05-14,Clothes,T-shirts,20,20,Mixed,Team B,Booth B,Partially Sold
+I005,2026-05-14,Toys,Building Blocks,8,35,Good,Team C,Booth C,Sold
+I006,2026-05-15,Toys,Plush Toys,15,18,Good,Team C,Booth C,Partially Sold
+I007,2026-05-15,Handmade Crafts,Handmade Soap,40,12,New,Team A,Shared Table,Partially Sold
+I008,2026-05-15,Handmade Crafts,Keychains,60,8,New,Team D,Shared Table,Partially Sold
+I009,2026-05-16,Electronics,Desk Lamps,6,65,Good,Team D,Booth D,Partially Sold
+I010,2026-05-16,Electronics,Earbuds,5,55,New,Team D,Booth D,Partially Sold
+I011,2026-05-16,Stationery,Notebooks,35,10,New,Team B,Booth A,Partially Sold
+I012,2026-05-16,Stationery,Pen Sets,40,8,New,Team B,Booth A,Partially Sold
+I013,2026-05-17,Accessories,Hair Clips,30,6,New,Team C,Shared Table,Partially Sold
+I014,2026-05-17,Accessories,Tote Bags,20,20,Good,Team C,Shared Table,Partially Sold
+I015,2026-05-17,Household Items,Cups,18,15,Good,Team D,Booth D,Partially Sold
+I016,2026-05-17,Household Items,Storage Boxes,10,24,Good,Team D,Booth D,Partially Sold
+I017,2026-05-18,Snacks,Cookies,50,6,New,Team A,Shared Table,Partially Sold
+I018,2026-05-18,Snacks,Drinks,60,5,New,Team A,Shared Table,Partially Sold
+I019,2026-05-18,Books,Picture Books,12,16,Good,Team C,Booth A,Partially Sold
+I020,2026-05-18,Clothes,Scarves,14,22,Good,Team B,Booth B,Partially Sold
+I021,2026-05-19,Toys,Board Games,6,50,Good,Team C,Booth C,Partially Sold
+I022,2026-05-19,Handmade Crafts,Greeting Cards,80,5,New,Team A,Shared Table,Partially Sold
+I023,2026-05-19,Electronics,Small Speakers,4,80,Good,Team D,Booth D,Partially Sold
+I024,2026-05-19,Stationery,Art Supplies,20,18,New,Team B,Booth A,Partially Sold
+I025,2026-05-20,Accessories,Bracelets,35,7,New,Team C,Shared Table,Partially Sold
+I026,2026-05-20,Household Items,Photo Frames,12,18,Good,Team D,Booth D,Partially Sold
+I027,2026-05-20,Snacks,Candy Packs,40,5,New,Team A,Shared Table,Partially Sold

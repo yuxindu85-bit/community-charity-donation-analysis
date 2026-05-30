@@ -2,54 +2,85 @@
 
 ## Overview
 
-This report summarizes an anonymized charity sale dataset. The event combined
-direct donations with income from donated items. In this sample dataset, direct
-donations totaled 23,090 CNY and charity sale revenue totaled
-4,821 CNY. The combined total was 27,911 CNY.
+This report summarizes an anonymized charity sale data analysis project. The
+sample records include direct donations, donated item inventory, sale records,
+and booth planning notes. The sample analysis shows total funds raised of over
+¥26,000.
+
+## Event Background
+
+The charity sale included direct donations and item sales. I contributed to the
+data and operations side by organizing item records, estimating values,
+maintaining spreadsheets, helping with item allocation, supporting booth
+planning, tracking preparation progress, and reviewing post-event data.
 
 ## Data Sources
 
-The project uses three sample CSV files:
+- Donation records
+- Item inventory records
+- Sale records
+- Booth layout records
 
-- `donation_records_sample.csv` for direct donation records
-- `sale_records_sample.csv` for sold item records
-- `item_inventory_sample.csv` for item categories, estimated values, and booth
-  planning information
+## Main Results
 
-All private names, phone numbers, school names, and organization names were
-removed or replaced with anonymous labels before analysis.
+- Direct donations were the largest part of the total funds.
+- Sale revenue added another important part of the result.
+- Team contribution summaries helped combine direct donations and sale revenue.
+- Booth-level summaries helped review item placement and table planning.
 
-## Main Findings
+## Donation Analysis
 
-- The individual donor group was the largest direct donation source.
-- Handmade Crafts produced the highest sale revenue among item categories.
-- Team A had the highest combined contribution from donations and sales.
-- Direct donations were larger than sale revenue, which makes sense because a
-  few donors gave larger one-time amounts while most sale items were lower-priced
-  donated goods.
+The donation analysis groups direct donations by donor type and team. This made
+it easier to see that larger direct donations from families and local businesses
+played a major role in the final total.
 
-## How The Data Supported Event Planning
+## Inventory Analysis
 
-Keeping item and donation records in spreadsheets made the event easier to
-organize. The item categories helped with booth layout, the estimated values
-helped with price planning, and the team summaries helped review preparation
-work after the event.
+The inventory analysis groups item quantities and estimated values by category.
+This helped show which categories required more space and preparation time,
+especially small items placed on the shared table.
+
+## Sales Analysis
+
+The sales analysis summarizes revenue by item category, team, and booth area.
+This helped compare which categories and booth areas performed better during
+the sale.
+
+## Booth Layout Analysis
+
+The booth layout analysis compares planned item counts, actual item counts, and
+booth revenue. This was useful for reviewing table allocation and thinking
+about how future events could arrange items more clearly.
+
+## Estimate vs Actual Price
+
+The estimate vs actual comparison connects inventory records with sale records
+through item IDs. It shows how final buyer behavior sometimes differed from
+pre-event estimated values.
+
+## Operational Insights
+
+- Clear item categories made booth planning easier.
+- Item IDs helped connect inventory and sale records.
+- Team-level summaries made post-event review easier.
+- Small, lower-priced items needed enough table space because they sold in
+  higher quantities.
 
 ## Limitations
 
-This is not an official financial audit. The dataset is a cleaned and anonymized
-learning version of the event records. Some item descriptions were simplified,
-and the data does not include exact sale time for each item.
+The data in this repository is anonymized and sample-based. It is not official
+financial accounting. Some booth traffic and unsold item details were not fully
+recorded.
 
 ## Future Improvements
 
-- Track item IDs more carefully from donation to sale.
-- Compare estimated item value with final sale price.
-- Add booth-level or time-level sale information.
-- Add more tests for category and team totals.
+- Add item ID labels before the event.
+- Track sale time and booth traffic.
+- Improve the estimate vs actual price comparison.
+- Create a reusable spreadsheet template for future charity sales.
 
 ## Reflection
 
-This project helped me understand that community service also depends on clear
-organization. Counting items, cleaning records, and checking totals made the
-post-event review more useful than a simple list of numbers.
+This project helped me understand that data organization is part of community
+service. Careful records made the event easier to prepare, explain, and improve
+afterward.
