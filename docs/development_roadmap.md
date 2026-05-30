@@ -16,33 +16,37 @@ Commit message: `Fix analysis script formatting`
 
 ## Week 2
 
+Task: Add data validation for required columns, positive amounts, and sale
+values.
+
+Commit message: `Add basic data validation`
+
 Task: Add clearer chart titles and labels.
 
 Commit message: `Improve chart labels`
 
-Task: Add a short data dictionary for the donation and sale records.
-
-Commit message: `Add data dictionary`
-
 ## Week 3
 
-Task: Add more tests for donation totals, sale revenue, and team summaries.
+Task: Add contribution share calculations for donor type, category, and team
+summaries.
 
-Commit message: `Add analysis tests`
+Commit message: `Add contribution share calculations`
 
-Task: Improve the report so it explains how the data supported event planning.
+Task: Add tests for category share, team rank, and cumulative totals.
 
-Commit message: `Improve event summary report`
+Commit message: `Add summary validation tests`
 
 ## Week 4
 
-Task: Add better item ID tracking if more complete item records are available.
+Task: Improve the event report so it explains cost tracking and post-event
+review more clearly.
 
-Commit message: `Improve item tracking notes`
+Commit message: `Improve event summary report`
 
-Task: Compare estimated item value with final sale price.
+Task: Compare estimated item value with final sale price if more complete item
+records are available.
 
-Commit message: `Add value comparison idea`
+Commit message: `Plan value comparison update`
 
 Task: Create a simple dashboard in the future if the project grows.
 
