@@ -1,8 +1,7 @@
 # Development Roadmap
 
-I want this project to grow in small steps instead of looking like it was
-finished all at once. These are realistic updates I can make over several weeks.
-I will keep the real GitHub commit dates and will not change history.
+This roadmap lists realistic improvements I can make after the first version of
+the project.
 
 ## Week 1
 
