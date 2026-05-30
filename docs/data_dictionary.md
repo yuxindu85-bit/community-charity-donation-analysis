@@ -1,83 +1,57 @@
 # Data Dictionary
 
-I added this file so the cleaned CSV files are easier to understand. The
-original event records were not in a perfect data format, so I had to decide how
-to name columns, group values, and keep private information out of the project.
+## donation_records_sample.csv
 
-This document explains the two source files in the `data/` folder.
+- `donation_id`: anonymized donation record ID
+- `donation_date`: date when the donation was recorded
+- `donor_id`: anonymized donor ID, such as `Donor_001` or `Business_001`
+- `donor_type`: donor group, such as Individual, Family, Local Business, or Anonymous
+- `team`: team connected to the record
+- `donation_amount_cny`: direct donation amount in Chinese yuan
+- `payment_status`: whether the donation was received
+- `note`: short non-private note about the record
 
-## File: data/donations.csv
+## item_inventory_sample.csv
 
-This file stores direct donation records.
+- `item_id`: anonymized item group ID
+- `received_date`: date when the item group was recorded
+- `item_category`: item category, such as Books, Clothes, Toys, or Snacks
+- `item_name`: simple item description without private information
+- `quantity`: number of items in the group
+- `estimated_unit_value_cny`: estimated value for one item before the sale
+- `condition`: condition of the item group
+- `team`: team responsible for the item group
+- `booth_area`: booth area where the item group was planned to be sold
+- `status`: sold status after the event
 
-record_id: A simple row ID for each donation record. Example: `D001`.
+## sale_records_sample.csv
 
-received_date: The date when the donation was recorded as received. I use the
-`YYYY-MM-DD` format so pandas can read it as a date.
+- `sale_id`: anonymized sale record ID
+- `sale_date`: date of the charity sale
+- `item_id`: item group ID connected to the inventory file
+- `item_category`: category of the sold item
+- `booth_area`: booth area where the sale happened
+- `quantity_sold`: number of items sold in this record
+- `final_unit_price_cny`: final sale price for one item
+- `total_sale_cny`: total sale amount, equal to quantity sold times final unit price
+- `team`: team connected to the sale record
+- `payment_method`: payment method used for the sale
 
-team: The volunteer team that handled or entered the record. I use simple labels
-such as `Team A`, `Team B`, and `Team C`.
+## booth_layout_sample.csv
 
-donor_id: An anonymous donor label. Real names and business names were removed.
-Examples include `Donor_001` and `Business_001`.
+- `booth_id`: anonymized booth record ID
+- `booth_area`: booth area name
+- `main_category`: main item type assigned to the booth
+- `assigned_team`: team mainly responsible for the booth
+- `table_count`: number of tables planned for the booth
+- `estimated_items`: planned number of items
+- `actual_items`: actual number of items placed in the booth
+- `notes`: short planning notes without private information
 
-donor_type: A general donor group, such as `Individual`, `Local Business`, or
-`Community Group`.
+## Processed Files
 
-amount_cny: The donation amount in Chinese yuan.
-
-payment_status: A cleaned status field. In this version of the project, the
-records included in the analysis are marked as `Received`.
-
-## File: data/sale_records.csv
-
-This file stores item-level charity sale records.
-
-sale_id: A simple row ID for each sale record. Example: `S001`.
-
-event_day: The date when the sale happened. I use the `YYYY-MM-DD` format.
-
-team: The volunteer team that handled the sale record.
-
-item_category: A simplified item category. I grouped similar items together so
-the chart would be easier to read.
-
-quantity: The number of items sold in that category and record.
-
-unit_price_cny: The selling price per item in Chinese yuan.
-
-cost_cny: The simple cost estimate for the items in that record. This is used
-to calculate net contribution from the sale.
-
-## Calculated Columns
-
-The script creates these columns while running the analysis. They are not stored
-directly in the raw CSV files.
-
-revenue_cny: `quantity * unit_price_cny`
-
-net_contribution_cny: `revenue_cny - cost_cny`
-
-total_contribution_cny: Direct donations plus sale net contribution, depending
-on the summary table.
-
-## Anonymization Notes
-
-I removed real names, phone numbers, school names, and organization names before
-making the GitHub version of the project.
-
-I also changed business names into simple English labels because I wanted the
-project to focus on data analysis instead of personal or local information.
-
-The team names are also simplified. They do not represent official team names.
-
-## Limits Of The Data
-
-This dataset is useful for learning and basic review, but it is not an official
-financial record.
-
-Some original information came from handwritten or informal activity records, so
-I cleaned the data before using it in Python.
-
-The sale cost field is simple. For a future version, I would record cost details
-more carefully during the event instead of cleaning them afterward.
+- `cleaned_donations.csv`: cleaned direct donation records
+- `cleaned_inventory.csv`: cleaned inventory records with estimated total value
+- `cleaned_sales.csv`: cleaned sale records after total checks
+- `cleaned_booth_layout.csv`: cleaned booth planning records
+- `merged_event_data.csv`: inventory data joined with item-level sale totals
