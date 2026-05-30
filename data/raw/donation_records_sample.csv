@@ -1,0 +1,18 @@
+record_id,donation_date,team,donor_id,donor_type,donation_amount
+D001,2026-05-10,Team A,Business_001,Local Business,1200
+D002,2026-05-10,Team B,Business_002,Local Business,1000
+D003,2026-05-11,Team C,Business_003,Local Business,1500
+D004,2026-05-11,Team D,Business_004,Local Business,880
+D005,2026-05-12,Team B,Business_005,Local Business,2000
+D006,2026-05-12,Team C,Business_006,Local Business,1180
+D007,2026-05-13,Team D,Community_Group_001,Community Group,2000
+D008,2026-05-13,Team A,Donor_001,Individual,5200
+D009,2026-05-14,Team B,Donor_002,Individual,3000
+D010,2026-05-14,Team C,Donor_003,Individual,1500
+D011,2026-05-15,Team A,Donor_004,Individual,1000
+D012,2026-05-15,Team D,Donor_005,Individual,888
+D013,2026-05-16,Team B,Donor_006,Individual,666
+D014,2026-05-16,Team C,Donor_007,Individual,500
+D015,2026-05-17,Team A,Donor_008,Individual,300
+D016,2026-05-17,Team D,Donor_009,Individual,188
+D017,2026-05-18,Team C,Donor_010,Individual,88

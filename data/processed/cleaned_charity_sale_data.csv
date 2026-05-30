@@ -1,0 +1,36 @@
+record_id,record_type,date,team,donor_id,donor_type,item_id,item_category,item_name,quantity,estimated_value,final_sale_price,amount_cny,booth_area
+D001,direct_donation,2026-05-10,Team A,Business_001,Local Business,,Direct Donation,,1,1200,0,1200,
+D002,direct_donation,2026-05-10,Team B,Business_002,Local Business,,Direct Donation,,1,1000,0,1000,
+D003,direct_donation,2026-05-11,Team C,Business_003,Local Business,,Direct Donation,,1,1500,0,1500,
+D004,direct_donation,2026-05-11,Team D,Business_004,Local Business,,Direct Donation,,1,880,0,880,
+D005,direct_donation,2026-05-12,Team B,Business_005,Local Business,,Direct Donation,,1,2000,0,2000,
+D006,direct_donation,2026-05-12,Team C,Business_006,Local Business,,Direct Donation,,1,1180,0,1180,
+D007,direct_donation,2026-05-13,Team D,Community_Group_001,Community Group,,Direct Donation,,1,2000,0,2000,
+D008,direct_donation,2026-05-13,Team A,Donor_001,Individual,,Direct Donation,,1,5200,0,5200,
+D009,direct_donation,2026-05-14,Team B,Donor_002,Individual,,Direct Donation,,1,3000,0,3000,
+D010,direct_donation,2026-05-14,Team C,Donor_003,Individual,,Direct Donation,,1,1500,0,1500,
+D011,direct_donation,2026-05-15,Team A,Donor_004,Individual,,Direct Donation,,1,1000,0,1000,
+D012,direct_donation,2026-05-15,Team D,Donor_005,Individual,,Direct Donation,,1,888,0,888,
+D013,direct_donation,2026-05-16,Team B,Donor_006,Individual,,Direct Donation,,1,666,0,666,
+D014,direct_donation,2026-05-16,Team C,Donor_007,Individual,,Direct Donation,,1,500,0,500,
+D015,direct_donation,2026-05-17,Team A,Donor_008,Individual,,Direct Donation,,1,300,0,300,
+D016,direct_donation,2026-05-17,Team D,Donor_009,Individual,,Direct Donation,,1,188,0,188,
+D017,direct_donation,2026-05-18,Team C,Donor_010,Individual,,Direct Donation,,1,88,0,88,
+S001,charity_sale,2026-05-23,Team A,,,I001,Books,Children Books,12,20,18,216,Booth 1
+S002,charity_sale,2026-05-23,Team B,,,I002,Clothes,Winter Jackets,5,35,38,190,Booth 2
+S003,charity_sale,2026-05-23,Team C,,,I003,Toys,Puzzle Sets,8,28,30,240,Booth 1
+S004,charity_sale,2026-05-23,Team A,,,I004,Handmade Crafts,Handmade Soap,16,18,20,320,Booth 3
+S005,charity_sale,2026-05-23,Team D,,,I005,Electronics,Desk Lamps,5,60,75,375,Booth 4
+S006,charity_sale,2026-05-23,Team B,,,I006,Stationery,Notebook Packs,20,12,12,240,Booth 2
+S007,charity_sale,2026-05-23,Team C,,,I007,Accessories,Hair Clips,25,10,8,200,Booth 3
+S008,charity_sale,2026-05-23,Team D,,,I008,Household Items,Storage Baskets,10,22,24,240,Booth 4
+S009,charity_sale,2026-05-23,Team A,,,I009,Books,Study Guides,8,25,28,224,Booth 1
+S010,charity_sale,2026-05-23,Team B,,,I010,Clothes,Scarves,15,16,16,240,Booth 2
+S011,charity_sale,2026-05-23,Team C,,,I011,Toys,Plush Toys,13,20,22,286,Booth 1
+S012,charity_sale,2026-05-23,Team A,,,I012,Handmade Crafts,Painted Cards,35,8,10,350,Booth 3
+S013,charity_sale,2026-05-23,Team D,,,I013,Electronics,Phone Stands,12,18,20,240,Booth 4
+S014,charity_sale,2026-05-23,Team B,,,I014,Stationery,Pen Sets,30,10,10,300,Booth 2
+S015,charity_sale,2026-05-23,Team C,,,I015,Accessories,Tote Bags,10,26,30,300,Booth 3
+S016,charity_sale,2026-05-23,Team D,,,I016,Household Items,Mugs,18,15,16,288,Booth 4
+S017,charity_sale,2026-05-23,Team A,,,I017,Handmade Crafts,Keychains,40,9,8,320,Booth 3
+S018,charity_sale,2026-05-23,Team C,,,I018,Books,Picture Books,14,15,18,252,Booth 1

@@ -1,0 +1,19 @@
+sale_id,sale_date,team,item_id,item_category,item_name,quantity,final_sale_price
+S001,2026-05-23,Team A,I001,Books,Children Books,12,18
+S002,2026-05-23,Team B,I002,Clothes,Winter Jackets,5,38
+S003,2026-05-23,Team C,I003,Toys,Puzzle Sets,8,30
+S004,2026-05-23,Team A,I004,Handmade Crafts,Handmade Soap,16,20
+S005,2026-05-23,Team D,I005,Electronics,Desk Lamps,5,75
+S006,2026-05-23,Team B,I006,Stationery,Notebook Packs,20,12
+S007,2026-05-23,Team C,I007,Accessories,Hair Clips,25,8
+S008,2026-05-23,Team D,I008,Household Items,Storage Baskets,10,24
+S009,2026-05-23,Team A,I009,Books,Study Guides,8,28
+S010,2026-05-23,Team B,I010,Clothes,Scarves,15,16
+S011,2026-05-23,Team C,I011,Toys,Plush Toys,13,22
+S012,2026-05-23,Team A,I012,Handmade Crafts,Painted Cards,35,10
+S013,2026-05-23,Team D,I013,Electronics,Phone Stands,12,20
+S014,2026-05-23,Team B,I014,Stationery,Pen Sets,30,10
+S015,2026-05-23,Team C,I015,Accessories,Tote Bags,10,30
+S016,2026-05-23,Team D,I016,Household Items,Mugs,18,16
+S017,2026-05-23,Team A,I017,Handmade Crafts,Keychains,40,8
+S018,2026-05-23,Team C,I018,Books,Picture Books,14,18

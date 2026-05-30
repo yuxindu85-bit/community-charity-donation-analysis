@@ -1,0 +1,19 @@
+item_id,item_category,item_name,estimated_value,quantity,booth_area,team,preparation_status
+I001,Books,Children Books,20,15,Booth 1,Team A,Ready
+I002,Clothes,Winter Jackets,35,8,Booth 2,Team B,Ready
+I003,Toys,Puzzle Sets,28,10,Booth 1,Team C,Ready
+I004,Handmade Crafts,Handmade Soap,18,18,Booth 3,Team A,Ready
+I005,Electronics,Desk Lamps,60,6,Booth 4,Team D,Ready
+I006,Stationery,Notebook Packs,12,25,Booth 2,Team B,Ready
+I007,Accessories,Hair Clips,10,30,Booth 3,Team C,Ready
+I008,Household Items,Storage Baskets,22,12,Booth 4,Team D,Ready
+I009,Books,Study Guides,25,10,Booth 1,Team A,Ready
+I010,Clothes,Scarves,16,18,Booth 2,Team B,Ready
+I011,Toys,Plush Toys,20,15,Booth 1,Team C,Ready
+I012,Handmade Crafts,Painted Cards,8,40,Booth 3,Team A,Ready
+I013,Electronics,Phone Stands,18,14,Booth 4,Team D,Ready
+I014,Stationery,Pen Sets,10,35,Booth 2,Team B,Ready
+I015,Accessories,Tote Bags,26,12,Booth 3,Team C,Ready
+I016,Household Items,Mugs,15,20,Booth 4,Team D,Ready
+I017,Handmade Crafts,Keychains,9,45,Booth 3,Team A,Ready
+I018,Books,Picture Books,15,16,Booth 1,Team C,Ready

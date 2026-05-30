@@ -5,55 +5,43 @@ the project.
 
 ## Week 1
 
-Task: Rewrite the README in a more personal style and explain why I made the
-project.
+Task: Improve the README so it explains my role and the purpose of the project
+more clearly.
 
-Commit message: `Rewrite README with project background`
+Commit message: `Improve README project description`
 
-Task: Add a short generated event summary in `reports/event_summary.md`.
+Task: Add background notes about the charity sale and the data privacy process.
 
-Commit message: `Add first event summary report`
-
-Task: Check the direct donation total and charity sale total with unit tests.
-
-Commit message: `Add tests for donation and sale totals`
+Commit message: `Add project background notes`
 
 ## Week 2
 
-Task: Add a data dictionary that explains every column in the two CSV files.
+Task: Add better item ID tracking between inventory records and sale records.
 
-Commit message: `Add data dictionary for source files`
+Commit message: `Improve item ID tracking notes`
 
-Task: Improve the daily contribution chart with clearer labels.
+Task: Compare estimated item value with final sale price.
 
-Commit message: `Improve daily contribution chart labels`
-
-Task: Add a chart comparing direct donations with charity sale net contribution.
-
-Commit message: `Add donation and sale comparison chart`
+Commit message: `Add estimated value comparison`
 
 ## Week 3
 
-Task: Add notes about how private names were removed from the dataset.
+Task: Add booth-level or sale-time fields if more complete records are
+available.
 
-Commit message: `Document anonymization process`
+Commit message: `Add booth level sale notes`
 
-Task: Add category-level checks to make sure sale revenue totals match the raw
-records.
+Task: Improve chart labels and make the chart titles easier to understand.
 
-Commit message: `Add tests for category totals`
-
-Task: Improve the report so it includes a short reflection on record keeping.
-
-Commit message: `Expand event report reflection`
+Commit message: `Improve chart labels`
 
 ## Week 4
 
-Task: Add one final chart showing each team's direct donations and sale
-contribution side by side.
+Task: Add more tests for category totals and team totals.
 
-Commit message: `Add team comparison chart`
+Commit message: `Add more analysis tests`
 
-Task: Clean up the README after all charts and reports are finished.
+Task: Create a simple dashboard in the future to show the main totals in one
+place.
 
-Commit message: `Update README after project improvements`
+Commit message: `Plan simple charity sale dashboard`
