@@ -1,187 +1,150 @@
-# Community Charity Donation Analysis
+# Community Charity Sale Data Operations Analysis
 
 ## Project Overview
 
-I built this project after helping organize records from a community charity
-event called "Children's Hearts, Warm Sunset." The event included direct
-donations and a small charity sale. The purpose was to support special-needs
-children and elderly people living alone.
+This project analyzes anonymized donation, inventory, sale, and booth planning
+records from a charity sale that raised over ¥26,000. I supported the data and
+operations side of the event by organizing item records, estimating values,
+maintaining online spreadsheets, helping with item allocation and booth
+planning, tracking preparation progress, and reviewing post-event data.
 
-I removed all real names, school names, phone numbers, and organization names
-before putting the data into this project. Individual donors are written as
-`Donor_001`, `Donor_002`, and so on. Business donors are written as
-`Business_001`, `Business_002`, and so on.
+The project uses Python, pandas, and matplotlib to turn event records into
+cleaned data, summary tables, charts, and short review reports.
 
-The project is simple on purpose. I wanted to practice turning messy activity
-records into tables, charts, and a short report that I could actually explain.
+## My Role
 
-## Data Note
+- Counted and categorized donated items before the event
+- Estimated item values before the sale
+- Maintained online spreadsheets for donations, items, and preparation progress
+- Supported item allocation across teams and booth areas
+- Helped organize booth layout planning
+- Reviewed post-event donation, inventory, sale, and booth records
+- Built this anonymized Python analysis project after the event
 
-The data in this repository is an anonymized and cleaned version of event
-records. I did not upload original paper forms, phone numbers, real names, or
-organization names because they are private.
+## Why This Project Matters
 
-Some labels were simplified, such as donor names, business names, item
-categories, and team names. This project is for learning data organization and
-basic analysis. It should not be treated as an official financial record.
-
-I also added a short [data dictionary](docs/data_dictionary.md) to explain the
-cleaned CSV columns.
-
-## Why I Built This Project
-
-During the event, the donation records came from different places. Some records
-were direct donations, while others came from items sold during the charity sale.
-At first, the numbers were just lists in a spreadsheet.
-
-I wanted to answer a few basic questions.
-
-Question 1: How much money came from direct donations?
-
-Question 2: Which donor type gave the most?
-
-Question 3: Which charity sale items brought in the most revenue?
-
-Question 4: Which volunteer team handled the largest total contribution?
-
-Question 5: What should I record more carefully next time?
+Charity sale work is not only about collecting and selling items. When many
+items, donors, teams, and booth areas are involved, simple data organization can
+make the event easier to prepare and review. This project shows how clear
+records helped connect community service with basic data analysis and operations
+planning.
 
 ## Tools Used
 
-I used Python, pandas, matplotlib, CSV files, and unittest.
+- Python
+- pandas
+- matplotlib
+- Jupyter Notebook
+- CSV files
+- unittest
 
-## Project Timeline
+## Dataset Description
 
-May 2026: I made the first version of the dataset and wrote the main analysis
-script.
+The sample data is anonymized and based on the structure of the event records.
+It does not include real names, phone numbers, school names, organization names,
+addresses, or private donor information.
 
-Late May 2026: I added simple charts, summary CSV files, and tests for the main
-totals.
+- `donation_records_sample.csv`: direct donation records by donor type and team
+- `item_inventory_sample.csv`: donated item categories, quantities, estimated values, and booth areas
+- `sale_records_sample.csv`: item-level sale records and payment methods
+- `booth_layout_sample.csv`: booth planning records and item allocation notes
 
-June 2026: I plan to improve the notes, add clearer charts, and write a better
-final event report.
+## Project Workflow
 
-The roadmap in `docs/development_roadmap.md` lists small updates I can make
-over time.
+1. Collect donation, inventory, sale, and booth planning records
+2. Remove or replace private information
+3. Clean CSV files and standardize categories and team names
+4. Check sale totals against quantity and unit price
+5. Create processed data files
+6. Analyze donations, inventory, sales, and booth layout
+7. Generate summary tables
+8. Create charts
+9. Write final event reports and reflection notes
+10. Run unit tests to check the main calculations and outputs
 
-## Key Findings
+## Key Results
 
-Finding 1: Direct donations were much larger than charity sale income. This
-makes sense because several donors gave one-time amounts, while sale income came
-from lower-priced items and also had simple item costs.
+- Total direct donations: ¥22,190
+- Total charity sale revenue: ¥5,269
+- Total funds raised in the sample analysis: ¥27,459
+- Direct donations made up the larger part of the total funds
+- Shared Table and Booth A were important areas because they handled many small items
+- Handmade crafts, books, and stationery were useful categories for reviewing estimate vs actual prices
+- Team contribution summaries helped compare donation and sale support together
 
-Finding 2: Individual donors gave the largest total amount in this dataset. I
-expected business donors to be the largest group, so this was useful to check
-with the table instead of guessing.
+## Key Visualizations
 
-Finding 3: Handmade crafts had the highest sale revenue among the item
-categories. They did not have the largest number of units sold, but their price
-per item was higher than many small items.
+![Revenue by category](reports/charts/revenue_by_category.png)
 
-Finding 4: Team C had the highest combined total from direct donations and sale
-activity. Most of this came from direct donations, not from the sale table.
+![Item quantity by category](reports/charts/item_quantity_by_category.png)
 
-Finding 5: The sale records were useful, but cost tracking needs to be more
-detailed next time.
+![Team contribution](reports/charts/team_contribution.png)
 
-## Chart Preview
+![Estimate vs actual price](reports/charts/estimate_vs_actual_price.png)
 
-The script creates chart image files after it runs. I also added two simple
-chart previews here so the main results are easy to see on GitHub.
+![Booth revenue comparison](reports/charts/booth_revenue_comparison.png)
 
-```mermaid
-pie title Direct Donations by Donor Type (CNY)
-    "Individual" : 15870
-    "Local Business" : 9000
-    "Community Group" : 2000
-```
+![Donation source breakdown](reports/charts/donation_source_breakdown.png)
 
-```mermaid
-pie title Sale Revenue by Item Category (CNY)
-    "Handmade Crafts" : 432
-    "Stationery" : 296
-    "Snacks" : 250
-    "Drawings" : 225
-    "Books" : 200
-    "Small Toys" : 180
-    "Keychains" : 168
-```
+## How to Run
 
-## Challenges
-
-Challenge 1: Some original records were handwritten, so I had to decide how to
-organize the data before analyzing it.
-
-Challenge 2: I did not want to include private information, so I anonymized all
-donor and organization names.
-
-Challenge 3: The charity sale data had both revenue and cost, so I had to
-separate total sales from net contribution.
-
-Challenge 4: I had to check my totals with tests because my first manual totals
-were not always correct.
-
-## What I Learned
-
-Lesson 1: Clean data structure matters before making charts.
-
-Lesson 2: Small tests are useful even for a simple project.
-
-Lesson 3: A chart can make the result easier to understand, but the chart still
-needs a clear title and labels.
-
-Lesson 4: An honest project does not need to look perfect. It should show what I
-did, what I checked, and what I would improve.
-
-## Future Improvements
-
-Improvement 1: Add a short data quality checklist for the two CSV files.
-
-Improvement 2: Add a chart that compares direct donations and sale income side
-by side.
-
-Improvement 3: Improve the daily trend chart so it is easier to read.
-
-Improvement 4: Add more tests for team totals and category totals.
-
-## Project Structure
-
-```text
-community-charity-donation-analysis/
-+-- data/
-    +-- donations.csv
-    +-- sale_records.csv
-+-- docs/
-    +-- development_roadmap.md
-    +-- data_dictionary.md
-+-- reports/
-+-- src/
-    +-- analyze_charity_sale.py
-+-- tests/
-    +-- test_analysis.py
-+-- README.md
-+-- requirements.txt
-```
-
-## How to Run the Project
-
-Install the packages:
+Install the requirements:
 
 ```bash
 pip install -r requirements.txt
 ```
 
-Run the analysis:
+Run the full project workflow:
 
 ```bash
-python src/analyze_charity_sale.py
-```
-
-Run the tests:
-
-```bash
+python src/clean_data.py
+python src/analyze_donations.py
+python src/analyze_inventory.py
+python src/analyze_sales.py
+python src/analyze_booth_layout.py
+python src/create_charts.py
 python -m unittest discover -s tests
 ```
 
-After running the script, the project creates summary tables in `reports/` and
-chart image files in `outputs/figures/`.
+## Project Structure
+
+```text
+community-charity-donation-analysis/
+├── README.md
+├── requirements.txt
+├── .gitignore
+├── data/
+│   ├── raw/
+│   └── processed/
+├── src/
+├── reports/
+│   ├── summary_tables/
+│   └── charts/
+├── docs/
+├── notebooks/
+└── tests/
+```
+
+## Data Privacy Note
+
+All data in this repository is anonymized and sample-based. Donor names, phone
+numbers, school names, organization names, addresses, and other private details
+are not included. The project is for learning and event review, not official
+financial accounting.
+
+## What I Learned
+
+Before this project, I thought charity sale work was mostly about collecting
+and selling items. After working on the data side, I learned that clear records
+also matter. Good spreadsheets helped with item allocation, booth planning,
+progress tracking, and post-event review. I also practiced turning messy event
+records into a simple analysis workflow that can be run again.
+
+## Future Improvements
+
+- Add item ID labels or barcodes for easier tracking
+- Track sale time to understand busy periods
+- Track booth visitor flow
+- Improve the estimate vs actual price comparison
+- Build a simple dashboard in the future
+- Create a reusable data collection template for future charity sales
