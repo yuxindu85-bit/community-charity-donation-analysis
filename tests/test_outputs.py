@@ -66,6 +66,8 @@ class OutputTest(unittest.TestCase):
             PROJECT_ROOT / "reports" / "final_charity_sale_report.md",
             PROJECT_ROOT / "reports" / "event_operation_review.md",
             PROJECT_ROOT / "reports" / "model_report.md",
+            PROJECT_ROOT / "notebooks" / "charity_sale_analysis_walkthrough.ipynb",
+            PROJECT_ROOT / "dashboard" / "app.py",
         ]
         for file_path in expected_files:
             self.assertTrue(file_path.exists())

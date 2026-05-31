@@ -5,9 +5,10 @@
 ![matplotlib](https://img.shields.io/badge/matplotlib-charts-orange)
 ![scikit-learn](https://img.shields.io/badge/scikit--learn-simple%20ML-yellow)
 ![Streamlit](https://img.shields.io/badge/Streamlit-dashboard-red)
+![Plotly](https://img.shields.io/badge/Plotly-interactive%20charts-purple)
 ![Status](https://img.shields.io/badge/status-completed-brightgreen)
 
-## Short Overview
+## Project Overview
 
 This project analyzes anonymized donation, inventory, sale, and booth planning
 records from a community charity sale that raised over ¥26,000. I supported the
@@ -56,14 +57,15 @@ records.
 
 ## Activity Evidence and Privacy
 
-This repository is prepared for privacy-protected activity evidence images.
-The original local image files were not available in this workspace, so I did
-not add broken image links or pretend the images were already included.
+The images below can show parts of the charity sale and related community
+event after they are checked and blurred. In this repository version, the
+original local image files were not available in the workspace, so I did not
+add broken image links or pretend the images were already included.
 
 After the images are blurred and checked, they can be added here:
 
-- `docs/images/charity_sale_booth_blurred.png`
-- `docs/images/toy_booth_setup_blurred.png`
+- `docs/images/charity_sale_toy_booth_blurred.png`
+- `docs/images/charity_sale_plush_booth_blurred.png`
 - `docs/images/event_stage_performance_blurred.png`
 
 All visible faces, private names, contact details, QR codes, school names,
@@ -89,6 +91,8 @@ activity photo is uploaded.
 The Streamlit dashboard allows users to explore donation, inventory, sale,
 booth, and model summary results with filters for team, item category, booth
 area, and item condition.
+
+![Dashboard overview](docs/images/dashboard_overview.png)
 
 Run the dashboard:
 
@@ -242,7 +246,7 @@ community-charity-donation-analysis/
 │       ├── cleaned_booth_layout.csv
 │       └── merged_event_data.csv
 ├── src/
-│   ├── __init__.py
+│   ├── init.py
 │   ├── utils.py
 │   ├── clean_data.py
 │   ├── analyze_donations.py

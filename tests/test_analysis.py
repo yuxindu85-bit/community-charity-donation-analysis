@@ -58,6 +58,11 @@ class AnalysisTest(unittest.TestCase):
         self.assertTrue(set(self.inventory["team"]).issubset(expected_teams))
         self.assertTrue(set(self.sales["team"]).issubset(expected_teams))
 
+    def test_booth_names_are_standardized(self):
+        expected_booths = {"Booth A", "Booth B", "Booth C", "Booth D", "Shared Table"}
+        self.assertTrue(set(self.inventory["booth_area"]).issubset(expected_booths))
+        self.assertTrue(set(self.sales["booth_area"]).issubset(expected_booths))
+
     def test_inventory_category_summary(self):
         category_summary, _, _ = summarize_inventory(self.inventory)
         snack_row = category_summary[

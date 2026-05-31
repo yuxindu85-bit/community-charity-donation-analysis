@@ -2,27 +2,18 @@ from utils import (
     DATA_PROCESSED_DIR,
     DATA_RAW_DIR,
     calculate_total,
+    check_no_private_columns,
     check_required_columns,
     clean_text_columns,
     ensure_directory,
     load_csv,
+    PRIVATE_COLUMNS,
     save_csv,
+    standardize_booth,
     standardize_category,
     standardize_team,
 )
 
-
-PRIVATE_COLUMNS = {
-    "real_name",
-    "phone_number",
-    "email",
-    "address",
-    "school_name",
-    "contact",
-    "wechat_id",
-    "payment_account",
-    "qr_code",
-}
 
 DONATION_COLUMNS = {
     "donation_id",
@@ -75,10 +66,7 @@ BOOTH_COLUMNS = {
 
 def check_private_columns(dataframes):
     for file_name, dataframe in dataframes.items():
-        private_matches = PRIVATE_COLUMNS.intersection(set(dataframe.columns))
-        if private_matches:
-            columns = ", ".join(sorted(private_matches))
-            raise ValueError(f"{file_name} contains private columns: {columns}")
+        check_no_private_columns(dataframe, file_name)
 
 
 def clean_donations(donations):
@@ -99,6 +87,7 @@ def clean_inventory(inventory):
     cleaned = clean_text_columns(inventory)
     cleaned["item_category"] = cleaned["item_category"].apply(standardize_category)
     cleaned["team"] = cleaned["team"].apply(standardize_team)
+    cleaned["booth_area"] = cleaned["booth_area"].apply(standardize_booth)
     cleaned["quantity"] = cleaned["quantity"].fillna(0).astype(int)
     cleaned["estimated_unit_value_cny"] = (
         cleaned["estimated_unit_value_cny"].fillna(0).astype(float)
@@ -121,6 +110,7 @@ def clean_sales(sales):
     cleaned = clean_text_columns(sales)
     cleaned["item_category"] = cleaned["item_category"].apply(standardize_category)
     cleaned["team"] = cleaned["team"].apply(standardize_team)
+    cleaned["booth_area"] = cleaned["booth_area"].apply(standardize_booth)
     cleaned["quantity_sold"] = cleaned["quantity_sold"].fillna(0).astype(int)
     cleaned["final_unit_price_cny"] = cleaned["final_unit_price_cny"].fillna(0).astype(float)
     cleaned["total_sale_cny"] = cleaned["total_sale_cny"].fillna(0).astype(float)
@@ -141,6 +131,7 @@ def clean_sales(sales):
 
 def clean_booth_layout(booths):
     cleaned = clean_text_columns(booths)
+    cleaned["booth_area"] = cleaned["booth_area"].apply(standardize_booth)
     cleaned["assigned_team"] = cleaned["assigned_team"].apply(standardize_team)
     cleaned["table_count"] = cleaned["table_count"].fillna(0).astype(int)
     cleaned["estimated_items"] = cleaned["estimated_items"].fillna(0).astype(int)

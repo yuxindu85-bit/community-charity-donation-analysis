@@ -30,6 +30,27 @@ TEAM_MAP = {
     "team d": "Team D",
 }
 
+BOOTH_MAP = {
+    "booth a": "Booth A",
+    "booth b": "Booth B",
+    "booth c": "Booth C",
+    "booth d": "Booth D",
+    "shared table": "Shared Table",
+}
+
+PRIVATE_COLUMNS = {
+    "real_name",
+    "full_name",
+    "phone_number",
+    "email",
+    "address",
+    "school_name",
+    "contact",
+    "wechat_id",
+    "payment_account",
+    "qr_code",
+}
+
 
 def get_project_root():
     return PROJECT_ROOT
@@ -69,6 +90,13 @@ def standardize_team(value):
     return TEAM_MAP.get(key, str(value).strip())
 
 
+def standardize_booth(value):
+    if pd.isna(value):
+        return "Unknown"
+    key = str(value).strip().lower()
+    return BOOTH_MAP.get(key, str(value).strip().title())
+
+
 def calculate_total(series):
     return pd.to_numeric(series, errors="coerce").fillna(0).sum()
 
@@ -84,6 +112,17 @@ def check_required_columns(dataframe, required_columns, dataset_name):
     if missing_columns:
         columns = ", ".join(missing_columns)
         raise ValueError(f"{dataset_name} is missing required columns: {columns}")
+
+
+def check_no_private_columns(dataframe, dataset_name):
+    private_matches = PRIVATE_COLUMNS.intersection(set(dataframe.columns))
+    if private_matches:
+        columns = ", ".join(sorted(private_matches))
+        raise ValueError(f"{dataset_name} contains private columns: {columns}")
+
+
+def format_currency(value):
+    return f"¥{float(value):,.0f}"
 
 
 def add_share_column(dataframe, value_column, share_column):

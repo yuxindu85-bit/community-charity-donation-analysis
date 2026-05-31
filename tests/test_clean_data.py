@@ -43,6 +43,11 @@ class CleanDataTest(unittest.TestCase):
         expected_total = sales["quantity_sold"] * sales["final_unit_price_cny"]
         self.assertTrue((sales["total_sale_cny"].round(2) == expected_total.round(2)).all())
 
+    def test_sale_item_ids_match_inventory_item_ids(self):
+        inventory = pd.read_csv(DATA_PROCESSED_DIR / "cleaned_inventory.csv")
+        sales = pd.read_csv(DATA_PROCESSED_DIR / "cleaned_sales.csv")
+        self.assertTrue(set(sales["item_id"]).issubset(set(inventory["item_id"])))
+
     def test_category_names_are_standardized(self):
         inventory = pd.read_csv(DATA_PROCESSED_DIR / "cleaned_inventory.csv")
         expected_categories = {

@@ -8,6 +8,7 @@ import pandas as pd
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 PRIVATE_COLUMNS = {
     "real_name",
+    "full_name",
     "phone_number",
     "email",
     "address",

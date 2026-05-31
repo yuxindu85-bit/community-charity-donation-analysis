@@ -9,10 +9,11 @@ blurred.
 
 Suggested filenames:
 
-- `charity_sale_booth_blurred.png`
-- `toy_booth_setup_blurred.png`
+- `charity_sale_toy_booth_blurred.png`
+- `charity_sale_plush_booth_blurred.png`
 - `event_stage_performance_blurred.png`
 - `dashboard_overview.png`
 
-The actual blurred activity images are not included in this repository until
-they have been checked for privacy.
+The dashboard overview image is generated from sample project data. Actual
+blurred activity photos are not included in this repository until they have
+been checked for privacy.
