@@ -6,6 +6,11 @@ from pathlib import Path
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 TEXT_EXTENSIONS = {".py", ".csv", ".md", ".json", ".yml", ".yaml"}
 SKIP_PARTS = {".git", "__pycache__", ".matplotlib_cache", ".ipynb_checkpoints"}
+SUSPICIOUS_COMPRESSED_PATTERNS = [
+    ("import os", "from pathlib"),
+    ("import sys", "import unittest"),
+    ("from pathlib import Path", "import"),
+]
 
 IMPORTANT_PYTHON_FILES = [
     "src/utils.py",
@@ -104,6 +109,29 @@ class FormattingTest(unittest.TestCase):
                     1,
                     f"{file_path} appears to be compressed into one line.",
                 )
+
+    def test_python_files_do_not_contain_compressed_import_patterns(self):
+        for file_path in PROJECT_ROOT.rglob("*.py"):
+            if any(part in SKIP_PARTS for part in file_path.parts):
+                continue
+            text = file_path.read_text(encoding="utf-8")
+            for pattern_parts in SUSPICIOUS_COMPRESSED_PATTERNS:
+                pattern = " ".join(pattern_parts)
+                self.assertNotIn(pattern, text, f"{file_path} contains {pattern}.")
+
+            for line in text.splitlines():
+                stripped = line.strip()
+                self.assertLess(
+                    stripped.count(";"),
+                    3,
+                    f"{file_path} appears to compress code with semicolons.",
+                )
+                if stripped.startswith("import "):
+                    self.assertNotIn(
+                        " import ",
+                        stripped[7:],
+                        f"{file_path} may contain multiple imports on one line.",
+                    )
 
     def test_json_files_are_valid(self):
         for file_path in PROJECT_ROOT.rglob("*.json"):
