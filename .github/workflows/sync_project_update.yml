@@ -1,4 +1,4 @@
-name: Clean repository metadata
+name: Patch matplotlib backend
 
 on:
   push:
@@ -10,22 +10,48 @@ permissions:
   contents: write
 
 jobs:
-  clean-macos-metadata:
+  patch-backend:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Remove macOS metadata files
+      - name: Add non-interactive matplotlib backend
         run: |
-          find . -name '._*' -type f -delete
-          grep -qxF '._*' .gitignore || echo '._*' >> .gitignore
-      - name: Commit cleanup
+          python - <<'PY'
+          from pathlib import Path
+
+          files = [
+              "src/create_charts.py",
+              "src/train_price_model.py",
+              "src/train_sale_success_model.py",
+          ]
+          replacement = '''import matplotlib
+
+          matplotlib.use("Agg")
+
+          import matplotlib.pyplot as plt'''
+
+          for file_name in files:
+              path = Path(file_name)
+              text = path.read_text()
+              if 'matplotlib.use("Agg")' not in text:
+                  text = text.replace("import matplotlib.pyplot as plt", replacement)
+                  path.write_text(text)
+
+          gitignore = Path(".gitignore")
+          text = gitignore.read_text()
+          if "._*" not in text.splitlines():
+              gitignore.write_text(text.rstrip() + chr(10) + "._*" + chr(10))
+          PY
+      - name: Check chart script
+        run: python src/create_charts.py
+      - name: Commit backend patch
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add -A
+          git add .gitignore src/create_charts.py src/train_price_model.py src/train_sale_success_model.py
           if git diff --cached --quiet; then
-            echo "No cleanup changes needed."
+            echo "No backend patch needed."
           else
-            git commit -m "Remove macOS metadata files"
+            git commit -m "Use non-interactive matplotlib backend"
             git push
           fi
