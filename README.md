@@ -57,20 +57,15 @@ records.
 
 ## Activity Evidence and Privacy
 
-The images below can show parts of the charity sale and related community
-event after they are checked and blurred. In this repository version, the
-original local image files were not available in the workspace, so I did not
-add broken image links or pretend the images were already included.
+The images below show parts of the charity sale and related community event.
+All visible faces, private names, contact details, QR codes, and sensitive text
+have been blurred for privacy.
 
-After the images are blurred and checked, they can be added here:
+![Charity sale plush booth](docs/images/charity_sale_plush_booth_blurred.png)
 
-- `docs/images/charity_sale_toy_booth_blurred.png`
-- `docs/images/charity_sale_plush_booth_blurred.png`
-- `docs/images/event_stage_performance_blurred.png`
+![Charity sale toy booth](docs/images/charity_sale_toy_booth_blurred.png)
 
-All visible faces, private names, contact details, QR codes, school names,
-organization names, addresses, and sensitive text should be blurred before any
-activity photo is uploaded.
+![Event stage performance](docs/images/event_stage_performance_blurred.png)
 
 ## Key Visualizations
 
