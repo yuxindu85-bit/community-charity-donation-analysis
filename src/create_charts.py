@@ -50,13 +50,15 @@ def create_item_quantity_by_category_chart():
 
 
 def create_team_contribution_chart():
-    teams = load_csv(SUMMARY_DIR / "team_summary.csv")
+    donation_by_team = load_csv(SUMMARY_DIR / "donation_by_team.csv")
+    sales_by_team = load_csv(SUMMARY_DIR / "sales_by_team.csv")
+    teams = donation_by_team.merge(sales_by_team, on="team", how="outer").fillna(0)
     plt.figure(figsize=(8, 5))
-    plt.bar(teams["team"], teams["direct_donation_cny"], label="Direct donations", color="#59A14F")
+    plt.bar(teams["team"], teams["team_donation_cny"], label="Direct donations", color="#59A14F")
     plt.bar(
         teams["team"],
         teams["sale_revenue_cny"],
-        bottom=teams["direct_donation_cny"],
+        bottom=teams["team_donation_cny"],
         label="Sale revenue",
         color="#F28E2B",
     )
@@ -127,8 +129,16 @@ def create_donation_source_chart():
     plt.close()
 
 
+def remove_legacy_summary_tables():
+    for file_name in ["team_summary.csv", "team_inventory_summary.csv", "sales_by_booth.csv"]:
+        file_path = SUMMARY_DIR / file_name
+        if file_path.exists():
+            file_path.unlink()
+
+
 def create_all_charts():
     ensure_directory(CHARTS_DIR)
+    remove_legacy_summary_tables()
     create_revenue_by_category_chart()
     create_item_quantity_by_category_chart()
     create_team_contribution_chart()

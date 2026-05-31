@@ -44,11 +44,11 @@ def run_analysis():
 
     save_csv(category_summary, SUMMARY_DIR / "category_summary.csv")
     save_csv(status_summary, SUMMARY_DIR / "inventory_status_summary.csv")
-    save_csv(team_inventory_summary, SUMMARY_DIR / "team_inventory_summary.csv")
 
     print("Inventory analysis finished.")
     print(f"Item groups: {len(inventory)}")
     print(f"Total donated item quantity: {inventory['quantity'].sum():,.0f}")
+    print(f"Teams with inventory records: {len(team_inventory_summary)}")
 
 
 if __name__ == "__main__":

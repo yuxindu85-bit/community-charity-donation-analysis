@@ -15,6 +15,7 @@ from create_charts import create_all_charts
 from utils import CHARTS_DIR, SUMMARY_DIR
 from train_price_model import train_price_models
 from train_sale_success_model import train_sale_success_models
+from model_utils import METRICS_PATH, MODEL_REPORT_PATH
 
 
 class OutputTest(unittest.TestCase):
@@ -37,7 +38,6 @@ class OutputTest(unittest.TestCase):
             "inventory_status_summary.csv",
             "sales_by_category.csv",
             "sales_by_team.csv",
-            "team_summary.csv",
             "booth_summary.csv",
             "estimate_vs_actual_summary.csv",
         ]
@@ -54,6 +54,10 @@ class OutputTest(unittest.TestCase):
             "estimate_vs_actual_price.png",
             "booth_revenue_comparison.png",
             "donation_source_breakdown.png",
+            "predicted_vs_actual_price.png",
+            "feature_importance_price.png",
+            "sale_success_confusion_matrix.png",
+            "model_comparison.png",
         ]
         for file_name in expected_charts:
             file_path = CHARTS_DIR / file_name
@@ -62,10 +66,10 @@ class OutputTest(unittest.TestCase):
 
     def test_model_and_report_outputs_are_created(self):
         expected_files = [
-            PROJECT_ROOT / "models" / "model_metrics.json",
+            METRICS_PATH,
             PROJECT_ROOT / "reports" / "final_charity_sale_report.md",
             PROJECT_ROOT / "reports" / "event_operation_review.md",
-            PROJECT_ROOT / "reports" / "model_report.md",
+            MODEL_REPORT_PATH,
             PROJECT_ROOT / "notebooks" / "charity_sale_analysis_walkthrough.ipynb",
             PROJECT_ROOT / "dashboard" / "app.py",
         ]

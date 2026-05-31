@@ -82,14 +82,14 @@ def run_analysis():
     team_summary = summarize_team_contribution(donations, revenue_by_team)
 
     save_csv(revenue_by_category, SUMMARY_DIR / "sales_by_category.csv")
-    save_csv(revenue_by_booth, SUMMARY_DIR / "sales_by_booth.csv")
     save_csv(revenue_by_team, SUMMARY_DIR / "sales_by_team.csv")
-    save_csv(team_summary, SUMMARY_DIR / "team_summary.csv")
     save_csv(estimate_vs_actual, SUMMARY_DIR / "estimate_vs_actual_summary.csv")
 
     print("Sales analysis finished.")
     print(f"Total sale revenue: {sales['total_sale_cny'].sum():,.0f} CNY")
     print(f"Items sold: {sales['quantity_sold'].sum():,.0f}")
+    print(f"Booth areas with sales: {len(revenue_by_booth)}")
+    print(f"Teams in contribution summary: {len(team_summary)}")
 
 
 if __name__ == "__main__":

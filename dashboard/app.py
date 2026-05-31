@@ -20,7 +20,13 @@ def load_data():
     booths = pd.read_csv(PROCESSED_DIR / "cleaned_booth_layout.csv")
     merged = pd.read_csv(PROCESSED_DIR / "merged_event_data.csv")
     booth_summary = pd.read_csv(SUMMARY_DIR / "booth_summary.csv")
-    team_summary = pd.read_csv(SUMMARY_DIR / "team_summary.csv")
+    donation_by_team = pd.read_csv(SUMMARY_DIR / "donation_by_team.csv")
+    sales_by_team = pd.read_csv(SUMMARY_DIR / "sales_by_team.csv")
+    team_summary = donation_by_team.merge(sales_by_team, on="team", how="outer").fillna(0)
+    team_summary["total_contribution_cny"] = (
+        team_summary["team_donation_cny"] + team_summary["sale_revenue_cny"]
+    )
+    team_summary = team_summary.sort_values("total_contribution_cny", ascending=False)
     return donations, inventory, sales, booths, merged, booth_summary, team_summary
 
 

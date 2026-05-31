@@ -284,8 +284,8 @@ community-charity-donation-analysis/
     ├── test_clean_data.py
     ├── test_analysis.py
     ├── test_outputs.py
-    ├── test_models.py
-    └── test_privacy.py
+    ├── test_privacy.py
+    └── test_formatting.py
 ```
 
 ## Reports and Documentation
