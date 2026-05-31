@@ -17,9 +17,7 @@ jobs:
       - name: Remove macOS metadata files
         run: |
           find . -name '._*' -type f -delete
-          grep -qxF '._*' .gitignore || printf '
-._*
-' >> .gitignore
+          grep -qxF '._*' .gitignore || echo '._*' >> .gitignore
       - name: Commit cleanup
         run: |
           git config user.name "github-actions[bot]"
