@@ -2,6 +2,10 @@ import os
 
 os.environ.setdefault("MPLCONFIGDIR", ".matplotlib_cache")
 
+import matplotlib
+
+matplotlib.use("Agg")
+
 import matplotlib.pyplot as plt
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.linear_model import LinearRegression
