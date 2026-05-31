@@ -1,6 +1,6 @@
-booth_id,booth_area,main_category,assigned_team,table_count,estimated_items,actual_items,notes,sale_records,quantity_sold,booth_revenue_cny,item_count_difference,revenue_per_actual_item_cny
-B005,Shared Table,Handmade Crafts Accessories and Snacks,Team A,4,435,435,used shared table for small fast-moving items,13,337,1895.0,0,4.36
-B001,Booth A,Books and Stationery,Team A,3,135,135,placed lower-priced books near notebooks,8,104,1155.0,0,8.56
-B004,Booth D,Electronics and Household Items,Team D,2,65,65,fragile items were placed at the back,6,36,949.0,0,14.6
-B003,Booth C,Toys,Team C,2,37,37,small toys were grouped in baskets,4,26,652.0,0,17.62
-B002,Booth B,Clothes,Team B,2,50,50,kept clothes on one side for easier browsing,4,31,618.0,0,12.36
+booth_area,booth_id,main_category,assigned_team,table_count,estimated_items,actual_items,notes,sale_records,quantity_sold,booth_revenue_cny,item_count_difference,revenue_per_actual_item_cny
+Shared Table,B005A; B005B,Handmade Crafts and Accessories; Snacks,Team A,4,435,435,used shared table for handmade small items | kept snack packs near the payment side,13,337,1895.0,0,4.36
+Booth A,B001A; B001B,Books; Stationery,Team A,3,135,135,placed lower-priced books near notebooks | kept notebooks and pens together,8,104,1155.0,0,8.56
+Booth D,B004A; B004B,Electronics; Household Items,Team D,2,65,65,fragile electronics were placed at the back | household items were grouped by size,6,36,949.0,0,14.6
+Booth C,B003A; B003B,Toys; Board Games,Team C,2,37,37,small toys were grouped in baskets | boxed games were placed behind small toys,4,26,652.0,0,17.62
+Booth B,B002A; B002B,Clothes Rack; Folded Clothes,Team B,2,50,50,hung jackets and larger clothes on one side | folded scarves and smaller clothes by size,4,31,618.0,0,12.36

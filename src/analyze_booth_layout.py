@@ -2,6 +2,19 @@ from utils import DATA_PROCESSED_DIR, SUMMARY_DIR, load_csv, save_csv
 
 
 def summarize_booths(booth_layout, sales):
+    layout_summary = (
+        booth_layout.groupby("booth_area", as_index=False)
+        .agg(
+            booth_id=("booth_id", lambda values: "; ".join(values)),
+            main_category=("main_category", lambda values: "; ".join(values)),
+            assigned_team=("assigned_team", lambda values: "; ".join(sorted(set(values)))),
+            table_count=("table_count", "sum"),
+            estimated_items=("estimated_items", "sum"),
+            actual_items=("actual_items", "sum"),
+            notes=("notes", lambda values: " | ".join(values)),
+        )
+    )
+
     booth_revenue = (
         sales.groupby("booth_area", as_index=False)
         .agg(
@@ -12,7 +25,7 @@ def summarize_booths(booth_layout, sales):
         .sort_values("booth_revenue_cny", ascending=False)
     )
 
-    booth_summary = booth_layout.merge(booth_revenue, on="booth_area", how="left")
+    booth_summary = layout_summary.merge(booth_revenue, on="booth_area", how="left")
     booth_summary[["sale_records", "quantity_sold", "booth_revenue_cny"]] = booth_summary[
         ["sale_records", "quantity_sold", "booth_revenue_cny"]
     ].fillna(0)

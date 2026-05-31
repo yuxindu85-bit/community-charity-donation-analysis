@@ -204,6 +204,7 @@ python src/run_all.py
 Run tests:
 
 ```bash
+python tools/format_audit.py
 python -m unittest discover -s tests
 ```
 
@@ -224,6 +225,7 @@ python src/analyze_booth_layout.py
 python src/create_charts.py
 python src/train_price_model.py
 python src/train_sale_success_model.py
+python tools/format_audit.py
 ```
 
 ## Project Structure
@@ -280,6 +282,8 @@ community-charity-donation-analysis/
 │   └── future_improvements.md
 ├── notebooks/
 │   └── charity_sale_analysis_walkthrough.ipynb
+├── tools/
+│   └── format_audit.py
 └── tests/
     ├── test_clean_data.py
     ├── test_analysis.py

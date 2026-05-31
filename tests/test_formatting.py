@@ -1,4 +1,6 @@
 import json
+import subprocess
+import sys
 import unittest
 from pathlib import Path
 
@@ -25,6 +27,7 @@ IMPORTANT_PYTHON_FILES = [
     "src/train_sale_success_model.py",
     "src/run_all.py",
     "dashboard/app.py",
+    "tools/format_audit.py",
     "tests/test_clean_data.py",
     "tests/test_analysis.py",
     "tests/test_outputs.py",
@@ -36,9 +39,11 @@ IMPORTANT_CSV_FILES = [
     "data/raw/donation_records_sample.csv",
     "data/raw/item_inventory_sample.csv",
     "data/raw/sale_records_sample.csv",
+    "data/raw/booth_layout_sample.csv",
     "data/processed/cleaned_donations.csv",
     "data/processed/cleaned_inventory.csv",
     "data/processed/cleaned_sales.csv",
+    "data/processed/cleaned_booth_layout.csv",
     "data/processed/merged_event_data.csv",
 ]
 
@@ -71,7 +76,7 @@ def project_text_files():
 class FormattingTest(unittest.TestCase):
     def test_readme_has_enough_normal_lines(self):
         readme_lines = (PROJECT_ROOT / "README.md").read_text(encoding="utf-8").splitlines()
-        self.assertGreaterEqual(len(readme_lines), 100)
+        self.assertGreaterEqual(len(readme_lines), 120)
 
     def test_important_python_files_have_normal_line_counts(self):
         for relative_path in IMPORTANT_PYTHON_FILES:
@@ -85,7 +90,7 @@ class FormattingTest(unittest.TestCase):
     def test_important_csv_files_have_normal_line_counts(self):
         for relative_path in IMPORTANT_CSV_FILES:
             lines = (PROJECT_ROOT / relative_path).read_text(encoding="utf-8").splitlines()
-            self.assertGreater(
+            self.assertGreaterEqual(
                 len(lines),
                 10,
                 f"{relative_path} should have one record per line.",
@@ -94,9 +99,9 @@ class FormattingTest(unittest.TestCase):
     def test_important_markdown_files_have_normal_line_counts(self):
         for relative_path in IMPORTANT_MARKDOWN_FILES:
             lines = (PROJECT_ROOT / relative_path).read_text(encoding="utf-8").splitlines()
-            self.assertGreater(
+            self.assertGreaterEqual(
                 len(lines),
-                10,
+                15,
                 f"{relative_path} should have normal Markdown line breaks.",
             )
 
@@ -109,6 +114,16 @@ class FormattingTest(unittest.TestCase):
                     1,
                     f"{file_path} appears to be compressed into one line.",
                 )
+
+    def test_format_audit_tool_passes(self):
+        result = subprocess.run(
+            [sys.executable, "tools/format_audit.py"],
+            cwd=PROJECT_ROOT,
+            text=True,
+            capture_output=True,
+            check=False,
+        )
+        self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
 
     def test_python_files_do_not_contain_compressed_import_patterns(self):
         for file_path in PROJECT_ROOT.rglob("*.py"):

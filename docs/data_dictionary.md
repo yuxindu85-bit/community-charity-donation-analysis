@@ -47,13 +47,13 @@
 
 | Column | Meaning | Example |
 | --- | --- | --- |
-| booth_id | Anonymized booth record ID | B001 |
+| booth_id | Anonymized booth section record ID | B001A |
 | booth_area | Booth area name | Booth A |
-| main_category | Main item type assigned to the booth | Books and Stationery |
+| main_category | Main item type assigned to the booth section | Books |
 | assigned_team | Team mainly responsible for the booth | Team A |
-| table_count | Number of tables planned for the booth | 3 |
-| estimated_items | Planned number of items | 135 |
-| actual_items | Actual number of items placed in the booth | 135 |
+| table_count | Number of tables planned for the booth section | 2 |
+| estimated_items | Planned number of items | 95 |
+| actual_items | Actual number of items placed in the booth section | 95 |
 | notes | Short planning note without private information | placed lower-priced books near notebooks |
 
 ## Processed Files
