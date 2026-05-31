@@ -29,7 +29,7 @@ PRICE_FEATURES = [
     "estimated_unit_value_cny",
     "booth_area",
     "team",
-    "quantity",
+    "quantity_sold",
 ]
 
 SALE_SUCCESS_FEATURES = [
@@ -42,7 +42,8 @@ SALE_SUCCESS_FEATURES = [
 ]
 
 CATEGORICAL_FEATURES = ["item_category", "condition", "booth_area", "team"]
-NUMERIC_FEATURES = ["estimated_unit_value_cny", "quantity"]
+PRICE_NUMERIC_FEATURES = ["estimated_unit_value_cny", "quantity_sold"]
+SALE_SUCCESS_NUMERIC_FEATURES = ["estimated_unit_value_cny", "quantity"]
 
 
 def load_price_model_data():
@@ -84,40 +85,52 @@ def load_sale_success_model_data():
     return merged_event_data.dropna(subset=SALE_SUCCESS_FEATURES + ["sold_success"])
 
 
-def build_preprocessor():
+def prepare_features(dataframe, feature_columns, target_column):
+    return dataframe[feature_columns], dataframe[target_column]
+
+
+def build_preprocessor(numeric_features):
     return ColumnTransformer(
         transformers=[
             ("category", OneHotEncoder(handle_unknown="ignore"), CATEGORICAL_FEATURES),
-            ("number", "passthrough", NUMERIC_FEATURES),
+            ("number", "passthrough", numeric_features),
         ]
     )
 
 
-def build_model_pipeline(model):
+def build_model_pipeline(model, numeric_features=None):
+    if numeric_features is None:
+        numeric_features = SALE_SUCCESS_NUMERIC_FEATURES
     return Pipeline(
         steps=[
-            ("preprocess", build_preprocessor()),
+            ("preprocess", build_preprocessor(numeric_features)),
             ("model", model),
         ]
     )
 
 
-def split_regression_data(dataframe):
-    x_values = dataframe[PRICE_FEATURES]
-    y_values = dataframe["final_unit_price_cny"]
-    return train_test_split(x_values, y_values, test_size=0.3, random_state=42)
-
-
-def split_classification_data(dataframe):
-    x_values = dataframe[SALE_SUCCESS_FEATURES]
-    y_values = dataframe["sold_success"]
+def train_test_split_data(x_values, y_values, stratify=None):
     return train_test_split(
         x_values,
         y_values,
         test_size=0.3,
         random_state=42,
-        stratify=y_values,
+        stratify=stratify,
     )
+
+
+def split_regression_data(dataframe):
+    x_values, y_values = prepare_features(
+        dataframe,
+        PRICE_FEATURES,
+        "final_unit_price_cny",
+    )
+    return train_test_split_data(x_values, y_values)
+
+
+def split_classification_data(dataframe):
+    x_values, y_values = prepare_features(dataframe, SALE_SUCCESS_FEATURES, "sold_success")
+    return train_test_split_data(x_values, y_values, stratify=y_values)
 
 
 def regression_metrics(y_true, y_pred):
@@ -127,6 +140,11 @@ def regression_metrics(y_true, y_pred):
         "rmse": round(float(mse**0.5), 3),
         "r2_score": round(float(r2_score(y_true, y_pred)), 3),
     }
+
+
+def evaluate_regression_model(model, x_test, y_test):
+    y_pred = model.predict(x_test)
+    return regression_metrics(y_test, y_pred), y_pred
 
 
 def classification_metrics(y_true, y_pred):
@@ -141,23 +159,31 @@ def classification_metrics(y_true, y_pred):
     }
 
 
+def evaluate_classification_model(model, x_test, y_test):
+    y_pred = model.predict(x_test)
+    return classification_metrics(y_test, y_pred), y_pred
+
+
 def get_feature_names(pipeline):
     preprocessor = pipeline.named_steps["preprocess"]
     category_names = preprocessor.named_transformers_["category"].get_feature_names_out(
         CATEGORICAL_FEATURES
     )
-    return list(category_names) + NUMERIC_FEATURES
+    numeric_features = list(preprocessor.transformers_[1][2])
+    return list(category_names) + numeric_features
 
 
-def load_metrics():
-    if not METRICS_PATH.exists():
+def load_metrics(path=METRICS_PATH):
+    path = Path(path)
+    if not path.exists():
         return {}
-    return json.loads(METRICS_PATH.read_text(encoding="utf-8"))
+    return json.loads(path.read_text(encoding="utf-8"))
 
 
-def save_metrics(metrics):
-    ensure_directory(MODELS_DIR)
-    METRICS_PATH.write_text(json.dumps(metrics, indent=2), encoding="utf-8")
+def save_metrics(metrics, path=METRICS_PATH):
+    path = Path(path)
+    ensure_directory(path.parent)
+    path.write_text(json.dumps(metrics, indent=2), encoding="utf-8")
 
 
 def update_metrics(section, values):
@@ -181,9 +207,18 @@ def write_model_report(metrics):
         "",
         "This report summarizes two beginner-friendly machine learning experiments for the charity sale project. The models are exploratory learning tools, not official financial or operational prediction systems.",
         "",
+        "## Features Used",
+        "",
+        "- Item category",
+        "- Item condition",
+        "- Estimated unit value",
+        "- Booth area",
+        "- Team",
+        "- Quantity or quantity sold, depending on the model",
+        "",
         "## Price Prediction Regression Model",
         "",
-        "Goal: predict final item sale price using item category, condition, estimated value, booth area, team, and quantity.",
+        "Goal: predict final item sale price using item category, condition, estimated value, booth area, team, and quantity sold.",
         "",
         "| Model | MAE | RMSE | R2 score |",
         "| --- | ---: | ---: | ---: |",
@@ -200,9 +235,6 @@ def write_model_report(metrics):
             "## Sale Success Classification Model",
             "",
             "Goal: predict whether an item group is likely to sell based on category, condition, estimated value, booth area, team, and quantity.",
-            "",
-            "| Model | Accuracy | Precision | Recall |",
-            "| --- | ---: | ---: | ---: |",
         ]
     )
 
@@ -212,8 +244,16 @@ def write_model_report(metrics):
             [
                 "",
                 f"Class balance: {class_balance.get('sold_success_count', 0)} sold or partially sold item groups and {class_balance.get('not_sold_count', 0)} unsold item groups.",
+                "",
             ]
         )
+
+    report.extend(
+        [
+            "| Model | Accuracy | Precision | Recall |",
+            "| --- | ---: | ---: | ---: |",
+        ]
+    )
 
     for model_name, model_values in sale_metrics.items():
         if model_name == "class_balance":
@@ -225,6 +265,13 @@ def write_model_report(metrics):
     report.extend(
         [
             "",
+            "## Visualizations",
+            "",
+            "- `reports/charts/predicted_vs_actual_price.png`",
+            "- `reports/charts/feature_importance_price.png`",
+            "- `reports/charts/sale_success_confusion_matrix.png`",
+            "- `reports/charts/model_comparison.png`",
+            "",
             "## Limitations",
             "",
             "- The dataset is small and anonymized.",
@@ -232,6 +279,10 @@ def write_model_report(metrics):
             "- The models are useful for learning and reflection, not official decision-making.",
             "- Some sale outcomes may depend on booth traffic, buyer interest, weather, and timing, which were not fully recorded.",
             "- Model results can change if more complete future event data is added.",
+            "",
+            "## What I Learned",
+            "",
+            "The models helped me practice connecting real event records with basic machine learning. I also learned that model results can look strong on a small dataset, so they need to be explained carefully.",
         ]
     )
 

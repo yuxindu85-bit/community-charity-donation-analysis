@@ -31,6 +31,10 @@ TEAM_MAP = {
 }
 
 
+def get_project_root():
+    return PROJECT_ROOT
+
+
 def ensure_directory(path):
     Path(path).mkdir(parents=True, exist_ok=True)
 
@@ -67,6 +71,19 @@ def standardize_team(value):
 
 def calculate_total(series):
     return pd.to_numeric(series, errors="coerce").fillna(0).sum()
+
+
+def safe_divide(numerator, denominator):
+    if denominator == 0:
+        return 0
+    return numerator / denominator
+
+
+def check_required_columns(dataframe, required_columns, dataset_name):
+    missing_columns = sorted(set(required_columns) - set(dataframe.columns))
+    if missing_columns:
+        columns = ", ".join(missing_columns)
+        raise ValueError(f"{dataset_name} is missing required columns: {columns}")
 
 
 def add_share_column(dataframe, value_column, share_column):

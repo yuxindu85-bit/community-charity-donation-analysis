@@ -24,7 +24,7 @@ def save_bar_chart(dataframe, x_column, y_column, title, xlabel, ylabel, output_
 
 
 def create_revenue_by_category_chart():
-    revenue = load_csv(SUMMARY_DIR / "sale_revenue_by_category.csv")
+    revenue = load_csv(SUMMARY_DIR / "sales_by_category.csv")
     save_bar_chart(
         revenue,
         "item_category",

@@ -13,6 +13,8 @@ from analyze_sales import run_analysis as run_sales_analysis
 from clean_data import run_cleaning
 from create_charts import create_all_charts
 from utils import CHARTS_DIR, SUMMARY_DIR
+from train_price_model import train_price_models
+from train_sale_success_model import train_sale_success_models
 
 
 class OutputTest(unittest.TestCase):
@@ -24,11 +26,17 @@ class OutputTest(unittest.TestCase):
         run_sales_analysis()
         run_booth_analysis()
         create_all_charts()
+        train_price_models()
+        train_sale_success_models()
 
     def test_summary_tables_are_created(self):
         expected_tables = [
             "donation_summary.csv",
+            "donation_by_team.csv",
             "category_summary.csv",
+            "inventory_status_summary.csv",
+            "sales_by_category.csv",
+            "sales_by_team.csv",
             "team_summary.csv",
             "booth_summary.csv",
             "estimate_vs_actual_summary.csv",
@@ -49,6 +57,17 @@ class OutputTest(unittest.TestCase):
         ]
         for file_name in expected_charts:
             file_path = CHARTS_DIR / file_name
+            self.assertTrue(file_path.exists())
+            self.assertGreater(file_path.stat().st_size, 0)
+
+    def test_model_and_report_outputs_are_created(self):
+        expected_files = [
+            PROJECT_ROOT / "models" / "model_metrics.json",
+            PROJECT_ROOT / "reports" / "final_charity_sale_report.md",
+            PROJECT_ROOT / "reports" / "event_operation_review.md",
+            PROJECT_ROOT / "reports" / "model_report.md",
+        ]
+        for file_path in expected_files:
             self.assertTrue(file_path.exists())
             self.assertGreater(file_path.stat().st_size, 0)
 

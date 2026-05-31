@@ -12,8 +12,9 @@ from sklearn.tree import DecisionTreeClassifier
 
 from model_utils import (
     CHARTS_DIR,
+    SALE_SUCCESS_NUMERIC_FEATURES,
     build_model_pipeline,
-    classification_metrics,
+    evaluate_classification_model,
     load_metrics,
     load_sale_success_model_data,
     split_classification_data,
@@ -40,10 +41,10 @@ def train_sale_success_models():
     predictions = {}
 
     for model_name, model in models.items():
-        pipeline = build_model_pipeline(model)
+        pipeline = build_model_pipeline(model, SALE_SUCCESS_NUMERIC_FEATURES)
         pipeline.fit(x_train, y_train)
-        y_pred = pipeline.predict(x_test)
-        results[model_name] = classification_metrics(y_test, y_pred)
+        model_metrics, y_pred = evaluate_classification_model(pipeline, x_test, y_test)
+        results[model_name] = model_metrics
         predictions[model_name] = y_pred
 
     results["class_balance"] = {

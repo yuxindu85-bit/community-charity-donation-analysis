@@ -1,81 +1,74 @@
 # Community Charity Sale Data Operations Analysis
 
-## Project Overview
+![Python](https://img.shields.io/badge/Python-3.x-blue)
+![pandas](https://img.shields.io/badge/pandas-data%20analysis-green)
+![matplotlib](https://img.shields.io/badge/matplotlib-charts-orange)
+![scikit-learn](https://img.shields.io/badge/scikit--learn-simple%20ML-yellow)
+![Streamlit](https://img.shields.io/badge/Streamlit-dashboard-red)
+![Status](https://img.shields.io/badge/status-completed-brightgreen)
+
+## Short Overview
 
 This project analyzes anonymized donation, inventory, sale, and booth planning
-records from a charity sale that raised over ¥26,000. I supported the data and
-operations side of the event by organizing item records, estimating values,
-maintaining online spreadsheets, helping with item allocation and booth
-planning, tracking preparation progress, and reviewing post-event data.
+records from a community charity sale that raised over ¥26,000. I supported the
+data and operations side of the event by counting donated items, categorizing
+inventory, estimating item values, maintaining online spreadsheets, helping
+with item allocation and booth layout planning, tracking preparation progress,
+and reviewing post-event data.
 
-The project uses Python, pandas, matplotlib, scikit-learn, and Streamlit to turn
-event records into cleaned data, summary tables, charts, reports, simple model
-experiments, and an interactive dashboard.
+The goal of this project is to show how simple data organization, Python
+analysis, visualization, and beginner-friendly machine learning experiments can
+support a real community charity activity.
 
 ## My Role
 
 - Counted and categorized donated items before the event
 - Estimated item values before the sale
-- Maintained online spreadsheets for donations, items, and preparation progress
+- Maintained online spreadsheets for donations, inventory, and preparation work
 - Supported item allocation across teams and booth areas
 - Helped organize booth layout planning
+- Tracked preparation progress before the event
 - Reviewed post-event donation, inventory, sale, and booth records
-- Built this anonymized Python analysis project after the event
+- Used Python to create an anonymized analysis project after the event
 
 ## Why This Project Matters
 
 Charity sale work is not only about collecting and selling items. When many
-items, donors, teams, and booth areas are involved, simple data organization can
-make the event easier to prepare and review. This project shows how clear
-records helped connect community service with basic data analysis and operations
-planning.
-
-## Tools Used
-
-- Python
-- pandas
-- matplotlib
-- scikit-learn
-- Streamlit
-- Plotly
-- Jupyter Notebook
-- CSV files
-- unittest
-
-## Dataset Description
-
-The sample data is anonymized and based on the structure of the event records.
-It does not include real names, phone numbers, school names, organization names,
-addresses, or private donor information.
-
-- `donation_records_sample.csv`: direct donation records by donor type and team
-- `item_inventory_sample.csv`: donated item categories, quantities, estimated values, and booth areas
-- `sale_records_sample.csv`: item-level sale records and payment methods
-- `booth_layout_sample.csv`: booth planning records and item allocation notes
-
-## Project Workflow
-
-1. Collect donation, inventory, sale, and booth planning records
-2. Remove or replace private information
-3. Clean CSV files and standardize categories and team names
-4. Check sale totals against quantity and unit price
-5. Create processed data files
-6. Analyze donations, inventory, sales, and booth layout
-7. Generate summary tables
-8. Create charts
-9. Run simple machine learning experiments for event review
-10. Write final event reports and reflection notes
-11. Run unit tests to check the main calculations and outputs
+items, donors, teams, and booth areas are involved, clear records can make the
+event easier to prepare, explain, and improve. This project connects community
+service with basic data operations, data cleaning, charts, simple models, and
+written reflection.
 
 ## Key Results
 
 - Total direct donations: ¥22,190
-- Total charity sale revenue: ¥5,269
+- Total sale revenue: ¥5,269
 - Total funds raised in the sample analysis: ¥27,459
 - Direct donations made up the larger part of the total funds
-- Shared Table and Booth A were important areas because they handled many small items
-- Handmade crafts, books, and stationery were useful categories for reviewing estimate vs actual prices
-- Team contribution summaries helped compare donation and sale support together
+- Sale revenue was reviewed by category, team, and booth area
+- Booth-level comparison helped review table allocation
+- Team contribution summaries combined donation and sale support
+- Estimate vs actual sale price comparisons helped review pricing decisions
+
+This repository is not an official financial report or audit. It is an
+anonymized student data analysis project based on the structure of real event
+records.
+
+## Activity Evidence and Privacy
+
+This repository is prepared for privacy-protected activity evidence images.
+The original local image files were not available in this workspace, so I did
+not add broken image links or pretend the images were already included.
+
+After the images are blurred and checked, they can be added here:
+
+- `docs/images/charity_sale_booth_blurred.png`
+- `docs/images/toy_booth_setup_blurred.png`
+- `docs/images/event_stage_performance_blurred.png`
+
+All visible faces, private names, contact details, QR codes, school names,
+organization names, addresses, and sensitive text should be blurred before any
+activity photo is uploaded.
 
 ## Key Visualizations
 
@@ -91,32 +84,69 @@ addresses, or private donor information.
 
 ![Donation source breakdown](reports/charts/donation_source_breakdown.png)
 
+## Interactive Dashboard
+
+The Streamlit dashboard allows users to explore donation, inventory, sale,
+booth, and model summary results with filters for team, item category, booth
+area, and item condition.
+
+Run the dashboard:
+
+```bash
+streamlit run dashboard/app.py
+```
+
 ## Simple Machine Learning Experiments
 
 I added two beginner-friendly machine learning experiments to explore the
 charity sale data.
 
-The first model predicts final item sale price using item category, condition,
-estimated value, booth area, team, and quantity. It compares Linear Regression
-and Random Forest Regressor models using MAE, RMSE, and R2 score.
+The price prediction regression model predicts `final_unit_price_cny` using:
 
-The second model predicts whether an item group is likely to sell. It compares
-Logistic Regression and Decision Tree Classifier models using accuracy,
-precision, recall, and a confusion matrix.
+- item category
+- item condition
+- estimated unit value
+- booth area
+- team
+- quantity sold
 
-These models are not used for official decision-making because the dataset is
-small and anonymized. They are included to help me understand how basic machine
-learning can be used to review real community event data.
+The sale success classification model predicts whether an item group is likely
+to sell using:
+
+- item category
+- item condition
+- estimated unit value
+- booth area
+- team
+- quantity
+
+Models used:
+
+- Linear Regression
+- Random Forest Regressor
+- Logistic Regression
+- Decision Tree Classifier
+
+Metrics used:
+
+- MAE
+- RMSE
+- R2 score
+- accuracy
+- precision
+- recall
+- confusion matrix
+
+The models are exploratory learning experiments, not official decision-making
+tools. The dataset is small and anonymized, so the model results should be read
+as part of event reflection.
 
 Current sample results:
 
-- Linear Regression price model: MAE 1.622, RMSE 2.128, R2 0.987
-- Random Forest price model: MAE 2.747, RMSE 4.530, R2 0.943
+- Linear Regression price model: MAE 1.159, RMSE 1.836, R2 0.991
+- Random Forest price model: MAE 3.039, RMSE 4.778, R2 0.936
 - Logistic Regression sale success model: accuracy 1.000, precision 1.000, recall 1.000
 - Decision Tree sale success model: accuracy 0.800, precision 1.000, recall 0.778
-
-The classification result should be read carefully because the sample dataset
-has many more sold item groups than unsold item groups.
 
 ![Predicted vs actual price](reports/charts/predicted_vs_actual_price.png)
 
@@ -126,25 +156,60 @@ has many more sold item groups than unsold item groups.
 
 ![Model comparison](reports/charts/model_comparison.png)
 
-The full model notes are in `reports/model_report.md`.
+## Project Workflow
 
-## Interactive Dashboard
+1. Collect donation, inventory, sale, and booth planning records
+2. Remove or replace private information
+3. Organize raw records into CSV files
+4. Clean missing or inconsistent values
+5. Validate sale totals and item IDs
+6. Analyze donations, inventory, sales, and booth layout
+7. Create summary tables and charts
+8. Run simple machine learning experiments
+9. Build an interactive dashboard
+10. Write reports, documentation, and reflection notes
+11. Run unit tests for calculations, outputs, and privacy checks
 
-I also created a Streamlit dashboard to make the results easier to explore. The
-dashboard allows users to filter the data by team, item category, booth area,
-and item condition. It shows donation summaries, sale revenue, booth
-performance, team contribution, estimate-versus-actual price comparisons, and
-model metrics if they have been generated.
+## Dataset Description
+
+The sample data is anonymized and based on the structure of the event records.
+It does not include real names, phone numbers, school names, organization
+names, addresses, QR codes, payment account details, or private donor
+information.
+
+- `donation_records_sample.csv`: direct donation records by donor type and team
+- `item_inventory_sample.csv`: item categories, quantities, estimated values, condition, and booth areas
+- `sale_records_sample.csv`: item-level sale records and payment methods
+- `booth_layout_sample.csv`: booth planning records and item allocation notes
+- `merged_event_data.csv`: processed inventory and sale data joined by item ID
 
 ## How to Run
 
-Install the requirements:
+Install requirements:
 
 ```bash
 pip install -r requirements.txt
 ```
 
-Run the full project workflow:
+Run the full workflow:
+
+```bash
+python src/run_all.py
+```
+
+Run tests:
+
+```bash
+python -m unittest discover -s tests
+```
+
+Run the dashboard:
+
+```bash
+streamlit run dashboard/app.py
+```
+
+Manual script commands:
 
 ```bash
 python src/clean_data.py
@@ -155,13 +220,6 @@ python src/analyze_booth_layout.py
 python src/create_charts.py
 python src/train_price_model.py
 python src/train_sale_success_model.py
-python -m unittest discover -s tests
-```
-
-Run the dashboard:
-
-```bash
-streamlit run dashboard/app.py
 ```
 
 ## Project Structure
@@ -173,38 +231,105 @@ community-charity-donation-analysis/
 ├── .gitignore
 ├── data/
 │   ├── raw/
+│   │   ├── donation_records_sample.csv
+│   │   ├── item_inventory_sample.csv
+│   │   ├── sale_records_sample.csv
+│   │   └── booth_layout_sample.csv
 │   └── processed/
+│       ├── cleaned_donations.csv
+│       ├── cleaned_inventory.csv
+│       ├── cleaned_sales.csv
+│       ├── cleaned_booth_layout.csv
+│       └── merged_event_data.csv
 ├── src/
+│   ├── __init__.py
+│   ├── utils.py
+│   ├── clean_data.py
+│   ├── analyze_donations.py
+│   ├── analyze_inventory.py
+│   ├── analyze_sales.py
+│   ├── analyze_booth_layout.py
+│   ├── create_charts.py
+│   ├── model_utils.py
+│   ├── train_price_model.py
+│   ├── train_sale_success_model.py
+│   └── run_all.py
 ├── dashboard/
+│   └── app.py
 ├── models/
+│   └── model_metrics.json
 ├── reports/
+│   ├── final_charity_sale_report.md
+│   ├── event_operation_review.md
+│   ├── model_report.md
 │   ├── summary_tables/
 │   └── charts/
 ├── docs/
+│   ├── images/
+│   ├── project_background.md
+│   ├── data_dictionary.md
+│   ├── workflow_notes.md
+│   ├── data_privacy_note.md
+│   ├── methodology.md
+│   ├── limitations.md
+│   ├── reflection.md
+│   └── future_improvements.md
 ├── notebooks/
+│   └── charity_sale_analysis_walkthrough.ipynb
 └── tests/
+    ├── test_clean_data.py
+    ├── test_analysis.py
+    ├── test_outputs.py
+    ├── test_models.py
+    └── test_privacy.py
 ```
 
-## Data Privacy Note
+## Reports and Documentation
 
-All data in this repository is anonymized and sample-based. Donor names, phone
-numbers, school names, organization names, addresses, and other private details
-are not included. The project is for learning and event review, not official
-financial accounting.
+- `reports/final_charity_sale_report.md`: final project report
+- `reports/event_operation_review.md`: operations-focused review
+- `reports/model_report.md`: simple machine learning experiment notes
+- `docs/project_background.md`: background and role
+- `docs/data_dictionary.md`: dataset and column explanations
+- `docs/workflow_notes.md`: workflow notes
+- `docs/data_privacy_note.md`: privacy and anonymization notes
+- `docs/methodology.md`: analysis methods
+- `docs/limitations.md`: honest project limitations
+- `docs/reflection.md`: student reflection
+- `docs/future_improvements.md`: possible next steps
+
+## Data Privacy
+
+This repository uses anonymized and sample-based data. Real donor names,
+student names, school information, phone numbers, email addresses, QR codes,
+payment details, addresses, and private organization records are not included.
+Activity photos should only be uploaded after privacy blurring.
 
 ## What I Learned
 
 Before this project, I thought charity sale work was mostly about collecting
-and selling items. After working on the data side, I learned that clear records
-also matter. Good spreadsheets helped with item allocation, booth planning,
-progress tracking, and post-event review. I also practiced turning messy event
-records into a simple analysis workflow that can be run again.
+and selling items. After working on the data side, I learned that clear
+records, item categories, estimated values, and simple analysis can make an
+event easier to organize and improve. This project helped me connect community
+service, operations, and data analysis.
+
+## Limitations
+
+- The data is anonymized and sample-based
+- This is not official financial accounting
+- The dataset is small
+- Estimated value is not always equal to final sale price
+- Booth traffic was not fully recorded
+- Machine learning models are exploratory
+- Results should be used for learning and reflection, not official decisions
 
 ## Future Improvements
 
-- Add item ID labels or barcodes for easier tracking
-- Track sale time to understand busy periods
+- Add clearer item ID labels
+- Add barcode or QR item tags for inventory tracking
+- Improve the data collection form
+- Track sale time during the event
 - Track booth visitor flow
-- Improve the estimate vs actual price comparison
-- Add sale time and visitor-flow data to the dashboard if future records include it
-- Create a reusable data collection template for future charity sales
+- Add buyer feedback if available
+- Create a reusable dashboard template for future charity sales
+- Use a larger dataset for future model experiments

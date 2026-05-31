@@ -15,3 +15,6 @@ the activity.
 10. Compare estimated item value with final sale price.
 11. Review booth planning and item allocation.
 12. Create charts and write short event review reports.
+13. Run simple machine learning experiments for learning and reflection.
+14. Build a Streamlit dashboard for filtered review.
+15. Run tests for calculations, generated outputs, formatting, and privacy.

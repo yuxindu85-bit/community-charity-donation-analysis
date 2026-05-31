@@ -4,6 +4,8 @@ These are realistic improvements that could make future charity sale data work
 easier.
 
 - Add item ID labels or simple barcodes before the event.
+- Add QR-style item tags for inventory tracking, without storing payment or
+  personal information in the code.
 - Track sale time to understand busy and slow periods.
 - Track booth visitor flow if volunteers can record it without interrupting
   the event.
@@ -12,3 +14,4 @@ easier.
 - Improve the data collection form so volunteers enter records in the same
   format.
 - Create a reusable template for future charity sales.
+- Use a larger future dataset if machine learning experiments are continued.

@@ -73,6 +73,35 @@ class CleanDataTest(unittest.TestCase):
             dataframe = pd.read_csv(file_path)
             self.assertFalse(PRIVATE_COLUMNS.intersection(dataframe.columns))
 
+    def test_required_columns_exist_after_cleaning(self):
+        expected_columns = {
+            "cleaned_donations.csv": {
+                "donation_id",
+                "donor_id",
+                "donor_type",
+                "team",
+                "donation_amount_cny",
+            },
+            "cleaned_inventory.csv": {
+                "item_id",
+                "item_category",
+                "quantity",
+                "estimated_unit_value_cny",
+                "estimated_total_value_cny",
+            },
+            "cleaned_sales.csv": {
+                "sale_id",
+                "item_id",
+                "quantity_sold",
+                "final_unit_price_cny",
+                "total_sale_cny",
+            },
+        }
+
+        for file_name, columns in expected_columns.items():
+            dataframe = pd.read_csv(DATA_PROCESSED_DIR / file_name)
+            self.assertTrue(columns.issubset(set(dataframe.columns)))
+
 
 if __name__ == "__main__":
     unittest.main()

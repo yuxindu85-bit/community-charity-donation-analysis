@@ -1,6 +1,8 @@
 from utils import (
     DATA_PROCESSED_DIR,
     DATA_RAW_DIR,
+    calculate_total,
+    check_required_columns,
     clean_text_columns,
     ensure_directory,
     load_csv,
@@ -10,7 +12,65 @@ from utils import (
 )
 
 
-PRIVATE_COLUMNS = {"real_name", "phone_number", "address", "email", "school_name"}
+PRIVATE_COLUMNS = {
+    "real_name",
+    "phone_number",
+    "email",
+    "address",
+    "school_name",
+    "contact",
+    "wechat_id",
+    "payment_account",
+    "qr_code",
+}
+
+DONATION_COLUMNS = {
+    "donation_id",
+    "donation_date",
+    "donor_id",
+    "donor_type",
+    "team",
+    "donation_amount_cny",
+    "payment_status",
+    "note",
+}
+
+INVENTORY_COLUMNS = {
+    "item_id",
+    "received_date",
+    "item_category",
+    "item_name",
+    "quantity",
+    "estimated_unit_value_cny",
+    "condition",
+    "team",
+    "booth_area",
+    "status",
+}
+
+SALE_COLUMNS = {
+    "sale_id",
+    "sale_date",
+    "item_id",
+    "item_category",
+    "booth_area",
+    "quantity_sold",
+    "final_unit_price_cny",
+    "total_sale_cny",
+    "team",
+    "payment_method",
+}
+
+BOOTH_COLUMNS = {
+    "booth_id",
+    "booth_area",
+    "main_category",
+    "assigned_team",
+    "table_count",
+    "estimated_items",
+    "actual_items",
+    "notes",
+}
 
 
 def check_private_columns(dataframes):
@@ -88,6 +148,15 @@ def clean_booth_layout(booths):
     return cleaned
 
 
+def validate_sale_item_ids(cleaned_inventory, cleaned_sales):
+    inventory_ids = set(cleaned_inventory["item_id"])
+    sale_ids = set(cleaned_sales["item_id"])
+    missing_ids = sorted(sale_ids - inventory_ids)
+    if missing_ids:
+        ids = ", ".join(missing_ids)
+        raise ValueError(f"Sales contain item IDs not found in inventory: {ids}")
+
+
 def create_merged_event_data(cleaned_inventory, cleaned_sales):
     item_sales = (
         cleaned_sales.groupby("item_id", as_index=False)
@@ -114,6 +183,11 @@ def run_cleaning():
     sales = load_csv(DATA_RAW_DIR / "sale_records_sample.csv")
     booths = load_csv(DATA_RAW_DIR / "booth_layout_sample.csv")
 
+    check_required_columns(donations, DONATION_COLUMNS, "donation_records_sample.csv")
+    check_required_columns(inventory, INVENTORY_COLUMNS, "item_inventory_sample.csv")
+    check_required_columns(sales, SALE_COLUMNS, "sale_records_sample.csv")
+    check_required_columns(booths, BOOTH_COLUMNS, "booth_layout_sample.csv")
+
     check_private_columns(
         {
             "donation_records_sample.csv": donations,
@@ -127,6 +201,7 @@ def run_cleaning():
     cleaned_inventory = clean_inventory(inventory)
     cleaned_sales = clean_sales(sales)
     cleaned_booths = clean_booth_layout(booths)
+    validate_sale_item_ids(cleaned_inventory, cleaned_sales)
     merged_event_data = create_merged_event_data(cleaned_inventory, cleaned_sales)
 
     ensure_directory(DATA_PROCESSED_DIR)
@@ -141,6 +216,12 @@ def run_cleaning():
     print(f"Inventory item groups: {len(cleaned_inventory)}")
     print(f"Sale records: {len(cleaned_sales)}")
     print(f"Booth records: {len(cleaned_booths)}")
+    print(f"Total direct donations: {calculate_total(cleaned_donations['donation_amount_cny']):,.0f} CNY")
+    print(f"Total sale revenue: {calculate_total(cleaned_sales['total_sale_cny']):,.0f} CNY")
+    total_funds = calculate_total(cleaned_donations["donation_amount_cny"]) + calculate_total(
+        cleaned_sales["total_sale_cny"]
+    )
+    print(f"Total funds raised: {total_funds:,.0f} CNY")
 
 
 if __name__ == "__main__":

@@ -12,10 +12,11 @@ from sklearn.linear_model import LinearRegression
 
 from model_utils import (
     CHARTS_DIR,
+    PRICE_NUMERIC_FEATURES,
     build_model_pipeline,
+    evaluate_regression_model,
     get_feature_names,
     load_price_model_data,
-    regression_metrics,
     split_regression_data,
     update_metrics,
     write_model_report,
@@ -41,10 +42,10 @@ def train_price_models():
     predictions = {}
 
     for model_name, model in models.items():
-        pipeline = build_model_pipeline(model)
+        pipeline = build_model_pipeline(model, PRICE_NUMERIC_FEATURES)
         pipeline.fit(x_train, y_train)
-        y_pred = pipeline.predict(x_test)
-        results[model_name] = regression_metrics(y_test, y_pred)
+        model_metrics, y_pred = evaluate_regression_model(pipeline, x_test, y_test)
+        results[model_name] = model_metrics
         trained_models[model_name] = pipeline
         predictions[model_name] = y_pred
 

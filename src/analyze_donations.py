@@ -45,7 +45,7 @@ def run_analysis():
     ) = summarize_donations(donations)
 
     save_csv(donor_type_summary, SUMMARY_DIR / "donation_summary.csv")
-    save_csv(team_donation_summary, SUMMARY_DIR / "team_donation_summary.csv")
+    save_csv(team_donation_summary, SUMMARY_DIR / "donation_by_team.csv")
 
     print("Donation analysis finished.")
     print(f"Total direct donations: {total_direct_donations:,.0f} CNY")

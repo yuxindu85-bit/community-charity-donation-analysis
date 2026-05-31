@@ -35,11 +35,28 @@ class AnalysisTest(unittest.TestCase):
         total_sale_revenue = self.sales["total_sale_cny"].sum()
         self.assertEqual(total_sale_revenue, 5269)
 
+    def test_sale_totals_match_quantity_times_price(self):
+        expected_total = self.sales["quantity_sold"] * self.sales["final_unit_price_cny"]
+        self.assertTrue(
+            (self.sales["total_sale_cny"].round(2) == expected_total.round(2)).all()
+        )
+
+    def test_sale_item_ids_exist_in_inventory(self):
+        inventory_ids = set(self.inventory["item_id"])
+        sale_ids = set(self.sales["item_id"])
+        self.assertTrue(sale_ids.issubset(inventory_ids))
+
     def test_total_funds_raised_is_over_26000(self):
         total_donations = self.donations["donation_amount_cny"].sum()
         total_sales = self.sales["total_sale_cny"].sum()
         self.assertEqual(total_donations + total_sales, 27459)
         self.assertGreater(total_donations + total_sales, 26000)
+
+    def test_team_names_are_standardized(self):
+        expected_teams = {"Team A", "Team B", "Team C", "Team D"}
+        self.assertTrue(set(self.donations["team"]).issubset(expected_teams))
+        self.assertTrue(set(self.inventory["team"]).issubset(expected_teams))
+        self.assertTrue(set(self.sales["team"]).issubset(expected_teams))
 
     def test_inventory_category_summary(self):
         category_summary, _, _ = summarize_inventory(self.inventory)

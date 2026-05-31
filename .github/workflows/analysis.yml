@@ -26,14 +26,7 @@ jobs:
 
       - name: Run data workflow
         run: |
-          python src/clean_data.py
-          python src/analyze_donations.py
-          python src/analyze_inventory.py
-          python src/analyze_sales.py
-          python src/analyze_booth_layout.py
-          python src/create_charts.py
-          python src/train_price_model.py
-          python src/train_sale_success_model.py
+          python src/run_all.py
           python -m unittest discover -s tests
 
       - name: Commit generated outputs
