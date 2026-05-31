@@ -228,6 +228,18 @@ python src/train_sale_success_model.py
 python tools/format_audit.py
 ```
 
+## Verification
+
+The project can be checked with:
+
+```bash
+python tools/format_audit.py
+python src/run_all.py
+python -m unittest discover -s tests
+python -m compileall src tests dashboard
+python -m py_compile dashboard/app.py
+```
+
 ## Project Structure
 
 ```text
