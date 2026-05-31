@@ -2,6 +2,10 @@ import os
 
 os.environ.setdefault("MPLCONFIGDIR", ".matplotlib_cache")
 
+import matplotlib
+
+matplotlib.use("Agg")
+
 import matplotlib.pyplot as plt
 
 from utils import CHARTS_DIR, SUMMARY_DIR, ensure_directory, load_csv
