@@ -1,9 +1,9 @@
 # Charity Sale Analysis Walkthrough
 
-This Markdown walkthrough mirrors the notebook content in a GitHub-friendly format.
-The `.ipynb` notebook is still included for running code locally, but GitHub's notebook preview can sometimes show a preview error even when the notebook JSON is valid.
+This Markdown walkthrough presents the analysis in a GitHub-friendly format.
+It is designed for quick review without needing to open or run a separate notebook file.
 
-Before using the notebook or this walkthrough, run the full project pipeline from the repository root:
+Before using this walkthrough, run the full project pipeline from the repository root:
 
 ```bash
 python src/run_all.py
@@ -18,7 +18,7 @@ The goal of the walkthrough is to show how the cleaned data can be loaded, summa
 
 ## 2. Load Cleaned Data
 
-The notebook starts by locating the project root and the generated output folders.
+The walkthrough starts by locating the project root and the generated output folders.
 
 ```python
 from pathlib import Path
@@ -120,7 +120,7 @@ Estimated values are helpful for planning, but final prices also depend on buyer
 ## 8. Simple Machine Learning Results
 
 The project includes beginner-friendly exploratory machine learning experiments.
-The notebook loads the saved model metrics if they exist.
+The walkthrough loads the saved model metrics if they exist.
 
 ```python
 if METRICS_PATH.exists():

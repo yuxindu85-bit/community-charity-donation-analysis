@@ -293,7 +293,6 @@ community-charity-donation-analysis/
 │   ├── reflection.md
 │   └── future_improvements.md
 ├── notebooks/
-│   ├── charity_sale_analysis_walkthrough.ipynb
 │   └── charity_sale_analysis_walkthrough.md
 ├── tools/
 │   └── format_audit.py
@@ -318,11 +317,7 @@ community-charity-donation-analysis/
 - `docs/limitations.md`: honest project limitations
 - `docs/reflection.md`: student reflection
 - `docs/future_improvements.md`: possible next steps
-- `notebooks/charity_sale_analysis_walkthrough.ipynb`: runnable notebook walkthrough
-- `notebooks/charity_sale_analysis_walkthrough.md`: GitHub-friendly notebook walkthrough
-
-If GitHub's notebook preview does not load, open the Markdown walkthrough instead.
-The notebook file is still valid JSON and can be run locally after `python src/run_all.py`.
+- `notebooks/charity_sale_analysis_walkthrough.md`: GitHub-friendly analysis walkthrough
 
 ## Data Privacy
 
