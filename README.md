@@ -260,7 +260,7 @@ community-charity-donation-analysis/
 │       ├── cleaned_booth_layout.csv
 │       └── merged_event_data.csv
 ├── src/
-│   ├── init.py
+│   ├── __init__.py
 │   ├── utils.py
 │   ├── clean_data.py
 │   ├── analyze_donations.py

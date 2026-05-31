@@ -55,11 +55,12 @@ def important_files():
 
 def check_python_file(path, text, lines):
     issues = []
+    package_marker_names = {"__init__.py"}
 
-    if path.name != "init.py" and lines < 30:
+    if path.name not in package_marker_names and lines < 30:
         issues.append("too few physical lines for Python")
 
-    if path.parent.name == "src" and path.name not in {"init.py", "run_all.py"} and lines < 35:
+    if path.parent.name == "src" and path.name not in package_marker_names | {"run_all.py"} and lines < 35:
         issues.append("major src file should have at least 35 lines")
 
     if path.name == "run_all.py" and lines < 40:
