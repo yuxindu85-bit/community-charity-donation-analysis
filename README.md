@@ -42,9 +42,9 @@ written reflection.
 
 ## Key Results
 
-- Total direct donations: ¥22,190
+- Total direct donations: ¥22,678
 - Total sale revenue: ¥5,269
-- Total funds raised in the sample analysis: ¥27,459
+- Total funds raised in the sample analysis: ¥27,947
 - Direct donations made up the larger part of the total funds
 - Sale revenue was reviewed by category, team, and booth area
 - Booth-level comparison helped review table allocation

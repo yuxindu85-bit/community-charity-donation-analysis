@@ -51,6 +51,8 @@ PRIVATE_COLUMNS = {
     "qr_code",
 }
 
+CONFIRMED_PAYMENT_STATUSES = {"received", "verified"}
+
 
 def get_project_root():
     return PROJECT_ROOT
@@ -99,6 +101,11 @@ def standardize_booth(value):
 
 def calculate_total(series):
     return pd.to_numeric(series, errors="coerce").fillna(0).sum()
+
+
+def filter_confirmed_donations(dataframe):
+    statuses = dataframe["payment_status"].fillna("").astype(str).str.lower()
+    return dataframe[statuses.isin(CONFIRMED_PAYMENT_STATUSES)].copy()
 
 
 def safe_divide(numerator, denominator):

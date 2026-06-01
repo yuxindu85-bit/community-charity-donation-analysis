@@ -5,7 +5,7 @@
 This report summarizes an anonymized charity sale data analysis project. The
 records include direct donations, donated item inventory, sale records, and
 booth planning notes. In this sample analysis, direct donations and sale
-revenue together add up to ¥27,459, which is over ¥26,000.
+revenue together add up to ¥27,947, which is over ¥26,000.
 
 This report is not an official financial report or audit. It is a student data
 analysis and event review project based on anonymized sample records.
@@ -39,9 +39,9 @@ progress, and reviewing post-event data.
 
 ## Main Results
 
-- Total direct donations: ¥22,190
+- Total direct donations: ¥22,678
 - Total sale revenue: ¥5,269
-- Total funds raised in the sample analysis: ¥27,459
+- Total funds raised in the sample analysis: ¥27,947
 - Direct donations made up the larger part of the total funds
 - Shared Table and Booth A were important areas for smaller items
 

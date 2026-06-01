@@ -10,6 +10,23 @@ PROJECT_ROOT = Path(__file__).resolve().parents[1]
 PROCESSED_DIR = PROJECT_ROOT / "data" / "processed"
 SUMMARY_DIR = PROJECT_ROOT / "reports" / "summary_tables"
 METRICS_PATH = PROJECT_ROOT / "models" / "model_metrics.json"
+CONFIRMED_PAYMENT_STATUSES = {"received", "verified"}
+
+
+REQUIRED_DATA_FILES = [
+    PROCESSED_DIR / "cleaned_donations.csv",
+    PROCESSED_DIR / "cleaned_inventory.csv",
+    PROCESSED_DIR / "cleaned_sales.csv",
+    PROCESSED_DIR / "cleaned_booth_layout.csv",
+    PROCESSED_DIR / "merged_event_data.csv",
+    SUMMARY_DIR / "booth_summary.csv",
+    SUMMARY_DIR / "donation_by_team.csv",
+    SUMMARY_DIR / "sales_by_team.csv",
+]
+
+
+def missing_data_files():
+    return [path for path in REQUIRED_DATA_FILES if not path.exists()]
 
 
 @st.cache_data
@@ -68,7 +85,24 @@ def main():
         "A student-built dashboard for reviewing anonymized charity sale data."
     )
 
+    missing_files = missing_data_files()
+    if missing_files:
+        st.error("Some generated data files are missing.")
+        st.write("Run this command from the repository root before opening the dashboard:")
+        st.code("python src/run_all.py", language="bash")
+        st.write("Missing files:")
+        for file_path in missing_files:
+            st.write(f"- `{file_path.relative_to(PROJECT_ROOT)}`")
+        st.stop()
+
     donations, inventory, sales, booths, merged, booth_summary, team_summary = load_data()
+    confirmed_donations = donations[
+        donations["payment_status"]
+        .fillna("")
+        .astype(str)
+        .str.lower()
+        .isin(CONFIRMED_PAYMENT_STATUSES)
+    ]
 
     st.sidebar.header("Filters")
     selected_team = st.sidebar.selectbox(
@@ -97,7 +131,7 @@ def main():
         selected_condition,
     )
 
-    total_direct_donations = donations["donation_amount_cny"].sum()
+    total_direct_donations = confirmed_donations["donation_amount_cny"].sum()
     total_sale_revenue = sales["total_sale_cny"].sum()
     total_funds = total_direct_donations + total_sale_revenue
 
@@ -112,12 +146,12 @@ def main():
 
     st.header("Donation Analysis")
     donation_by_type = (
-        donations.groupby("donor_type", as_index=False)["donation_amount_cny"]
+        confirmed_donations.groupby("donor_type", as_index=False)["donation_amount_cny"]
         .sum()
         .sort_values("donation_amount_cny", ascending=False)
     )
     donation_by_team = (
-        donations.groupby("team", as_index=False)["donation_amount_cny"]
+        confirmed_donations.groupby("team", as_index=False)["donation_amount_cny"]
         .sum()
         .sort_values("donation_amount_cny", ascending=False)
     )

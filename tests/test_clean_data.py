@@ -8,8 +8,8 @@ import pandas as pd
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(PROJECT_ROOT / "src"))
 
-from clean_data import PRIVATE_COLUMNS, run_cleaning
-from utils import DATA_PROCESSED_DIR, DATA_RAW_DIR
+from clean_data import run_cleaning
+from utils import DATA_PROCESSED_DIR, DATA_RAW_DIR, PRIVATE_COLUMNS
 
 
 class CleanDataTest(unittest.TestCase):
@@ -47,6 +47,36 @@ class CleanDataTest(unittest.TestCase):
         inventory = pd.read_csv(DATA_PROCESSED_DIR / "cleaned_inventory.csv")
         sales = pd.read_csv(DATA_PROCESSED_DIR / "cleaned_sales.csv")
         self.assertTrue(set(sales["item_id"]).issubset(set(inventory["item_id"])))
+
+    def test_sale_records_match_inventory_category_booth_and_team(self):
+        inventory = pd.read_csv(DATA_PROCESSED_DIR / "cleaned_inventory.csv")
+        sales = pd.read_csv(DATA_PROCESSED_DIR / "cleaned_sales.csv")
+        inventory_lookup = inventory[
+            ["item_id", "item_category", "booth_area", "team"]
+        ].rename(
+            columns={
+                "item_category": "inventory_category",
+                "booth_area": "inventory_booth_area",
+                "team": "inventory_team",
+            }
+        )
+        merged = sales.merge(inventory_lookup, on="item_id", how="left")
+
+        self.assertTrue((merged["item_category"] == merged["inventory_category"]).all())
+        self.assertTrue((merged["booth_area"] == merged["inventory_booth_area"]).all())
+        self.assertTrue((merged["team"] == merged["inventory_team"]).all())
+
+    def test_quantity_sold_does_not_exceed_inventory_quantity(self):
+        inventory = pd.read_csv(DATA_PROCESSED_DIR / "cleaned_inventory.csv")
+        sales = pd.read_csv(DATA_PROCESSED_DIR / "cleaned_sales.csv")
+        sold_by_item = (
+            sales.groupby("item_id", as_index=False)
+            .agg(total_quantity_sold=("quantity_sold", "sum"))
+            .merge(inventory[["item_id", "quantity"]], on="item_id", how="left")
+        )
+        self.assertTrue(
+            (sold_by_item["total_quantity_sold"] <= sold_by_item["quantity"]).all()
+        )
 
     def test_category_names_are_standardized(self):
         inventory = pd.read_csv(DATA_PROCESSED_DIR / "cleaned_inventory.csv")

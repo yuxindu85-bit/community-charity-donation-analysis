@@ -43,6 +43,8 @@ def important_files():
         "reports/*.md",
         "models/*.json",
         "notebooks/*.ipynb",
+        ".github/workflows/*.yml",
+        ".github/workflows/*.yaml",
     ]
 
     seen = set()

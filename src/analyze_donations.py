@@ -1,11 +1,18 @@
-from utils import DATA_PROCESSED_DIR, SUMMARY_DIR, add_share_column, load_csv, save_csv
+from utils import (
+    DATA_PROCESSED_DIR,
+    SUMMARY_DIR,
+    add_share_column,
+    filter_confirmed_donations,
+    load_csv,
+    save_csv,
+)
 
 
 def summarize_donations(donations):
-    received = donations[donations["payment_status"].str.lower() == "received"].copy()
+    confirmed = filter_confirmed_donations(donations)
 
     donor_type_summary = (
-        received.groupby("donor_type", as_index=False)
+        confirmed.groupby("donor_type", as_index=False)
         .agg(
             donation_count=("donation_id", "count"),
             total_donation_cny=("donation_amount_cny", "sum"),
@@ -21,7 +28,7 @@ def summarize_donations(donations):
     )
 
     team_donation_summary = (
-        received.groupby("team", as_index=False)
+        confirmed.groupby("team", as_index=False)
         .agg(
             donation_count=("donation_id", "count"),
             team_donation_cny=("donation_amount_cny", "sum"),
@@ -29,8 +36,8 @@ def summarize_donations(donations):
         .sort_values("team_donation_cny", ascending=False)
     )
 
-    total_direct_donations = received["donation_amount_cny"].sum()
-    average_donation = received["donation_amount_cny"].mean()
+    total_direct_donations = confirmed["donation_amount_cny"].sum()
+    average_donation = confirmed["donation_amount_cny"].mean()
 
     return donor_type_summary, team_donation_summary, total_direct_donations, average_donation
 

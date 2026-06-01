@@ -1,4 +1,4 @@
-from utils import DATA_PROCESSED_DIR, SUMMARY_DIR, load_csv, save_csv
+from utils import DATA_PROCESSED_DIR, SUMMARY_DIR, load_csv, safe_divide, save_csv
 
 
 def summarize_booths(booth_layout, sales):
@@ -32,9 +32,13 @@ def summarize_booths(booth_layout, sales):
     booth_summary["item_count_difference"] = (
         booth_summary["actual_items"] - booth_summary["estimated_items"]
     )
-    booth_summary["revenue_per_actual_item_cny"] = (
-        booth_summary["booth_revenue_cny"] / booth_summary["actual_items"].replace(0, 1)
-    ).round(2)
+    booth_summary["revenue_per_actual_item_cny"] = booth_summary.apply(
+        lambda row: round(
+            safe_divide(row["booth_revenue_cny"], row["actual_items"]),
+            2,
+        ),
+        axis=1,
+    )
 
     return booth_summary.sort_values("booth_revenue_cny", ascending=False)
 

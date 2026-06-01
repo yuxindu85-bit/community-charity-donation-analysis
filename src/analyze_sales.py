@@ -1,4 +1,12 @@
-from utils import DATA_PROCESSED_DIR, SUMMARY_DIR, add_share_column, load_csv, save_csv
+from utils import (
+    DATA_PROCESSED_DIR,
+    SUMMARY_DIR,
+    add_share_column,
+    filter_confirmed_donations,
+    load_csv,
+    safe_divide,
+    save_csv,
+)
 
 
 def summarize_sales(sales, merged_event_data):
@@ -45,17 +53,23 @@ def summarize_sales(sales, merged_event_data):
         )
         .sort_values("actual_sale_total_cny", ascending=False)
     )
-    estimate_vs_actual["actual_to_estimate_rate"] = (
-        estimate_vs_actual["actual_sale_total_cny"]
-        / estimate_vs_actual["estimated_sold_value_cny"].replace(0, 1)
-    ).round(3)
+    estimate_vs_actual["actual_to_estimate_rate"] = estimate_vs_actual.apply(
+        lambda row: round(
+            safe_divide(
+                row["actual_sale_total_cny"],
+                row["estimated_sold_value_cny"],
+            ),
+            3,
+        ),
+        axis=1,
+    )
 
     return revenue_by_category, revenue_by_booth, revenue_by_team, estimate_vs_actual
 
 
 def summarize_team_contribution(donations, revenue_by_team):
     donation_by_team = (
-        donations[donations["payment_status"].str.lower() == "received"]
+        filter_confirmed_donations(donations)
         .groupby("team", as_index=False)
         .agg(direct_donation_cny=("donation_amount_cny", "sum"))
     )

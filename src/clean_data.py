@@ -6,6 +6,7 @@ from utils import (
     check_required_columns,
     clean_text_columns,
     ensure_directory,
+    filter_confirmed_donations,
     load_csv,
     PRIVATE_COLUMNS,
     save_csv,
@@ -148,6 +149,54 @@ def validate_sale_item_ids(cleaned_inventory, cleaned_sales):
         raise ValueError(f"Sales contain item IDs not found in inventory: {ids}")
 
 
+def validate_sales_match_inventory(cleaned_inventory, cleaned_sales):
+    inventory_lookup = cleaned_inventory[
+        ["item_id", "item_category", "booth_area", "team", "quantity"]
+    ].rename(
+        columns={
+            "item_category": "inventory_category",
+            "booth_area": "inventory_booth_area",
+            "team": "inventory_team",
+            "quantity": "inventory_quantity",
+        }
+    )
+    sales_with_inventory = cleaned_sales.merge(
+        inventory_lookup,
+        on="item_id",
+        how="left",
+    )
+
+    mismatched_fields = sales_with_inventory[
+        (
+            sales_with_inventory["item_category"]
+            != sales_with_inventory["inventory_category"]
+        )
+        | (
+            sales_with_inventory["booth_area"]
+            != sales_with_inventory["inventory_booth_area"]
+        )
+        | (sales_with_inventory["team"] != sales_with_inventory["inventory_team"])
+    ]
+    if not mismatched_fields.empty:
+        sale_ids = ", ".join(mismatched_fields["sale_id"].astype(str).tolist())
+        raise ValueError(
+            "Sales do not match inventory category, booth, or team: "
+            f"{sale_ids}"
+        )
+
+    sold_by_item = (
+        cleaned_sales.groupby("item_id", as_index=False)
+        .agg(total_quantity_sold=("quantity_sold", "sum"))
+        .merge(cleaned_inventory[["item_id", "quantity"]], on="item_id", how="left")
+    )
+    oversold_items = sold_by_item[
+        sold_by_item["total_quantity_sold"] > sold_by_item["quantity"]
+    ]
+    if not oversold_items.empty:
+        item_ids = ", ".join(oversold_items["item_id"].astype(str).tolist())
+        raise ValueError(f"Sales quantity exceeds inventory quantity for: {item_ids}")
+
+
 def create_merged_event_data(cleaned_inventory, cleaned_sales):
     item_sales = (
         cleaned_sales.groupby("item_id", as_index=False)
@@ -193,6 +242,7 @@ def run_cleaning():
     cleaned_sales = clean_sales(sales)
     cleaned_booths = clean_booth_layout(booths)
     validate_sale_item_ids(cleaned_inventory, cleaned_sales)
+    validate_sales_match_inventory(cleaned_inventory, cleaned_sales)
     merged_event_data = create_merged_event_data(cleaned_inventory, cleaned_sales)
 
     ensure_directory(DATA_PROCESSED_DIR)
@@ -207,11 +257,14 @@ def run_cleaning():
     print(f"Inventory item groups: {len(cleaned_inventory)}")
     print(f"Sale records: {len(cleaned_sales)}")
     print(f"Booth records: {len(cleaned_booths)}")
-    print(f"Total direct donations: {calculate_total(cleaned_donations['donation_amount_cny']):,.0f} CNY")
-    print(f"Total sale revenue: {calculate_total(cleaned_sales['total_sale_cny']):,.0f} CNY")
-    total_funds = calculate_total(cleaned_donations["donation_amount_cny"]) + calculate_total(
-        cleaned_sales["total_sale_cny"]
+    confirmed_donations = filter_confirmed_donations(cleaned_donations)
+    total_direct_donations = calculate_total(
+        confirmed_donations["donation_amount_cny"]
     )
+    print(f"Total direct donations: {total_direct_donations:,.0f} CNY")
+    total_sale_revenue = calculate_total(cleaned_sales["total_sale_cny"])
+    print(f"Total sale revenue: {total_sale_revenue:,.0f} CNY")
+    total_funds = total_direct_donations + total_sale_revenue
     print(f"Total funds raised: {total_funds:,.0f} CNY")
 
 

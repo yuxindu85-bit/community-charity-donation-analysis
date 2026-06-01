@@ -21,6 +21,16 @@ PIPELINE_STEPS = [
 ]
 
 
+def run_pipeline_step(step_name, step_function):
+    print(f"\nRunning step: {step_name}")
+    try:
+        step_function()
+    except Exception as error:
+        print(f"Failed step: {step_name}")
+        raise RuntimeError(f"Pipeline stopped during: {step_name}") from error
+    print(f"Passed step: {step_name}")
+
+
 def print_final_totals():
     donations = load_csv(DATA_PROCESSED_DIR / "cleaned_donations.csv")
     sales = load_csv(DATA_PROCESSED_DIR / "cleaned_sales.csv")
@@ -37,9 +47,7 @@ def print_final_totals():
 def main():
     print("Starting charity sale data workflow...")
     for step_name, step_function in PIPELINE_STEPS:
-        print(f"\nRunning step: {step_name}")
-        step_function()
-        print(f"Passed step: {step_name}")
+        run_pipeline_step(step_name, step_function)
 
     print()
     print_final_totals()
