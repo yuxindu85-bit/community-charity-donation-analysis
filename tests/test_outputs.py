@@ -1,3 +1,4 @@
+import json
 import re
 import sys
 import unittest
@@ -73,6 +74,7 @@ class OutputTest(unittest.TestCase):
             MODEL_REPORT_PATH,
             PROJECT_ROOT / "reports" / "llm_operation_review.md",
             PROJECT_ROOT / "docs" / "llm_usage.md",
+            PROJECT_ROOT / "notebooks" / "charity_sale_analysis_walkthrough.ipynb",
             PROJECT_ROOT / "notebooks" / "charity_sale_analysis_walkthrough.md",
             PROJECT_ROOT / "dashboard" / "app.py",
         ]
@@ -104,6 +106,21 @@ class OutputTest(unittest.TestCase):
         self.assertIn("python -m unittest discover -s tests", workflow_text)
         self.assertIn("python -m compileall src tests dashboard tools", workflow_text)
         self.assertIn("python -m py_compile dashboard/app.py", workflow_text)
+
+    def test_notebook_has_no_saved_error_outputs(self):
+        notebook_path = (
+            PROJECT_ROOT / "notebooks" / "charity_sale_analysis_walkthrough.ipynb"
+        )
+        notebook = json.loads(notebook_path.read_text(encoding="utf-8"))
+        cells = notebook.get("cells", [])
+
+        self.assertGreater(len(cells), 0)
+        self.assertTrue(any(cell.get("cell_type") == "markdown" for cell in cells))
+        self.assertTrue(any(cell.get("cell_type") == "code" for cell in cells))
+
+        for cell in cells:
+            for output in cell.get("outputs", []):
+                self.assertNotEqual(output.get("output_type"), "error")
 
 
 if __name__ == "__main__":

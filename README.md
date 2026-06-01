@@ -347,6 +347,7 @@ community-charity-donation-analysis/
 │   ├── reflection.md
 │   └── future_improvements.md
 ├── notebooks/
+│   ├── charity_sale_analysis_walkthrough.ipynb
 │   └── charity_sale_analysis_walkthrough.md
 ├── tools/
 │   └── format_audit.py
@@ -375,6 +376,7 @@ community-charity-donation-analysis/
 - `docs/limitations.md`: honest project limitations
 - `docs/reflection.md`: student reflection
 - `docs/future_improvements.md`: possible next steps
+- `notebooks/charity_sale_analysis_walkthrough.ipynb`: clean runnable notebook with no saved error outputs
 - `notebooks/charity_sale_analysis_walkthrough.md`: GitHub-friendly analysis walkthrough
 
 ## Data Privacy
