@@ -12,7 +12,7 @@ from analyze_donations import summarize_donations
 from analyze_inventory import summarize_inventory
 from analyze_sales import summarize_sales, summarize_team_contribution
 from clean_data import run_cleaning
-from model_utils import PRICE_FEATURES
+from model_utils import PRICE_FEATURES, load_price_model_data
 from utils import DATA_PROCESSED_DIR, filter_confirmed_donations
 
 
@@ -171,6 +171,31 @@ class AnalysisTest(unittest.TestCase):
         self.assertNotIn("quantity_sold", PRICE_FEATURES)
         self.assertNotIn("total_sale_cny", PRICE_FEATURES)
         self.assertNotIn("actual_sale_total_cny", PRICE_FEATURES)
+
+    def test_price_model_features_match_inventory_records(self):
+        model_data = load_price_model_data()
+        inventory_lookup = self.inventory[
+            [
+                "item_id",
+                "item_category",
+                "booth_area",
+                "team",
+                "condition",
+                "estimated_unit_value_cny",
+                "quantity",
+            ]
+        ]
+        checked = model_data.merge(
+            inventory_lookup,
+            on="item_id",
+            suffixes=("_model", "_inventory"),
+        )
+
+        for column in PRICE_FEATURES:
+            self.assertTrue(
+                (checked[f"{column}_model"] == checked[f"{column}_inventory"]).all(),
+                f"{column} should come from inventory records.",
+            )
 
 
 if __name__ == "__main__":

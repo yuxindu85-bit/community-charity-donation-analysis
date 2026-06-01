@@ -53,9 +53,6 @@ def load_price_model_data():
     item_sale_summary = (
         sales.groupby("item_id", as_index=False)
         .agg(
-            item_category=("item_category", "first"),
-            booth_area=("booth_area", "first"),
-            team=("team", "first"),
             quantity_sold=("quantity_sold", "sum"),
             total_sale_cny=("total_sale_cny", "sum"),
         )
@@ -68,6 +65,9 @@ def load_price_model_data():
         inventory[
             [
                 "item_id",
+                "item_category",
+                "booth_area",
+                "team",
                 "condition",
                 "estimated_unit_value_cny",
                 "quantity",
@@ -219,6 +219,7 @@ def write_model_report(metrics):
         "## Price Prediction Regression Model",
         "",
         "Goal: predict final item sale price using item category, condition, estimated value, booth area, team, and donated quantity.",
+        "The input features come from the inventory table. Sale records are used only to calculate the target final unit price for sold items.",
         "",
         "| Model | MAE | RMSE | R2 score |",
         "| --- | ---: | ---: | ---: |",

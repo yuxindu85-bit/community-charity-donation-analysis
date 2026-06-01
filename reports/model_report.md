@@ -16,6 +16,7 @@ This report summarizes two beginner-friendly machine learning experiments for th
 ## Price Prediction Regression Model
 
 Goal: predict final item sale price using item category, condition, estimated value, booth area, team, and donated quantity.
+The input features come from the inventory table. Sale records are used only to calculate the target final unit price for sold items.
 
 | Model | MAE | RMSE | R2 score |
 | --- | ---: | ---: | ---: |

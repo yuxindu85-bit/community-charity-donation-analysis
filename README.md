@@ -121,6 +121,9 @@ The price prediction regression model predicts `final_unit_price_cny` using:
 - team
 - donated quantity
 
+For the price model, the input features come from the inventory table. The sale
+records are used only to calculate the target value, `final_unit_price_cny`.
+
 The sale success classification model predicts whether an item group is likely
 to sell using:
 

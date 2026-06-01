@@ -1,3 +1,4 @@
+import re
 import sys
 import unittest
 from pathlib import Path
@@ -12,10 +13,10 @@ from analyze_inventory import run_analysis as run_inventory_analysis
 from analyze_sales import run_analysis as run_sales_analysis
 from clean_data import run_cleaning
 from create_charts import create_all_charts
-from utils import CHARTS_DIR, SUMMARY_DIR
+from model_utils import METRICS_PATH, MODEL_REPORT_PATH
 from train_price_model import train_price_models
 from train_sale_success_model import train_sale_success_models
-from model_utils import METRICS_PATH, MODEL_REPORT_PATH
+from utils import CHARTS_DIR, SUMMARY_DIR
 
 
 class OutputTest(unittest.TestCase):
@@ -76,6 +77,29 @@ class OutputTest(unittest.TestCase):
         for file_path in expected_files:
             self.assertTrue(file_path.exists())
             self.assertGreater(file_path.stat().st_size, 0)
+
+    def test_readme_image_links_point_to_existing_files(self):
+        readme_text = (PROJECT_ROOT / "README.md").read_text(encoding="utf-8")
+        image_links = re.findall(r"!\[[^\]]*\]\(([^)]+)\)", readme_text)
+        local_image_links = [
+            link
+            for link in image_links
+            if not link.startswith(("http://", "https://"))
+        ]
+
+        self.assertGreater(len(local_image_links), 0)
+        for link in local_image_links:
+            self.assertTrue(
+                (PROJECT_ROOT / link).exists(),
+                f"README image link does not exist: {link}",
+            )
+
+    def test_github_actions_workflow_exists(self):
+        workflow_path = PROJECT_ROOT / ".github" / "workflows" / "tests.yml"
+        self.assertTrue(workflow_path.exists())
+        workflow_text = workflow_path.read_text(encoding="utf-8")
+        self.assertIn("python src/run_all.py", workflow_text)
+        self.assertIn("python -m unittest discover -s tests", workflow_text)
 
 
 if __name__ == "__main__":
