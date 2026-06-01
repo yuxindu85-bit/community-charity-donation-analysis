@@ -7,6 +7,7 @@
 ![Streamlit](https://img.shields.io/badge/Streamlit-dashboard-red)
 ![Plotly](https://img.shields.io/badge/Plotly-interactive%20charts-purple)
 ![Status](https://img.shields.io/badge/status-completed-brightgreen)
+![Project Checks](https://github.com/yuxindu85-bit/community-charity-donation-analysis/actions/workflows/tests.yml/badge.svg)
 
 ## Project Overview
 
@@ -161,6 +162,8 @@ Current sample results:
 Some scores are very high because the sample dataset is small, clean, and
 simple. I treat these results as a learning exercise and a way to reflect on
 event data, not as proof of a reliable prediction system.
+Because the dataset is small, the high model scores may reflect simple
+patterns in the sample data rather than strong real-world prediction ability.
 
 ![Predicted vs actual price](reports/charts/predicted_vs_actual_price.png)
 
@@ -246,7 +249,7 @@ The project can be checked with:
 python tools/format_audit.py
 python src/run_all.py
 python -m unittest discover -s tests
-python -m compileall src tests dashboard
+python -m compileall src tests dashboard tools
 python -m py_compile dashboard/app.py
 ```
 
