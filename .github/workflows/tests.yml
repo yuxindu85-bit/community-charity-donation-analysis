@@ -25,8 +25,11 @@ jobs:
       - name: Run full pipeline
         run: python src/run_all.py
 
+      - name: Run format audit
+        run: python tools/format_audit.py
+
       - name: Run tests
         run: python -m unittest discover -s tests
 
       - name: Compile Python files
-        run: python -m compileall src tests dashboard
+        run: python -m compileall src tests dashboard tools

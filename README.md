@@ -55,6 +55,17 @@ This repository is not an official financial report or audit. It is an
 anonymized student data analysis project based on the structure of real event
 records.
 
+## Data Source and Anonymization
+
+The dataset in this repository is sample-based and adapted from the structure
+of real event records. I removed or replaced private details before building
+the public version of the project.
+
+The sample files use anonymous IDs such as `Donor_001`, `Business_001`,
+`Team A`, and `Booth A`. They do not include real donor names, student names,
+phone numbers, emails, addresses, school names, organization names, QR codes,
+or payment account details.
+
 ## Activity Evidence and Privacy
 
 The images below show parts of the charity sale and related community event.
@@ -146,6 +157,10 @@ Current sample results:
 - Random Forest price model: MAE 3.039, RMSE 4.778, R2 0.936
 - Logistic Regression sale success model: accuracy 1.000, precision 1.000, recall 1.000
 - Decision Tree sale success model: accuracy 0.800, precision 1.000, recall 0.778
+
+Some scores are very high because the sample dataset is small, clean, and
+simple. I treat these results as a learning exercise and a way to reflect on
+event data, not as proof of a reliable prediction system.
 
 ![Predicted vs actual price](reports/charts/predicted_vs_actual_price.png)
 
