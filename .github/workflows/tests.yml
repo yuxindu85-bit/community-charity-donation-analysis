@@ -33,3 +33,6 @@ jobs:
 
       - name: Compile Python files
         run: python -m compileall src tests dashboard tools
+
+      - name: Check dashboard syntax
+        run: python -m py_compile dashboard/app.py

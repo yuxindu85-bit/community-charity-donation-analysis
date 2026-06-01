@@ -100,6 +100,8 @@ class OutputTest(unittest.TestCase):
         workflow_text = workflow_path.read_text(encoding="utf-8")
         self.assertIn("python src/run_all.py", workflow_text)
         self.assertIn("python -m unittest discover -s tests", workflow_text)
+        self.assertIn("python -m compileall src tests dashboard tools", workflow_text)
+        self.assertIn("python -m py_compile dashboard/app.py", workflow_text)
 
 
 if __name__ == "__main__":
