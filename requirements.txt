@@ -5,3 +5,4 @@ streamlit
 plotly
 jupyter
 nbformat
+openai

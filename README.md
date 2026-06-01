@@ -186,9 +186,43 @@ patterns in the sample data rather than strong real-world prediction ability.
 6. Analyze donations, inventory, sales, and booth layout
 7. Create summary tables and charts
 8. Run simple machine learning experiments
-9. Build an interactive dashboard
-10. Write reports, documentation, and reflection notes
-11. Run unit tests for calculations, outputs, and privacy checks
+9. Optionally generate an LLM-assisted operation review draft
+10. Build an interactive dashboard
+11. Write reports, documentation, and reflection notes
+12. Run unit tests for calculations, outputs, and privacy checks
+
+## Optional GPT and DeepSeek Review Helper
+
+The repository includes an optional helper script that can use GPT or DeepSeek
+to draft a short operations reflection from the generated summary tables. This
+is not part of the core pipeline, and it is not required for the project to run.
+
+The helper is intentionally modest. It does not clean data, make financial
+decisions, replace the reports, or turn the project into an AI platform. It
+only drafts text from already-anonymized summary results.
+
+Offline mode works without any API keys:
+
+```bash
+python src/llm_review.py --provider offline
+```
+
+GPT mode uses the OpenAI API:
+
+```bash
+export OPENAI_API_KEY="your_openai_key_here"
+python src/llm_review.py --provider openai --model gpt-5-mini
+```
+
+DeepSeek mode uses DeepSeek's OpenAI-compatible API:
+
+```bash
+export DEEPSEEK_API_KEY="your_deepseek_key_here"
+python src/llm_review.py --provider deepseek --model deepseek-v4-flash
+```
+
+API keys should be kept in environment variables and should never be committed
+to GitHub. See `docs/llm_usage.md` for details.
 
 ## Dataset Description
 
@@ -241,6 +275,7 @@ python src/analyze_booth_layout.py
 python src/create_charts.py
 python src/train_price_model.py
 python src/train_sale_success_model.py
+python src/llm_review.py --provider offline
 python tools/format_audit.py
 ```
 
@@ -287,6 +322,7 @@ community-charity-donation-analysis/
 │   ├── model_utils.py
 │   ├── train_price_model.py
 │   ├── train_sale_success_model.py
+│   ├── llm_review.py
 │   └── run_all.py
 ├── dashboard/
 │   └── app.py
@@ -296,6 +332,7 @@ community-charity-donation-analysis/
 │   ├── final_charity_sale_report.md
 │   ├── event_operation_review.md
 │   ├── model_report.md
+│   ├── llm_operation_review.md
 │   ├── summary_tables/
 │   └── charts/
 ├── docs/
@@ -305,6 +342,7 @@ community-charity-donation-analysis/
 │   ├── workflow_notes.md
 │   ├── data_privacy_note.md
 │   ├── methodology.md
+│   ├── llm_usage.md
 │   ├── limitations.md
 │   ├── reflection.md
 │   └── future_improvements.md
@@ -315,6 +353,8 @@ community-charity-donation-analysis/
 └── tests/
     ├── test_clean_data.py
     ├── test_analysis.py
+    ├── test_documentation_consistency.py
+    ├── test_llm_review.py
     ├── test_outputs.py
     ├── test_privacy.py
     └── test_formatting.py
@@ -325,11 +365,13 @@ community-charity-donation-analysis/
 - `reports/final_charity_sale_report.md`: final project report
 - `reports/event_operation_review.md`: operations-focused review
 - `reports/model_report.md`: simple machine learning experiment notes
+- `reports/llm_operation_review.md`: optional review draft from the LLM helper
 - `docs/project_background.md`: background and role
 - `docs/data_dictionary.md`: dataset and column explanations
 - `docs/workflow_notes.md`: workflow notes
 - `docs/data_privacy_note.md`: privacy and anonymization notes
 - `docs/methodology.md`: analysis methods
+- `docs/llm_usage.md`: optional GPT and DeepSeek usage notes
 - `docs/limitations.md`: honest project limitations
 - `docs/reflection.md`: student reflection
 - `docs/future_improvements.md`: possible next steps

@@ -71,6 +71,8 @@ class OutputTest(unittest.TestCase):
             PROJECT_ROOT / "reports" / "final_charity_sale_report.md",
             PROJECT_ROOT / "reports" / "event_operation_review.md",
             MODEL_REPORT_PATH,
+            PROJECT_ROOT / "reports" / "llm_operation_review.md",
+            PROJECT_ROOT / "docs" / "llm_usage.md",
             PROJECT_ROOT / "notebooks" / "charity_sale_analysis_walkthrough.md",
             PROJECT_ROOT / "dashboard" / "app.py",
         ]

@@ -54,12 +54,14 @@ IMPORTANT_MARKDOWN_FILES = [
     "docs/workflow_notes.md",
     "docs/data_privacy_note.md",
     "docs/methodology.md",
+    "docs/llm_usage.md",
     "docs/limitations.md",
     "docs/reflection.md",
     "docs/future_improvements.md",
     "reports/final_charity_sale_report.md",
     "reports/event_operation_review.md",
     "reports/model_report.md",
+    "reports/llm_operation_review.md",
 ]
 
 
