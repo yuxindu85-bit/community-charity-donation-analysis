@@ -1,14 +1,14 @@
 {
   "price_prediction": {
     "Linear Regression": {
-      "mae": 1.159,
-      "rmse": 1.836,
-      "r2_score": 0.991
+      "mae": 1.622,
+      "rmse": 2.128,
+      "r2_score": 0.987
     },
     "Random Forest Regressor": {
-      "mae": 3.039,
-      "rmse": 4.778,
-      "r2_score": 0.936
+      "mae": 2.747,
+      "rmse": 4.53,
+      "r2_score": 0.943
     }
   },
   "sale_success_classification": {

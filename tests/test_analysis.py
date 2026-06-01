@@ -12,6 +12,7 @@ from analyze_donations import summarize_donations
 from analyze_inventory import summarize_inventory
 from analyze_sales import summarize_sales, summarize_team_contribution
 from clean_data import run_cleaning
+from model_utils import PRICE_FEATURES
 from utils import DATA_PROCESSED_DIR, filter_confirmed_donations
 
 
@@ -164,6 +165,12 @@ class AnalysisTest(unittest.TestCase):
             expected_total,
         )
         self.assertEqual(team_summary["team_rank"].min(), 1)
+
+    def test_price_model_uses_pre_sale_features(self):
+        self.assertIn("quantity", PRICE_FEATURES)
+        self.assertNotIn("quantity_sold", PRICE_FEATURES)
+        self.assertNotIn("total_sale_cny", PRICE_FEATURES)
+        self.assertNotIn("actual_sale_total_cny", PRICE_FEATURES)
 
 
 if __name__ == "__main__":

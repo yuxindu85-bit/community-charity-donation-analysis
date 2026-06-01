@@ -29,7 +29,7 @@ PRICE_FEATURES = [
     "estimated_unit_value_cny",
     "booth_area",
     "team",
-    "quantity_sold",
+    "quantity",
 ]
 
 SALE_SUCCESS_FEATURES = [
@@ -42,7 +42,7 @@ SALE_SUCCESS_FEATURES = [
 ]
 
 CATEGORICAL_FEATURES = ["item_category", "condition", "booth_area", "team"]
-PRICE_NUMERIC_FEATURES = ["estimated_unit_value_cny", "quantity_sold"]
+PRICE_NUMERIC_FEATURES = ["estimated_unit_value_cny", "quantity"]
 SALE_SUCCESS_NUMERIC_FEATURES = ["estimated_unit_value_cny", "quantity"]
 
 
@@ -214,11 +214,11 @@ def write_model_report(metrics):
         "- Estimated unit value",
         "- Booth area",
         "- Team",
-        "- Quantity or quantity sold, depending on the model",
+        "- Donated quantity",
         "",
         "## Price Prediction Regression Model",
         "",
-        "Goal: predict final item sale price using item category, condition, estimated value, booth area, team, and quantity sold.",
+        "Goal: predict final item sale price using item category, condition, estimated value, booth area, team, and donated quantity.",
         "",
         "| Model | MAE | RMSE | R2 score |",
         "| --- | ---: | ---: | ---: |",

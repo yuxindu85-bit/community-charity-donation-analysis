@@ -11,16 +11,16 @@ This report summarizes two beginner-friendly machine learning experiments for th
 - Estimated unit value
 - Booth area
 - Team
-- Quantity or quantity sold, depending on the model
+- Donated quantity
 
 ## Price Prediction Regression Model
 
-Goal: predict final item sale price using item category, condition, estimated value, booth area, team, and quantity sold.
+Goal: predict final item sale price using item category, condition, estimated value, booth area, team, and donated quantity.
 
 | Model | MAE | RMSE | R2 score |
 | --- | ---: | ---: | ---: |
-| Linear Regression | 1.159 | 1.836 | 0.991 |
-| Random Forest Regressor | 3.039 | 4.778 | 0.936 |
+| Linear Regression | 1.622 | 2.128 | 0.987 |
+| Random Forest Regressor | 2.747 | 4.53 | 0.943 |
 
 ## Sale Success Classification Model
 

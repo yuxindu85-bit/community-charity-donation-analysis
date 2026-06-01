@@ -118,7 +118,7 @@ The price prediction regression model predicts `final_unit_price_cny` using:
 - estimated unit value
 - booth area
 - team
-- quantity sold
+- donated quantity
 
 The sale success classification model predicts whether an item group is likely
 to sell using:
@@ -153,8 +153,8 @@ as part of event reflection.
 
 Current sample results:
 
-- Linear Regression price model: MAE 1.159, RMSE 1.836, R2 0.991
-- Random Forest price model: MAE 3.039, RMSE 4.778, R2 0.936
+- Linear Regression price model: MAE 1.622, RMSE 2.128, R2 0.987
+- Random Forest price model: MAE 2.747, RMSE 4.530, R2 0.943
 - Logistic Regression sale success model: accuracy 1.000, precision 1.000, recall 1.000
 - Decision Tree sale success model: accuracy 0.800, precision 1.000, recall 0.778
 
