@@ -63,6 +63,16 @@ You can also pass a model directly:
 python src/llm_review.py --provider deepseek --model deepseek-v4-flash
 ```
 
+The DeepSeek path uses:
+
+- `base_url="https://api.deepseek.com"`
+- OpenAI-compatible Chat Completions
+- the default model `deepseek-v4-flash`
+
+The unit tests mock the SDK call to confirm that the DeepSeek provider sends
+the request to the correct base URL with the selected model. A real online
+request still requires a valid `DEEPSEEK_API_KEY`.
+
 ## Privacy Notes
 
 The prompt is built from anonymized summary tables. It should not include real

@@ -222,7 +222,9 @@ python src/llm_review.py --provider deepseek --model deepseek-v4-flash
 ```
 
 API keys should be kept in environment variables and should never be committed
-to GitHub. See `docs/llm_usage.md` for details.
+to GitHub. The DeepSeek path is tested with a mocked SDK call to verify the
+base URL and model configuration; a real online call still requires a valid
+DeepSeek API key. See `docs/llm_usage.md` for details.
 
 ## Dataset Description
 
